@@ -5,6 +5,7 @@ import com.github.firulapp.dto.AppUserDeviceDto;
 import com.github.firulapp.dto.AppUserDto;
 import com.github.firulapp.dto.RegisterAppUserDto;
 import com.github.firulapp.exceptions.AppUserException;
+import com.github.firulapp.mapper.impl.AppUserDeviceMapper;
 import com.github.firulapp.repository.AppUserRepository;
 import com.github.firulapp.service.AppSessionService;
 import com.github.firulapp.service.AppUserDetailsService;
@@ -31,6 +32,9 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Autowired
     private AppUserDeviceService appUserDeviceService;
+
+    @Autowired
+    private AppUserDeviceMapper appUserDeviceMapper;
 
     @Override
     public AppUser registerUser(RegisterAppUserDto registerUserDto) throws AppUserException{
@@ -90,7 +94,7 @@ public class AppUserServiceImpl implements AppUserService {
             AppUser user = appUser.get();
             user.setLoggedIn(false);
             appUserRepository.save(user);
-            appSessionService.closeSession(userDeviceDto.getUserId().getId(), userDeviceDto.getId());
+            appSessionService.closeSession(userDeviceDto.getUserId(), appUserDeviceMapper.mapToEntity(userDeviceDto));
         }
     }
 }

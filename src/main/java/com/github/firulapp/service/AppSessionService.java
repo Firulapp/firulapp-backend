@@ -1,5 +1,7 @@
 package com.github.firulapp.service;
 
+import com.github.firulapp.domain.AppUser;
+import com.github.firulapp.domain.AppUserDevice;
 import com.github.firulapp.dto.AppUserDeviceDto;
 
 public interface AppSessionService {
@@ -8,5 +10,5 @@ public interface AppSessionService {
 
     void updateSession(Long userId);
 
-    void closeSession(Long userId, Long deviceId);
+    void closeSession(AppUser user, AppUserDevice device);
 }

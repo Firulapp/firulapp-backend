@@ -1,6 +1,7 @@
 package com.github.firulapp.service.impl;
 
 import com.github.firulapp.domain.AppSession;
+import com.github.firulapp.domain.AppUser;
 import com.github.firulapp.domain.AppUserDevice;
 import com.github.firulapp.dto.AppUserDeviceDto;
 import com.github.firulapp.mapper.impl.AppUserDeviceMapper;
@@ -36,12 +37,12 @@ public class AppSessionServiceImpl implements AppSessionService {
     }
 
     @Override
-    public void closeSession(Long userId, Long deviceId) {
-        AppSession appSession = appSessionRepository.findByUserIdAAndDeviceId(userId, deviceId);
+    public void closeSession(AppUser user, AppUserDevice device) {
+        AppSession appSession = appSessionRepository.findByUserIdAndDeviceId(user, device);
 
         appSession.setEndDate(LocalDateTime.now());
         appSession.setModifiedAt(LocalDateTime.now());
-        appSession.setModifiedBy(userId);
+        appSession.setModifiedBy(user.getId());
 
         appSessionRepository.save(appSession);
     }
