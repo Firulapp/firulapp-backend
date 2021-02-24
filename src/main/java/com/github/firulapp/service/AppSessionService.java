@@ -1,10 +1,10 @@
 package com.github.firulapp.service;
 
-import com.github.firulapp.domain.AppUserDevice;
+import com.github.firulapp.dto.AppUserDeviceDto;
 
 public interface AppSessionService {
 
-    void initiateSession(AppUserDevice appUserDevice);
+    void initiateSession(AppUserDeviceDto appUserDeviceDto);
 
     void updateSession(Long userId);
 }

@@ -2,6 +2,8 @@ package com.github.firulapp.service.impl;
 
 import com.github.firulapp.domain.AppSession;
 import com.github.firulapp.domain.AppUserDevice;
+import com.github.firulapp.dto.AppUserDeviceDto;
+import com.github.firulapp.mapper.impl.AppUserDeviceMapper;
 import com.github.firulapp.repository.AppSessionRepository;
 import com.github.firulapp.service.AppSessionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,14 @@ public class AppSessionServiceImpl implements AppSessionService {
     @Autowired
     private AppSessionRepository appSessionRepository;
 
+    @Autowired
+    private AppUserDeviceMapper userDeviceMapper;
+
     @Override
-    public void initiateSession(AppUserDevice appUserDevice) {
+    public void initiateSession(AppUserDeviceDto appUserDeviceDto) {
         AppSession appSession = new AppSession();
-        appSession.setUserId(appUserDevice.getUserId());
-        appSession.setDeviceId(appUserDevice);
+        appSession.setUserId(appUserDeviceDto.getUserId());
+        appSession.setDeviceId(userDeviceMapper.mapToEntity(appUserDeviceDto));
         appSession.setStartDate(LocalDateTime.now());
 
         appSessionRepository.save(appSession);

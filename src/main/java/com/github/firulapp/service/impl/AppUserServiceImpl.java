@@ -1,7 +1,7 @@
 package com.github.firulapp.service.impl;
 
 import com.github.firulapp.domain.AppUser;
-import com.github.firulapp.domain.AppUserDevice;
+import com.github.firulapp.dto.AppUserDeviceDto;
 import com.github.firulapp.dto.AppUserDto;
 import com.github.firulapp.dto.RegisterAppUserDto;
 import com.github.firulapp.exceptions.AppUserException;
@@ -13,6 +13,8 @@ import com.github.firulapp.service.AppUserService;
 import io.github.jokoframework.utils.security.EncryptUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
 
 @Service
 public class AppUserServiceImpl implements AppUserService {
@@ -45,8 +47,8 @@ public class AppUserServiceImpl implements AppUserService {
                     appUserRepository.save(userEntity);
 
                     appUserDetailsService.saveUserDetails(registerUserDto, userEntity);
-                    AppUserDevice userDevice = appUserDeviceService.saveUserDevice(userEntity);
-                    appSessionService.initiateSession(userDevice);
+                    AppUserDeviceDto userDeviceDto = appUserDeviceService.saveUserDevice(userEntity);
+                    appSessionService.initiateSession(userDeviceDto);
 
                     return userEntity;
                 }else{
@@ -61,7 +63,23 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public boolean userLogin(AppUserDto user) {
-        return false;
+    public boolean userLogin(AppUserDto userDto) throws AppUserException{
+        AppUser user = appUserRepository.findByEmailOrUsername(userDto.getEmail(), userDto.getUsername());
+        if(user != null){
+            if(EncryptUtils.matchPassword(userDto.getEncryptedPassword(), user.getEncryptedPassword())){
+                AppUserDeviceDto device = new AppUserDeviceDto();
+                device.setUserId(user);
+                device.setAsociatedAt(LocalDateTime.now());
+                appSessionService.initiateSession(device);
+                user.setLoggedIn(true);
+                appUserRepository.save(user);
+                return true;
+            }else{
+                throw AppUserException.passwordDoNotMatch();
+            }
+        }else {
+            throw AppUserException.notFound(userDto.getUsername().isEmpty() ? userDto.getUsername() : userDto.getEmail());
+        }
     }
+
 }
