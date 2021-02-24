@@ -19,8 +19,8 @@ public class AppUserException extends BusinessException{
      * @param userId User id
      * @return AppUserException
      */
-    public static AppUserException notFound(Long userId) {
-        return new AppUserException(NOT_FOUND, String.format("AppUser %s no encontrado" , userId));
+    public static AppUserException notFound(String username) {
+        return new AppUserException(NOT_FOUND, String.format("AppUser %s no encontrado" , username));
     }
 
     public static AppUserException emailRegistered(String email) {
@@ -35,6 +35,5 @@ public class AppUserException extends BusinessException{
     public static AppUserException passwordDoNotMatch() {
         return new AppUserException(PASSWORDS_DONT_MATCH, "Las contraseñas no coinciden");
     }
-
 }
 
