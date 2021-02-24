@@ -1,33 +1,38 @@
 package com.github.firulapp.domain;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
-@Table(schema = "public", name = "app_user")
+@Table(schema = "public", name = "usuario")
 public class AppUser {
-
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue
     private Long id;
 
-    @Column(name = "name", length = 100, nullable = false)
-    private String name;
-
-    @Column(name = "surname", length = 100, nullable = false)
-    private String surname;
-
-    @Column(name = "email", length = 100, nullable = false)
+    @Column(name = "correo", length = 100, nullable = false)
     private String email;
 
-    @Column(name = "username", length = 50, nullable = false)
+    @Column(name = "nombre_usuario", length = 50, nullable = false)
     private String username;
 
-    @Column(name = "encrypted_password", length = 128, nullable = false)
+    @Column(name = "clave_encriptada", length = 32, nullable = false)
     private String encryptedPassword;
 
-    @Column(name = "enabled", length = 1, nullable = false)
+    @Column(name = "tipo_usuario", nullable = false)
+    private String userType;
+
+    @Column(name = "habilitado", nullable = false)
     private boolean enabled;
+
+    @Column(name = "logueado", nullable = false)
+    private boolean loggedIn;
+
+    @OneToMany(mappedBy = "userId")
+    private Set<AppUserDevice> devices;
 
     public Long getId() {
         return id;
@@ -35,22 +40,6 @@ public class AppUser {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 
     public String getEmail() {
@@ -77,7 +66,15 @@ public class AppUser {
         this.encryptedPassword = encryptedPassword;
     }
 
-    public boolean getEnabled() {
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public boolean isEnabled() {
         return enabled;
     }
 
@@ -85,8 +82,24 @@ public class AppUser {
         this.enabled = enabled;
     }
 
+    public boolean isLoggedIn() {
+        return loggedIn;
+    }
+
+    public void setLoggedIn(boolean loggedIn) {
+        this.loggedIn = loggedIn;
+    }
+
     @Override
-    public String toString(){
-        return this.username+"/"+this.encryptedPassword;
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("email", email)
+                .append("username", username)
+                .append("encryptedPassword", encryptedPassword)
+                .append("userType", userType)
+                .append("enabled", enabled)
+                .append("loggedIn", loggedIn)
+                .toString();
     }
 }
