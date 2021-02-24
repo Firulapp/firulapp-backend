@@ -1,7 +1,7 @@
 package com.github.firulapp.mapper.impl;
 
-import com.github.firulapp.domain.AppUserDetails;
-import com.github.firulapp.dto.AppUserDetailsDto;
+import com.github.firulapp.domain.AppUserDevice;
+import com.github.firulapp.dto.AppUserDeviceDto;
 import com.github.firulapp.mapper.BaseMapper;
 import com.github.firulapp.mapper.OrikaBeanMapper;
 import ma.glasnost.orika.MapperFacade;
@@ -12,16 +12,16 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 @Component
-public class AppUserDetailsMapper implements BaseMapper<AppUserDetails, AppUserDetailsDto> {
+public class AppUserDeviceMapper implements BaseMapper<AppUserDevice, AppUserDeviceDto> {
 
     private OrikaBeanMapper mapper;
 
-    public AppUserDetailsMapper(OrikaBeanMapper mapper) {
+    public AppUserDeviceMapper(OrikaBeanMapper mapper) {
         this.mapper = mapper;
     }
 
     @Override
-    public List<AppUserDetailsDto> mapAsList(List<AppUserDetails> list) {
+    public List<AppUserDeviceDto> mapAsList(List<AppUserDevice> list) {
         return list.stream()
                 .filter(Objects::nonNull)
                 .map(this::mapToDto)
@@ -29,13 +29,13 @@ public class AppUserDetailsMapper implements BaseMapper<AppUserDetails, AppUserD
     }
 
     @Override
-    public AppUserDetailsDto mapToDto(AppUserDetails entity) {
-        return mapper.map(entity, AppUserDetailsDto.class);
+    public AppUserDeviceDto mapToDto(AppUserDevice entity) {
+        return mapper.map(entity, AppUserDeviceDto.class);
     }
 
     @Override
-    public AppUserDetails mapToEntity(AppUserDetailsDto dto) {
-        return mapper.map(dto, AppUserDetails.class);
+    public AppUserDevice mapToEntity(AppUserDeviceDto dto) {
+        return mapper.map(dto, AppUserDevice.class);
     }
 
     @Override
