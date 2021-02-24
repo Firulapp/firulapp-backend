@@ -1,14 +1,11 @@
 package com.github.firulapp.web.response;
 
+
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.http.HttpStatus;
 
-/**
- *
- * @author bsandoval
- *
- */
 public class BaseResponseDTO {
+
     private boolean success;
     private String errorCode;
     private String message;
@@ -24,6 +21,12 @@ public class BaseResponseDTO {
 
     public BaseResponseDTO(boolean success, String message) {
         this.success = success;
+        this.message = message;
+    }
+
+    public BaseResponseDTO(boolean success, HttpStatus httpStatus) {
+        this.success = success;
+        this.httpStatus = httpStatus;
         this.message = message;
     }
 

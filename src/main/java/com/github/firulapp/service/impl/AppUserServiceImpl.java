@@ -63,7 +63,7 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public boolean userLogin(AppUserDto userDto) throws AppUserException{
+    public Boolean userLogin(AppUserDto userDto) throws AppUserException{
         AppUser user = appUserRepository.findByEmailOrUsername(userDto.getEmail(), userDto.getUsername());
         if(user != null){
             if(EncryptUtils.matchPassword(userDto.getEncryptedPassword(), user.getEncryptedPassword())){
@@ -73,7 +73,7 @@ public class AppUserServiceImpl implements AppUserService {
                 appSessionService.initiateSession(device);
                 user.setLoggedIn(true);
                 appUserRepository.save(user);
-                return true;
+                return Boolean.TRUE;
             }else{
                 throw AppUserException.passwordDoNotMatch();
             }

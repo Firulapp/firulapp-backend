@@ -9,5 +9,5 @@ public interface AppUserService {
 
     AppUser registerUser(RegisterAppUserDto registerUserDto) throws AppUserException;
 
-    boolean userLogin(AppUserDto userDto) throws AppUserException;
+    Boolean userLogin(AppUserDto userDto) throws AppUserException;
 }
