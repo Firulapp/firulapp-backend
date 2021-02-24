@@ -32,6 +32,17 @@ public class AppSessionServiceImpl implements AppSessionService {
 
     @Override
     public void updateSession(Long userId) {
+        //TODO close session when 30 days passed
+    }
 
+    @Override
+    public void closeSession(Long userId, Long deviceId) {
+        AppSession appSession = appSessionRepository.findByUserIdAAndDeviceId(userId, deviceId);
+
+        appSession.setEndDate(LocalDateTime.now());
+        appSession.setModifiedAt(LocalDateTime.now());
+        appSession.setModifiedBy(userId);
+
+        appSessionRepository.save(appSession);
     }
 }

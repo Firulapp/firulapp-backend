@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class AppUserServiceImpl implements AppUserService {
@@ -82,4 +83,14 @@ public class AppUserServiceImpl implements AppUserService {
         }
     }
 
+    @Override
+    public void userLogout(AppUserDeviceDto userDeviceDto) throws AppUserException {
+        Optional<AppUser> appUser = appUserRepository.findById(userDeviceDto.getUserId().getId());
+        if(appUser.isPresent()) {
+            AppUser user = appUser.get();
+            user.setLoggedIn(false);
+            appUserRepository.save(user);
+            appSessionService.closeSession(userDeviceDto.getUserId().getId(), userDeviceDto.getId());
+        }
+    }
 }

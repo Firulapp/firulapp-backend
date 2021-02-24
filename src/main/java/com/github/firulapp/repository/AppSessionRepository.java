@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface AppSessionRepository extends JpaRepository<AppSession, Long> {
 
     AppSession findByUserId(Long userId);
+
+    AppSession findByUserIdAAndDeviceId(Long userId, Long deviceId);
 }
