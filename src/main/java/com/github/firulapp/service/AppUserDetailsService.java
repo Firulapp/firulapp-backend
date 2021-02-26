@@ -6,7 +6,7 @@ import com.github.firulapp.dto.RegisterAppUserDto;
 
 public interface AppUserDetailsService {
 
-    void saveUserDetails(RegisterAppUserDto registerAppUserDto, AppUser userId);
+    void saveUserDetails(RegisterAppUserDto registerAppUserDto, Long userId);
 
     AppUserDetailsDto updateUserDetails(AppUserDetailsDto appUserDetailsDto, Long modifiedByUserId);
 }

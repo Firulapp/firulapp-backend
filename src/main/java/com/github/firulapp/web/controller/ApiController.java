@@ -1,7 +1,6 @@
 package com.github.firulapp.web.controller;
 
 import com.github.firulapp.constants.ApiPaths;
-import com.github.firulapp.domain.AppUser;
 import com.github.firulapp.dto.AppUserDeviceDto;
 import com.github.firulapp.dto.AppUserDto;
 import com.github.firulapp.dto.RegisterAppUserDto;
@@ -12,15 +11,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author jazvillagra
  */
-@RestController
+@Controller
 @RequestMapping("/")
 public class ApiController {
 
@@ -40,7 +39,8 @@ public class ApiController {
     }
 
     @PostMapping(value = ApiPaths.LOGOUT_URL)
-    public void logout(@RequestBody AppUserDeviceDto appUserDeviceDto)throws AppUserException{
+    public ResponseEntity.BodyBuilder logout(@RequestBody AppUserDeviceDto appUserDeviceDto)throws AppUserException{
         appUserService.userLogout(appUserDeviceDto);
+        return ResponseEntity.ok();
     }
 }

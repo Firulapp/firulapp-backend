@@ -22,7 +22,7 @@ public class AppUserDetailsServiceImpl implements AppUserDetailsService {
     private AppUserDetailsMapper userDetailsMapper;
 
     @Override
-    public void saveUserDetails(RegisterAppUserDto registerAppUserDto, AppUser userId) {
+    public void saveUserDetails(RegisterAppUserDto registerAppUserDto, Long userId) {
         AppUserDetails appUserDetails = new AppUserDetails();
         appUserDetails.setUserId(userId);
         appUserDetails.setName(registerAppUserDto.getName());

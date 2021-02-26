@@ -5,5 +5,7 @@ import com.github.firulapp.dto.AppUserDeviceDto;
 
 public interface AppUserDeviceService {
 
-    AppUserDeviceDto saveUserDevice(AppUser appUser);
+    AppUserDeviceDto saveUserDevice(Long userId);
+
+    AppUserDeviceDto getByIdAndUserIdIfNotDisassociated(Long Id, Long userId);
 }

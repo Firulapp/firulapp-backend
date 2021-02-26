@@ -6,12 +6,13 @@ import com.github.firulapp.dto.AppUserDto;
 import com.github.firulapp.dto.RegisterAppUserDto;
 import com.github.firulapp.exceptions.AppUserException;
 import com.github.firulapp.mapper.impl.AppUserDeviceMapper;
+import com.github.firulapp.mapper.impl.AppUserMapper;
 import com.github.firulapp.repository.AppUserRepository;
 import com.github.firulapp.service.AppSessionService;
 import com.github.firulapp.service.AppUserDetailsService;
 import com.github.firulapp.service.AppUserDeviceService;
 import com.github.firulapp.service.AppUserService;
-import io.github.jokoframework.utils.security.EncryptUtils;
+import com.github.firulapp.util.EncryptUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +37,11 @@ public class AppUserServiceImpl implements AppUserService {
     @Autowired
     private AppUserDeviceMapper appUserDeviceMapper;
 
+    @Autowired
+    private AppUserMapper appUserMapper;
+
     @Override
-    public AppUser registerUser(RegisterAppUserDto registerUserDto) throws AppUserException{
+    public AppUserDto registerUser(RegisterAppUserDto registerUserDto) throws AppUserException{
         if(appUserRepository.findByUsername(registerUserDto.getUsername()) == null){
             if(appUserRepository.findByEmail(registerUserDto.getEmail()) == null) {
                 if(registerUserDto.getEncryptedPassword().equals(registerUserDto.getConfirmPassword())) {
@@ -47,15 +51,16 @@ public class AppUserServiceImpl implements AppUserService {
                     userEntity.setEncryptedPassword(EncryptUtils.hashPassword(registerUserDto.getEncryptedPassword()));
                     //TODO email confirmation, in the meantime all users registered are enabled
                     userEntity.setEnabled(true);
-                    userEntity.setLoggedIn(true);
-
+                    userEntity.setLoggedIn(Boolean.TRUE);
+                    userEntity.setUserType(registerUserDto.getUserType());
+                    userEntity.setCreatedAt(LocalDateTime.now());
                     appUserRepository.save(userEntity);
 
-                    appUserDetailsService.saveUserDetails(registerUserDto, userEntity);
-                    AppUserDeviceDto userDeviceDto = appUserDeviceService.saveUserDevice(userEntity);
+                    appUserDetailsService.saveUserDetails(registerUserDto, userEntity.getId());
+                    AppUserDeviceDto userDeviceDto = appUserDeviceService.saveUserDevice(userEntity.getId());
                     appSessionService.initiateSession(userDeviceDto);
 
-                    return userEntity;
+                    return appUserMapper.mapToDto(userEntity);
                 }else{
                     throw AppUserException.passwordDoNotMatch();
                 }
@@ -73,9 +78,10 @@ public class AppUserServiceImpl implements AppUserService {
         if(user != null){
             if(EncryptUtils.matchPassword(userDto.getEncryptedPassword(), user.getEncryptedPassword())){
                 AppUserDeviceDto device = new AppUserDeviceDto();
-                device.setUserId(user);
+                device.setUserId(user.getId());
                 device.setAsociatedAt(LocalDateTime.now());
-                appSessionService.initiateSession(device);
+                AppUserDeviceDto appUserDeviceDto = appUserDeviceService.saveUserDevice(device.getUserId());
+                appSessionService.initiateSession(appUserDeviceDto);
                 user.setLoggedIn(true);
                 appUserRepository.save(user);
                 return Boolean.TRUE;
@@ -89,12 +95,12 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Override
     public void userLogout(AppUserDeviceDto userDeviceDto) throws AppUserException {
-        Optional<AppUser> appUser = appUserRepository.findById(userDeviceDto.getUserId().getId());
+        Optional<AppUser> appUser = appUserRepository.findById(userDeviceDto.getUserId());
         if(appUser.isPresent()) {
             AppUser user = appUser.get();
             user.setLoggedIn(false);
             appUserRepository.save(user);
-            appSessionService.closeSession(userDeviceDto.getUserId(), appUserDeviceMapper.mapToEntity(userDeviceDto));
+            appSessionService.closeSession(userDeviceDto.getUserId(), userDeviceDto.getId());
         }
     }
 }
