@@ -1,0 +1,96 @@
+{
+	"info": {
+		"_postman_id": "e9d4e9e7-4c16-4199-be03-0a8a759d6073",
+		"name": "firulapp-backend",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "RegisterUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": null,\n    \"userId\": null,\n    \"document\": \"4549688\",\n    \"documentType\": \"CI\",\n    \"name\": \"Jazmin\",\n    \"surname\": \"Villagra\",\n    \"city\": \"Asunción\",\n    \"profilePicture\": null,\n    \"birthDate\": \"1998-06-27T00:00:00.000Z\",\n    \"notifications\": true,\n    \"username\": \"jvillagra\",\n    \"email\": \"jazvillagra.jv@gmail.com\",\n    \"encryptedPassword\": \"jazvillagra\",\n    \"confirmPassword\": \"jazvillagra\",\n    \"userType\": \"ADMIN\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"username\": \"jvillagra\",\n    \"email\": \"jazvillagra.jv@gmail.com\",\n    \"encryptedPassword\": \"jazvillagra\",\n    \"enabled\": true,\n    \"loguedIn\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 1,\n    \"userId\": 1,\n    \"asociatedAt\": \"2021-02-26T17:59:36.449779\",\n    \"disassociatedAt\": null ,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
