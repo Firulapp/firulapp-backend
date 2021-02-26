@@ -1,6 +1,5 @@
 package com.github.firulapp.dto;
 
-import com.github.firulapp.domain.AppUser;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.time.LocalDateTime;
@@ -8,7 +7,7 @@ import java.time.LocalDateTime;
 public class AppUserDeviceDto {
 
     private Long id;
-    private AppUser userId;
+    private Long userId;
     private LocalDateTime asociatedAt;
     private LocalDateTime disassociatedAt;
     private LocalDateTime modifiedAt;
@@ -22,11 +21,11 @@ public class AppUserDeviceDto {
         this.id = id;
     }
 
-    public AppUser getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(AppUser userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

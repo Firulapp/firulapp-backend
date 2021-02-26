@@ -8,6 +8,7 @@ public class RegisterAppUserDto extends AppUserDetailsDto{
     private String email;
     private String encryptedPassword;
     private String confirmPassword;
+    private String userType;
 
     public String getUsername() {
         return username;
@@ -41,6 +42,14 @@ public class RegisterAppUserDto extends AppUserDetailsDto{
         this.confirmPassword = confirmPassword;
     }
 
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -48,6 +57,7 @@ public class RegisterAppUserDto extends AppUserDetailsDto{
                 .append("email", email)
                 .append("encryptedPassword", encryptedPassword)
                 .append("confirmPassword", confirmPassword)
+                .append("userType", userType)
                 .toString();
     }
 }

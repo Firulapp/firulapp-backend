@@ -1,7 +1,5 @@
 package com.github.firulapp.dto;
 
-import com.github.firulapp.domain.AppUser;
-import com.github.firulapp.domain.AppUserDevice;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.time.LocalDateTime;
@@ -9,8 +7,8 @@ import java.time.LocalDateTime;
 public class AppSessionDto {
 
     private Long id;
-    private AppUser userId;
-    private AppUserDevice deviceId;
+    private Long userId;
+    private Long deviceId;
     private LocalDateTime startDate;
     private LocalDateTime endDate;
     private LocalDateTime modifiedAt;
@@ -24,19 +22,19 @@ public class AppSessionDto {
         this.id = id;
     }
 
-    public AppUser getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(AppUser userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public AppUserDevice getDeviceId() {
+    public Long getDeviceId() {
         return deviceId;
     }
 
-    public void setDeviceId(AppUserDevice deviceId) {
+    public void setDeviceId(Long deviceId) {
         this.deviceId = deviceId;
     }
 

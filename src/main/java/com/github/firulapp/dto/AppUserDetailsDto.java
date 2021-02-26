@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 public class AppUserDetailsDto {
 
     private Long id;
-    private AppUser userId;
+    private Long userId;
     private String document;
     private String documentType;
     private String name;
@@ -27,11 +27,11 @@ public class AppUserDetailsDto {
         this.id = id;
     }
 
-    public AppUser getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(AppUser userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
