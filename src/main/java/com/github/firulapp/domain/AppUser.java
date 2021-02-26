@@ -1,16 +1,21 @@
 package com.github.firulapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
 @Table(schema = "public", name = "usuario")
 public class AppUser {
     @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue
+    @SequenceGenerator(name = "usuario_id_seq", sequenceName = "usuario_id_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "usuario_id_seq")
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "correo", length = 100, nullable = false)
@@ -31,8 +36,15 @@ public class AppUser {
     @Column(name = "logueado", nullable = false)
     private boolean loggedIn;
 
-    @OneToMany(mappedBy = "userId")
-    private Set<AppUserDevice> devices;
+    @Column(name = "fecha_creacion", nullable = false)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(pattern = "yyy-MM-dd HH:mm:ss")
+    private LocalDateTime createdAt;
+
+    @Column(name = "fecha_modificacion")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(pattern = "yyy-MM-dd HH:mm:ss")
+    private LocalDateTime modifiedAt;
 
     public Long getId() {
         return id;
@@ -90,6 +102,21 @@ public class AppUser {
         this.loggedIn = loggedIn;
     }
 
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getModifiedAt() {
+        return modifiedAt;
+    }
+
+    public void setModifiedAt(LocalDateTime modifiedAt) {
+        this.modifiedAt = modifiedAt;
+    }
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -100,6 +127,8 @@ public class AppUser {
                 .append("userType", userType)
                 .append("enabled", enabled)
                 .append("loggedIn", loggedIn)
+                .append("createdAt", createdAt)
+                .append("modifiedAt", modifiedAt)
                 .toString();
     }
 }

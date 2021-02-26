@@ -1,5 +1,8 @@
 package com.github.firulapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
@@ -11,27 +14,33 @@ import java.time.LocalDateTime;
 public class AppUserDevice {
 
     @Id
+    @SequenceGenerator(name = "dispositivo_usuario_id_seq", sequenceName = "dispositivo_usuario_id_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "dispositivo_usuario_id_seq")
     @Column(name = "id")
-    @NotNull
     private Long id;
 
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id")
-    @ManyToOne
+    @Column(name = "id_usuario")
     @NotNull
-    private AppUser userId;
+    private Long userId;
 
     @Column(name = "fecha_asociacion")
     @NotNull
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(pattern = "yyy-MM-dd HH:mm:ss")
     private LocalDateTime asociatedAt;
 
     @Column(name = "fecha_desasociacion")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(pattern = "yyy-MM-dd HH:mm:ss")
     private LocalDateTime disassociatedAt;
 
     @Column(name = "fecha_modificacion")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(pattern = "yyy-MM-dd HH:mm:ss")
     private LocalDateTime modifiedAt;
 
     @Column(name = "usuario_modificacion")
-    private String modifiedBy;
+    private Long modifiedBy;
 
     public Long getId() {
         return id;
@@ -41,11 +50,11 @@ public class AppUserDevice {
         this.id = id;
     }
 
-    public AppUser getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(AppUser userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -73,11 +82,11 @@ public class AppUserDevice {
         this.modifiedAt = modifiedAt;
     }
 
-    public String getModifiedBy() {
+    public Long getModifiedBy() {
         return modifiedBy;
     }
 
-    public void setModifiedBy(String modifiedBy) {
+    public void setModifiedBy(Long modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
 

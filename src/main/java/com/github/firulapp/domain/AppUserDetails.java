@@ -1,5 +1,8 @@
 package com.github.firulapp.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
@@ -12,13 +15,14 @@ import java.time.LocalDateTime;
 public class AppUserDetails {
 
     @Id
-    @Column(name = "id", nullable = false)
+    @SequenceGenerator(name = "detalle_usuario_id_seq", sequenceName = "detalle_usuario_id_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "detalle_usuario_id_seq")
+    @Column(name = "id")
     private Long id;
 
-    @JoinColumn(name = "id_usuario", referencedColumnName = "id")
-    @OneToOne
+    @Column(name = "id_usuario")
     @NotNull
-    private AppUser userId;
+    private Long userId;
 
     @Column(name = "nro_documento")
     @NotNull
@@ -52,10 +56,14 @@ public class AppUserDetails {
     private boolean notifications;
 
     @Column(name = "fecha_creacion")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(pattern = "yyy-MM-dd HH:mm:ss")
     @NotNull
     private LocalDateTime createdAt;
 
     @Column(name = "fecha_modificacion")
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(pattern = "yyy-MM-dd HH:mm:ss")
     private LocalDateTime modifiedAt;
 
     @Column(name = "usuario_modificacion")
@@ -69,11 +77,11 @@ public class AppUserDetails {
         this.id = id;
     }
 
-    public AppUser getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(AppUser userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
