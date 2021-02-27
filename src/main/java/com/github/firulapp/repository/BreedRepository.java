@@ -8,5 +8,5 @@ import java.util.List;
 
 
 public interface BreedRepository extends JpaRepository<Breed, Long> {
-    List<Breed> findBySpeciesId(Species species);
+    List<Breed> findBySpeciesId(Long speciesId);
 }
