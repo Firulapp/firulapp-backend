@@ -10,15 +10,14 @@ import javax.validation.constraints.NotNull;
 public class Breed extends BaseParameterDomain {
 
     @Id
-    @SequenceGenerator(name = "ayuda_id_seq", sequenceName = "ayuda_id_seq", initialValue = 1, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "ayuda_id_seq")
+    @SequenceGenerator(name = "raza_animal_id_seq", sequenceName = "raza_animal_id_seq", initialValue = 1, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "raza_animal_id_seq")
     @Column(name = "id")
     private Long id;
 
-    @JoinColumn(name = "id_especie", referencedColumnName = "id")
-    @ManyToOne
+    @Column(name = "id_especie")
     @NotNull
-    private Species speciesId;
+    private Long speciesId;
 
     public Long getId() {
         return id;
@@ -28,11 +27,11 @@ public class Breed extends BaseParameterDomain {
         this.id = id;
     }
 
-    public Species getSpeciesId() {
+    public Long getSpeciesId() {
         return speciesId;
     }
 
-    public void setSpeciesId(Species speciesId) {
+    public void setSpeciesId(Long speciesId) {
         this.speciesId = speciesId;
     }
 }

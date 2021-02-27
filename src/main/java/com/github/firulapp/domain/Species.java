@@ -1,6 +1,7 @@
 package com.github.firulapp.domain;
 
 import com.github.firulapp.domain.base.BaseParameterDomain;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -15,9 +16,6 @@ public class Species extends BaseParameterDomain {
     @Column(name = "id")
     private Long id;
 
-    @OneToMany(mappedBy = "speciesId")
-    private Set<Breed> breed;
-
     public Long getId() {
         return id;
     }
@@ -26,11 +24,10 @@ public class Species extends BaseParameterDomain {
         this.id = id;
     }
 
-    public Set<Breed> getBreed() {
-        return breed;
-    }
-
-    public void setBreed(Set<Breed> breed) {
-        this.breed = breed;
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .toString();
     }
 }

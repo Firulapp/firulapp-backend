@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 public class BreedDto {
 
     private Long id;
+    private Long speciesId;
     private String name;
     private String description;
     private String state;
@@ -79,10 +80,19 @@ public class BreedDto {
         this.modifiedBy = modifiedBy;
     }
 
+    public Long getSpeciesId() {
+        return speciesId;
+    }
+
+    public void setSpeciesId(Long speciesId) {
+        this.speciesId = speciesId;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .append("id", id)
+                .append("speciesId", speciesId)
                 .append("name", name)
                 .append("description", description)
                 .append("state", state)
