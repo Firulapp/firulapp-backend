@@ -1,17 +1,17 @@
 package com.github.firulapp.mapper.impl;
 
-import com.github.firulapp.domain.AppUserDetails;
 import com.github.firulapp.domain.ServiceType;
-import com.github.firulapp.dto.AppUserDetailsDto;
 import com.github.firulapp.dto.ServiceTypeDto;
 import com.github.firulapp.mapper.BaseMapper;
 import com.github.firulapp.mapper.OrikaBeanMapper;
 import ma.glasnost.orika.MapperFacade;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Component
 public class ServiceTypeMapper implements BaseMapper<ServiceType, ServiceTypeDto> {
 
     private OrikaBeanMapper mapper;

@@ -5,11 +5,13 @@ import com.github.firulapp.dto.HelpPageDto;
 import com.github.firulapp.mapper.BaseMapper;
 import com.github.firulapp.mapper.OrikaBeanMapper;
 import ma.glasnost.orika.MapperFacade;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Component
 public class HelpPageMapper implements BaseMapper<HelpPage, HelpPageDto> {
 
     private OrikaBeanMapper mapper;
