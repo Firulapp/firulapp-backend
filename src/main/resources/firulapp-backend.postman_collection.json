@@ -12,7 +12,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": null,\n    \"userId\": null,\n    \"document\": \"4549688\",\n    \"documentType\": \"CI\",\n    \"name\": \"Jazmin\",\n    \"surname\": \"Villagra\",\n    \"city\": \"Asunción\",\n    \"profilePicture\": null,\n    \"birthDate\": \"1998-06-27T00:00:00.000Z\",\n    \"notifications\": true,\n    \"username\": \"jvillagra\",\n    \"email\": \"jazvillagra.jv@gmail.com\",\n    \"encryptedPassword\": \"jazvillagra\",\n    \"confirmPassword\": \"jazvillagra\",\n    \"userType\": \"ADMIN\"\n}",
+					"raw": "// Cambiar los datos segun sea necesario\n{\n    \"id\": null,\n    \"userId\": null,\n    \"document\": \"1111111\",\n    \"documentType\": \"CI\",\n    \"name\": \"Admin\",\n    \"surname\": \"User\",\n    \"city\": \"Asunción\",\n    \"profilePicture\": null,\n    \"birthDate\": \"1998-06-26T00:00:00.000Z\",\n    \"notifications\": true,\n    \"username\": \"admin\",\n    \"email\": \"usermail@gmail.com\",\n    \"encryptedPassword\": \"admin\",\n    \"confirmPassword\": \"admin\",\n    \"userType\": \"ADMIN\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -20,7 +20,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/register",
+					"raw": "http://localhost:8080/api/user/register",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -28,6 +28,7 @@
 					"port": "8080",
 					"path": [
 						"api",
+						"user",
 						"register"
 					]
 				}
@@ -41,7 +42,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": 1,\n    \"username\": \"jvillagra\",\n    \"email\": \"jazvillagra.jv@gmail.com\",\n    \"encryptedPassword\": \"jazvillagra\",\n    \"enabled\": true,\n    \"loguedIn\": true\n}",
+					"raw": "//cambiar los datos segun sea necesario\n{\n    \"id\": 1,\n    \"username\": \"jvillagra\",\n    \"email\": \"jazvillagra.jv@gmail.com\",\n    \"encryptedPassword\": \"jazvillagra\",\n    \"enabled\": true,\n    \"loguedIn\": true\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -49,7 +50,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/login",
+					"raw": "http://localhost:8080/api/user/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -57,6 +58,7 @@
 					"port": "8080",
 					"path": [
 						"api",
+						"user",
 						"login"
 					]
 				}
@@ -70,7 +72,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"id\": 1,\n    \"userId\": 1,\n    \"asociatedAt\": \"2021-02-26T17:59:36.449779\",\n    \"disassociatedAt\": null ,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+					"raw": "//cambiar los datos segun sea neceasrio\n{\n    \"id\": 1,\n    \"userId\": 1,\n    \"asociatedAt\": \"2021-02-26T17:59:36.449779\",\n    \"disassociatedAt\": null ,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -78,7 +80,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/logout",
+					"raw": "http://localhost:8080/api/user/logout",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -86,6 +88,7 @@
 					"port": "8080",
 					"path": [
 						"api",
+						"user",
 						"logout"
 					]
 				}

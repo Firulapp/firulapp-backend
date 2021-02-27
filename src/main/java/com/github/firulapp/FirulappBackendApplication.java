@@ -12,7 +12,7 @@ import org.springframework.web.filter.CorsFilter;
 
 import java.util.Collections;
 
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages= {"com.github"})
 public class FirulappBackendApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {

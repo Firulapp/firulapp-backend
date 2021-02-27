@@ -1,6 +1,7 @@
 package com.github.firulapp.config;
 
 import com.github.firulapp.constants.ApiPaths;
+import io.swagger.annotations.Api;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -16,9 +17,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(ApiPaths.BASE_URL).permitAll()
-                .antMatchers(ApiPaths.REGISTER_URL).permitAll()
-                .antMatchers(ApiPaths.LOGIN_URL).permitAll()
-                .antMatchers(ApiPaths.LOGOUT_URL).permitAll()
+                .antMatchers(ApiPaths.USER_ENDPOINTS_URL+"/*").permitAll()
                 .anyRequest().authenticated()
                 .and().httpBasic();
 
