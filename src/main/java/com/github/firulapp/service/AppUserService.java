@@ -5,6 +5,8 @@ import com.github.firulapp.dto.AppUserDto;
 import com.github.firulapp.dto.RegisterAppUserDto;
 import com.github.firulapp.exceptions.AppUserException;
 
+import java.util.List;
+
 public interface AppUserService {
 
     AppUserDto registerUser(RegisterAppUserDto registerUserDto) throws AppUserException;
@@ -12,4 +14,6 @@ public interface AppUserService {
     Boolean userLogin(AppUserDto userDto) throws AppUserException;
 
     void userLogout(AppUserDeviceDto userDeviceDto) throws AppUserException;
+
+    List<AppUserDto> getUserByType(String userType);
 }

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -102,5 +103,10 @@ public class AppUserServiceImpl implements AppUserService {
             appUserRepository.save(user);
             appSessionService.closeSession(userDeviceDto.getUserId(), userDeviceDto.getId());
         }
+    }
+
+    @Override
+    public List<AppUserDto> getUserByType(String userType) {
+        return appUserMapper.mapAsList(appUserRepository.findByUserType(userType));
     }
 }

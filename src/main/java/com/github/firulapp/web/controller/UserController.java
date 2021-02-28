@@ -6,14 +6,13 @@ import com.github.firulapp.dto.AppUserDto;
 import com.github.firulapp.dto.RegisterAppUserDto;
 import com.github.firulapp.exceptions.AppUserException;
 import com.github.firulapp.service.AppUserService;
+import com.github.firulapp.web.response.ListResponseDTO;
 import com.github.firulapp.web.response.ObjectResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author jazvillagra
@@ -39,5 +38,10 @@ public class UserController {
     public ResponseEntity<Void> logout(@RequestBody AppUserDeviceDto appUserDeviceDto)throws AppUserException{
         appUserService.userLogout(appUserDeviceDto);
         return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = ApiPaths.GET_BY_TYPE)
+    public ResponseEntity<ListResponseDTO> getUserByType(@RequestParam String userType) {
+        return ResponseEntity.ok(ListResponseDTO.success(appUserService.getUserByType(userType)));
     }
 }

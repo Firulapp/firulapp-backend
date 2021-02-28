@@ -4,6 +4,8 @@ import com.github.firulapp.domain.AppUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 @Component
 public interface AppUserRepository extends JpaRepository<AppUser, Long> {
 
@@ -14,4 +16,6 @@ public interface AppUserRepository extends JpaRepository<AppUser, Long> {
     AppUser findByEmail(String email);
 
     AppUser findByEmailOrUsername(String email, String username);
+
+    List<AppUser> findByUserType(String userType);
 }
