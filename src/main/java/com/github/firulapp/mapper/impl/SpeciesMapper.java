@@ -5,11 +5,13 @@ import com.github.firulapp.dto.SpeciesDto;
 import com.github.firulapp.mapper.BaseMapper;
 import com.github.firulapp.mapper.OrikaBeanMapper;
 import ma.glasnost.orika.MapperFacade;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Component
 public class SpeciesMapper implements BaseMapper<Species, SpeciesDto> {
 
     private OrikaBeanMapper mapper;
