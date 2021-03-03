@@ -55,13 +55,13 @@ public class AppUserServiceImpl implements AppUserService {
                     userEntity.setLoggedIn(Boolean.TRUE);
                     userEntity.setUserType(registerUserDto.getUserType());
                     userEntity.setCreatedAt(LocalDateTime.now());
-                    appUserRepository.save(userEntity);
+                    AppUser appUser = appUserRepository.save(userEntity);
 
-                    appUserDetailsService.saveUserDetails(registerUserDto, userEntity.getId());
-                    AppUserDeviceDto userDeviceDto = appUserDeviceService.saveUserDevice(userEntity.getId());
+                    appUserDetailsService.saveUserDetails(registerUserDto, appUser.getId());
+                    AppUserDeviceDto userDeviceDto = appUserDeviceService.saveUserDevice(appUser.getId());
                     appSessionService.initiateSession(userDeviceDto);
 
-                    return appUserMapper.mapToDto(userEntity);
+                    return appUserMapper.mapToDto(appUser);
                 }else{
                     throw AppUserException.passwordDoNotMatch();
                 }
@@ -83,7 +83,7 @@ public class AppUserServiceImpl implements AppUserService {
                 device.setAsociatedAt(LocalDateTime.now());
                 AppUserDeviceDto appUserDeviceDto = appUserDeviceService.saveUserDevice(device.getUserId());
                 appSessionService.initiateSession(appUserDeviceDto);
-                user.setLoggedIn(true);
+                user.setLoggedIn(Boolean.TRUE);
                 appUserRepository.save(user);
                 return Boolean.TRUE;
             }else{
