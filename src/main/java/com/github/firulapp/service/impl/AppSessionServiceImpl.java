@@ -2,7 +2,9 @@ package com.github.firulapp.service.impl;
 
 import com.github.firulapp.domain.AppSession;
 import com.github.firulapp.domain.AppUserDevice;
+import com.github.firulapp.dto.AppSessionDto;
 import com.github.firulapp.dto.AppUserDeviceDto;
+import com.github.firulapp.mapper.impl.AppSessionMapper;
 import com.github.firulapp.mapper.impl.AppUserDeviceMapper;
 import com.github.firulapp.repository.AppSessionRepository;
 import com.github.firulapp.service.AppSessionService;
@@ -18,15 +20,15 @@ public class AppSessionServiceImpl implements AppSessionService {
     private AppSessionRepository appSessionRepository;
 
     @Autowired
-    private AppUserDeviceMapper userDeviceMapper;
+    private AppSessionMapper appSessionMapper;
 
     @Override
-    public void initiateSession(AppUserDeviceDto appUserDeviceDto) {
+    public AppSessionDto initiateSession(Long userId, Long deviceId) {
         AppSession appSession = new AppSession();
-        appSession.setUserId(appUserDeviceDto.getUserId());
-        appSession.setDeviceId(appUserDeviceDto.getId());
+        appSession.setUserId(userId);
+        appSession.setDeviceId(deviceId);
         appSession.setStartDate(LocalDateTime.now());
-        appSessionRepository.save(appSession);
+        return appSessionMapper.mapToDto(appSessionRepository.save(appSession));
     }
 
     @Override
@@ -35,12 +37,12 @@ public class AppSessionServiceImpl implements AppSessionService {
     }
 
     @Override
-    public void closeSession(Long userId, Long deviceId) {
-        AppSession appSession = appSessionRepository.findByUserIdAndDeviceId(userId, deviceId);
+    public void closeSession(AppSessionDto appSessionDto) {
+        AppSession appSession = appSessionRepository.findByUserIdAndDeviceId(appSessionDto.getUserId(), appSessionDto.getDeviceId());
 
         appSession.setEndDate(LocalDateTime.now());
         appSession.setModifiedAt(LocalDateTime.now());
-        appSession.setModifiedBy(userId);
+        appSession.setModifiedBy(appSessionDto.getUserId());
 
         appSessionRepository.save(appSession);
     }

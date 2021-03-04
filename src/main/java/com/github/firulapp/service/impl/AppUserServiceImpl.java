@@ -1,11 +1,11 @@
 package com.github.firulapp.service.impl;
 
 import com.github.firulapp.domain.AppUser;
+import com.github.firulapp.dto.AppSessionDto;
 import com.github.firulapp.dto.AppUserDeviceDto;
 import com.github.firulapp.dto.AppUserDto;
 import com.github.firulapp.dto.RegisterAppUserDto;
 import com.github.firulapp.exceptions.AppUserException;
-import com.github.firulapp.mapper.impl.AppUserDeviceMapper;
 import com.github.firulapp.mapper.impl.AppUserMapper;
 import com.github.firulapp.repository.AppUserRepository;
 import com.github.firulapp.service.AppSessionService;
@@ -36,9 +36,6 @@ public class AppUserServiceImpl implements AppUserService {
     private AppUserDeviceService appUserDeviceService;
 
     @Autowired
-    private AppUserDeviceMapper appUserDeviceMapper;
-
-    @Autowired
     private AppUserMapper appUserMapper;
 
     @Override
@@ -59,7 +56,7 @@ public class AppUserServiceImpl implements AppUserService {
 
                     appUserDetailsService.saveUserDetails(registerUserDto, appUser.getId());
                     AppUserDeviceDto userDeviceDto = appUserDeviceService.saveUserDevice(appUser.getId());
-                    appSessionService.initiateSession(userDeviceDto);
+                    appSessionService.initiateSession(appUser.getId(), userDeviceDto.getId());
 
                     return appUserMapper.mapToDto(appUser);
                 }else{
@@ -74,7 +71,7 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public Boolean userLogin(AppUserDto userDto) throws AppUserException{
+    public AppSessionDto userLogin(AppUserDto userDto) throws AppUserException{
         AppUser user = appUserRepository.findByEmailOrUsername(userDto.getEmail(), userDto.getUsername());
         if(user != null){
             if(EncryptUtils.matchPassword(userDto.getEncryptedPassword(), user.getEncryptedPassword())){
@@ -82,10 +79,9 @@ public class AppUserServiceImpl implements AppUserService {
                 device.setUserId(user.getId());
                 device.setAsociatedAt(LocalDateTime.now());
                 AppUserDeviceDto appUserDeviceDto = appUserDeviceService.saveUserDevice(device.getUserId());
-                appSessionService.initiateSession(appUserDeviceDto);
                 user.setLoggedIn(Boolean.TRUE);
                 appUserRepository.save(user);
-                return Boolean.TRUE;
+                return appSessionService.initiateSession(user.getId(), appUserDeviceDto.getId());
             }else{
                 throw AppUserException.passwordDoNotMatch();
             }
@@ -95,13 +91,14 @@ public class AppUserServiceImpl implements AppUserService {
     }
 
     @Override
-    public void userLogout(AppUserDeviceDto userDeviceDto) throws AppUserException {
-        Optional<AppUser> appUser = appUserRepository.findById(userDeviceDto.getUserId());
+    public void userLogout(AppSessionDto appSessionDto) throws AppUserException {
+        Optional<AppUser> appUser = appUserRepository.findById(appSessionDto.getUserId());
         if(appUser.isPresent()) {
+            appSessionService.closeSession(appSessionDto);
             AppUser user = appUser.get();
-            user.setLoggedIn(false);
+            user.setLoggedIn(Boolean.FALSE);
             appUserRepository.save(user);
-            appSessionService.closeSession(userDeviceDto.getUserId(), userDeviceDto.getId());
+
         }
     }
 

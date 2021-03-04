@@ -1,7 +1,7 @@
 package com.github.firulapp.web.controller;
 
 import com.github.firulapp.constants.ApiPaths;
-import com.github.firulapp.dto.AppUserDeviceDto;
+import com.github.firulapp.dto.AppSessionDto;
 import com.github.firulapp.dto.AppUserDto;
 import com.github.firulapp.dto.RegisterAppUserDto;
 import com.github.firulapp.exceptions.AppUserException;
@@ -25,8 +25,8 @@ public class UserController {
     private AppUserService appUserService;
 
     @PostMapping(value = ApiPaths.LOGIN_URL)
-    public ResponseEntity<Boolean> login(@RequestBody AppUserDto appUser) throws AppUserException {
-        return ResponseEntity.ok(appUserService.userLogin(appUser));
+    public ResponseEntity<ObjectResponseDTO> login(@RequestBody AppUserDto appUser) throws AppUserException {
+        return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.userLogin(appUser)));
     }
 
     @PostMapping(value = ApiPaths.REGISTER_URL)
@@ -35,8 +35,8 @@ public class UserController {
     }
 
     @PostMapping(value = ApiPaths.LOGOUT_URL)
-    public ResponseEntity<Void> logout(@RequestBody AppUserDeviceDto appUserDeviceDto)throws AppUserException{
-        appUserService.userLogout(appUserDeviceDto);
+    public ResponseEntity<Void> logout(@RequestBody AppSessionDto appSessionDto)throws AppUserException{
+        appUserService.userLogout(appSessionDto);
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
