@@ -10,7 +10,7 @@ public class BreedDto {
     private Long speciesId;
     private String name;
     private String description;
-    private String state;
+    private String status;
     private LocalDateTime createdAt;
     private Long createdBy;
     private LocalDateTime modifiedAt;
@@ -40,12 +40,12 @@ public class BreedDto {
         this.description = description;
     }
 
-    public String getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -95,7 +95,7 @@ public class BreedDto {
                 .append("speciesId", speciesId)
                 .append("name", name)
                 .append("description", description)
-                .append("state", state)
+                .append("state", status)
                 .append("createdAt", createdAt)
                 .append("createdBy", createdBy)
                 .append("modifiedAt", modifiedAt)

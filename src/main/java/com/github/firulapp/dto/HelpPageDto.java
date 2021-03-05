@@ -8,7 +8,8 @@ public class HelpPageDto {
     private Long id;
     private String name;
     private String description;
-    private String state;
+    private String status;
+    private String link;
     private LocalDateTime createdAt;
     private Long createdBy;
     private LocalDateTime modifiedAt;
@@ -38,12 +39,20 @@ public class HelpPageDto {
         this.description = description;
     }
 
-    public String getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -84,7 +93,8 @@ public class HelpPageDto {
                 .append("id", id)
                 .append("name", name)
                 .append("description", description)
-                .append("state", state)
+                .append("state", status)
+                .append("link", link)
                 .append("createdAt", createdAt)
                 .append("createdBy", createdBy)
                 .append("modifiedAt", modifiedAt)

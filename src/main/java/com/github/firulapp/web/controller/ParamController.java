@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.print.attribute.standard.JobKOctets;
+
 @Controller
 @RequestMapping(value = {ApiPaths.PARAM_ENDPOINTS_URL})
 public class ParamController {
@@ -29,6 +31,9 @@ public class ParamController {
 
     @Autowired
     private ServiceTypeService serviceTypeService;
+
+    @Autowired
+    private PetCareService petCareService;
 
     @GetMapping(value = ApiPaths.SPECIES_ENDPOINTS)
     private ResponseEntity<ListResponseDTO> getAllSpecies(){
@@ -103,5 +108,20 @@ public class ParamController {
     @PostMapping(value = ApiPaths.SERVICE_TYPE_SAVE)
     private ResponseEntity<ObjectResponseDTO> saveServiceType(@RequestBody ServiceTypeDto serviceTypeDto) {
         return ResponseEntity.ok(ObjectResponseDTO.success(serviceTypeService.saveServiceType(serviceTypeDto)));
+    }
+
+    @GetMapping(value = ApiPaths.PET_CARE_ENDPOINTS)
+    private ResponseEntity<ListResponseDTO> getAllPetCare(){
+        return ResponseEntity.ok(ListResponseDTO.success(petCareService.getAllPetCares()));
+    }
+
+    @GetMapping(value = ApiPaths.PET_CARE_BY_ID)
+    private ResponseEntity<ObjectResponseDTO> getPetCareId(@PathVariable Long id) throws PetCareException {
+        return ResponseEntity.ok(ObjectResponseDTO.success(petCareService.getPetCareById(id)));
+    }
+
+    @PostMapping(ApiPaths.PET_CARE_SAVE)
+    private ResponseEntity<ObjectResponseDTO> savePetCare(@RequestBody PetCareDto petCareDto) {
+        return ResponseEntity.ok(ObjectResponseDTO.success(petCareService.savePetCare(petCareDto)));
     }
 }

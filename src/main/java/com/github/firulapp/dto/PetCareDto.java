@@ -1,21 +1,24 @@
 package com.github.firulapp.dto;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
-
 import java.time.LocalDateTime;
 
-public class ConductRuleDto {
+public class PetCareDto {
+
     private Long id;
     private String name;
     private String description;
-    private String status;
+    private Boolean status;
+    private String picture;
+    private String link;
+    private Long speciesId;
+    private Long breedId;
     private LocalDateTime createdAt;
     private Long createdBy;
     private LocalDateTime modifiedAt;
     private Long modifiedBy;
 
     public Long getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Long id) {
@@ -38,12 +41,44 @@ public class ConductRuleDto {
         this.description = description;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+    public Long getSpeciesId() {
+        return speciesId;
+    }
+
+    public void setSpeciesId(Long speciesId) {
+        this.speciesId = speciesId;
+    }
+
+    public Long getBreedId() {
+        return breedId;
+    }
+
+    public void setBreedId(Long breedId) {
+        this.breedId = breedId;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -76,19 +111,5 @@ public class ConductRuleDto {
 
     public void setModifiedBy(Long modifiedBy) {
         this.modifiedBy = modifiedBy;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .append("id", id)
-                .append("name", name)
-                .append("description", description)
-                .append("state", status)
-                .append("createdAt", createdAt)
-                .append("createdBy", createdBy)
-                .append("modifiedAt", modifiedAt)
-                .append("modifiedBy", modifiedBy)
-                .toString();
     }
 }

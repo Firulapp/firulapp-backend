@@ -95,6 +95,22 @@ CREATE TABLE ayuda(
     nombre VARCHAR(255) NOT NULL,
     descripcion TEXT NOT NULL,
     estado BOOLEAN NOT NULL DEFAULT TRUE,
+    enlace VARCHAR(255),
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT
+);
+
+CREATE TABLE cuidado_mascota(
+    id BIGSERIAL PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    descripcion TEXT NOT NULL,
+    estado BOOLEAN NOT NULL DEFAULT TRUE,
+    imagen BYTEA,
+    link VARCHAR(255),
+    id_especie BIGINT REFERENCES especie_animal(id),
+    id_raza BIGINT REFERENCES raza_animal(id),
     fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     usuario_creacion BIGINT NOT NULL,
     fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,

@@ -16,7 +16,7 @@ public class BaseParameterDomain {
 
     @Column(name = "estado")
     @NotNull
-    private String state;
+    private String status;
 
     @Column(name = "fecha_creacion")
     @NotNull
@@ -48,12 +48,12 @@ public class BaseParameterDomain {
         this.description = description;
     }
 
-    public String getState() {
-        return state;
+    public String getStatus() {
+        return status;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public LocalDateTime getCreatedAt() {

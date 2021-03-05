@@ -14,6 +14,9 @@ public class HelpPage extends BaseParameterDomain {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "enlace")
+    private String link;
+
     public Long getId() {
         return id;
     }
@@ -22,4 +25,11 @@ public class HelpPage extends BaseParameterDomain {
         this.id = id;
     }
 
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
 }

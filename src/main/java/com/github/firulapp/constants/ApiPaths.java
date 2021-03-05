@@ -34,5 +34,8 @@ public class ApiPaths {
     public static final String SERVICE_TYPE_ENDPOINTS = "/service/type";
     public static final String SERVICE_TYPE_BY_ID = SERVICE_TYPE_ENDPOINTS + "/id/{id}";
     public static final String SERVICE_TYPE_SAVE = SERVICE_TYPE_ENDPOINTS + "/save";
+    public static final String PET_CARE_ENDPOINTS = BASE_URL + "/petcare";
+    public static final String PET_CARE_BY_ID = PET_CARE_ENDPOINTS + "/id/{id}";
+    public static final String PET_CARE_SAVE = PET_CARE_ENDPOINTS + "/save";
 
 }
