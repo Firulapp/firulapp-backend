@@ -3,6 +3,7 @@ package com.github.firulapp.service.impl;
 import com.github.firulapp.domain.ConductRule;
 import com.github.firulapp.dto.ConductRuleDto;
 import com.github.firulapp.exceptions.ConductRuleException;
+import com.github.firulapp.exceptions.SpeciesException;
 import com.github.firulapp.mapper.impl.ConductRuleMapper;
 import com.github.firulapp.repository.ConductRuleRepository;
 import com.github.firulapp.service.ConductRuleService;
@@ -22,8 +23,17 @@ public class ConductRuleServiceImpl implements ConductRuleService {
     private ConductRuleMapper conductRuleMapper;
 
     @Override
-    public List<ConductRuleDto> getAllRules() {
-        return conductRuleMapper.mapAsList(conductRuleRepository.findAll());
+    public List<ConductRuleDto> getAllRules(Integer listStart, Integer listEnd) throws ConductRuleException {
+        List<ConductRuleDto> allRules = conductRuleMapper.mapAsList(conductRuleRepository.findAll());
+        if ((listStart != null && listEnd!= null) || (listStart == 0 && listEnd == 0)) {
+            if(allRules.size() > listEnd) {
+                return allRules.subList(listStart, listEnd);
+            }else{
+                return allRules;
+            }
+        }else{
+            throw new ConductRuleException(ConductRuleException.BASE_ERROR, "Error al mostrar el listado");
+        }
     }
 
     @Override

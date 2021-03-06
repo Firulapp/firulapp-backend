@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface ConductRuleService {
 
-    List<ConductRuleDto> getAllRules();
+    List<ConductRuleDto> getAllRules(Integer listStart, Integer listEnd) throws ConductRuleException;
 
     ConductRuleDto getRuleById(Long id) throws ConductRuleException;
 
