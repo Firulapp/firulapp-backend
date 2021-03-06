@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface BreedService {
 
-    List<BreedDto> getAllBreeds();
+    List<BreedDto> getAllBreeds(Integer listStart, Integer listEnd) throws BreedException;
 
     BreedDto getBreedById(Long id) throws BreedException;
 

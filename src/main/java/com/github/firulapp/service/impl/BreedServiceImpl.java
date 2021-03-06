@@ -4,6 +4,7 @@ import com.github.firulapp.domain.Breed;
 import com.github.firulapp.domain.Species;
 import com.github.firulapp.dto.BreedDto;
 import com.github.firulapp.exceptions.BreedException;
+import com.github.firulapp.exceptions.SpeciesException;
 import com.github.firulapp.mapper.impl.BreedMapper;
 import com.github.firulapp.repository.BreedRepository;
 import com.github.firulapp.service.BreedService;
@@ -23,8 +24,17 @@ public class BreedServiceImpl implements BreedService {
     private BreedMapper breedMapper;
 
     @Override
-    public List<BreedDto> getAllBreeds() {
-        return breedMapper.mapAsList(breedRepository.findAll());
+    public List<BreedDto> getAllBreeds(Integer listStart, Integer listEnd) throws BreedException {
+        List<BreedDto> allBreeds = breedMapper.mapAsList(breedRepository.findAll());
+        if ((listStart != null && listEnd!= null) || (listStart == 0 && listEnd == 0)) {
+            if(allBreeds.size() > listEnd) {
+                return allBreeds.subList(listStart, listEnd);
+            }else{
+                return allBreeds;
+            }
+        }else{
+            throw new BreedException(BreedException.BASE_ERROR, "Error al mostrar el listado");
+        }
     }
 
     @Override
