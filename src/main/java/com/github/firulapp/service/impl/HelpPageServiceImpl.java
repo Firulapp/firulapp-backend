@@ -2,7 +2,9 @@ package com.github.firulapp.service.impl;
 
 import com.github.firulapp.domain.HelpPage;
 import com.github.firulapp.dto.HelpPageDto;
+import com.github.firulapp.dto.SpeciesDto;
 import com.github.firulapp.exceptions.HelpPageException;
+import com.github.firulapp.exceptions.SpeciesException;
 import com.github.firulapp.mapper.impl.HelpPageMapper;
 import com.github.firulapp.repository.HelpPageRepository;
 import com.github.firulapp.service.HelpPageService;
@@ -21,8 +23,17 @@ public class HelpPageServiceImpl implements HelpPageService {
     private HelpPageMapper helpPageMapper;
 
     @Override
-    public List<HelpPageDto> getAllHelpPages() {
-        return helpPageMapper.mapAsList(helpPageRepository.findAll());
+    public List<HelpPageDto> getAllHelpPages(Integer listStart, Integer listEnd) throws HelpPageException {
+        List<HelpPageDto> allPages= helpPageMapper.mapAsList(helpPageRepository.findAll());
+        if (listStart != null && listEnd!= null && listEnd != 0) {
+            if(allPages.size() > listEnd) {
+                return allPages.subList(listStart, listEnd);
+            }else{
+                return allPages;
+            }
+        }else{
+            throw new HelpPageException(HelpPageException.BASE_ERROR, "Error al mostrar el listado");
+        }
     }
 
     @Override

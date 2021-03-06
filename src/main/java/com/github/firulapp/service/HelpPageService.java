@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface HelpPageService {
 
-    List<HelpPageDto> getAllHelpPages();
+    List<HelpPageDto> getAllHelpPages(Integer listStart, Integer listEnd) throws HelpPageException;
 
     HelpPageDto getHelpPageById(Long id) throws HelpPageException;
 

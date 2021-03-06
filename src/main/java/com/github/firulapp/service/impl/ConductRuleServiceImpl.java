@@ -25,7 +25,7 @@ public class ConductRuleServiceImpl implements ConductRuleService {
     @Override
     public List<ConductRuleDto> getAllRules(Integer listStart, Integer listEnd) throws ConductRuleException {
         List<ConductRuleDto> allRules = conductRuleMapper.mapAsList(conductRuleRepository.findAll());
-        if ((listStart != null && listEnd!= null) || (listStart == 0 && listEnd == 0)) {
+        if (listStart != null && listEnd!= null && listEnd != 0) {
             if(allRules.size() > listEnd) {
                 return allRules.subList(listStart, listEnd);
             }else{

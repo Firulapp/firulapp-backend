@@ -26,7 +26,7 @@ public class BreedServiceImpl implements BreedService {
     @Override
     public List<BreedDto> getAllBreeds(Integer listStart, Integer listEnd) throws BreedException {
         List<BreedDto> allBreeds = breedMapper.mapAsList(breedRepository.findAll());
-        if ((listStart != null && listEnd!= null) || (listStart == 0 && listEnd == 0)) {
+        if (listStart != null && listEnd!= null && listEnd != 0) {
             if(allBreeds.size() > listEnd) {
                 return allBreeds.subList(listStart, listEnd);
             }else{
