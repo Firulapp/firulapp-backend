@@ -6,13 +6,10 @@ import com.github.firulapp.exceptions.*;
 import com.github.firulapp.service.*;
 import com.github.firulapp.web.response.ListResponseDTO;
 import com.github.firulapp.web.response.ObjectResponseDTO;
-import com.github.firulapp.web.response.ParamResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping(value = {ApiPaths.PARAM_ENDPOINTS_URL})
@@ -37,10 +34,10 @@ public class ParamController {
     private PetCareService petCareService;
 
     @GetMapping(value = ApiPaths.SPECIES_ENDPOINTS)
-    private ResponseEntity<ParamResponseDTO> getAllSpecies(@RequestParam(required=false, value="_start") int listStart,
-                                                           @RequestParam(required=false, value="_end") int listEnd)
+    private ResponseEntity<ListResponseDTO> getAllSpecies(@RequestParam(required=false, value="_start") int listStart,
+                                                          @RequestParam(required=false, value="_end") int listEnd)
             throws SpeciesException {
-        return ResponseEntity.ok(ParamResponseDTO.success(speciesService.getAllSpecies(listStart, listEnd)));
+        return ResponseEntity.ok(ListResponseDTO.success(speciesService.getAllSpecies(listStart, listEnd)));
     }
 
     @GetMapping(value = ApiPaths.SPECIES_BY_ID)
