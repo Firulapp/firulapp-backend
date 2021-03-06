@@ -8,8 +8,8 @@ public class AppUserDto {
     private String username;
     private String email;
     private String encryptedPassword;
-    private boolean enabled;
-    private boolean loguedIn;
+    private Boolean enabled;
+    private Boolean loguedIn;
 
     public Long getId() {
         return id;
@@ -43,19 +43,19 @@ public class AppUserDto {
         this.encryptedPassword = encryptedPassword;
     }
 
-    public boolean isEnabled() {
+    public Boolean isEnabled() {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
 
-    public boolean isLoguedIn() {
+    public Boolean isLoguedIn() {
         return loguedIn;
     }
 
-    public void setLoguedIn(boolean loguedIn) {
+    public void setLoguedIn(Boolean loguedIn) {
         this.loguedIn = loguedIn;
     }
 

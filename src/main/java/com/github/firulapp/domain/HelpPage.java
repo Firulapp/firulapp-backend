@@ -26,7 +26,7 @@ public class HelpPage{
 
     @Column(name = "estado")
     @NotNull
-    private String status;
+    private Boolean status;
 
     @Column(name = "enlace")
     private String link;
@@ -61,11 +61,11 @@ public class HelpPage{
         this.description = description;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

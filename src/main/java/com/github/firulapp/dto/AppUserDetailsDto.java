@@ -17,7 +17,7 @@ public class AppUserDetailsDto {
     private String city;
     private byte[] profilePicture;
     private LocalDate birthDate;
-    private boolean notifications;
+    private Boolean notifications;
 
     public Long getId() {
         return id;
@@ -91,11 +91,11 @@ public class AppUserDetailsDto {
         this.birthDate = birthDate;
     }
 
-    public boolean isNotifications() {
+    public Boolean isNotifications() {
         return notifications;
     }
 
-    public void setNotifications(boolean notifications) {
+    public void setNotifications(Boolean notifications) {
         this.notifications = notifications;
     }
 

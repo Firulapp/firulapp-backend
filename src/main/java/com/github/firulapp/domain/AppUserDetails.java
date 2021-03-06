@@ -53,7 +53,7 @@ public class AppUserDetails {
 
     @Column(name = "notificaciones")
     @NotNull
-    private boolean notifications;
+    private Boolean notifications;
 
     @Column(name = "fecha_creacion")
     @JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -141,11 +141,11 @@ public class AppUserDetails {
         this.birthDate = birthDate;
     }
 
-    public boolean isNotifications() {
+    public Boolean isNotifications() {
         return notifications;
     }
 
-    public void setNotifications(boolean notifications) {
+    public void setNotifications(Boolean notifications) {
         this.notifications = notifications;
     }
 

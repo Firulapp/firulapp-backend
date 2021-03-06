@@ -30,7 +30,7 @@ public class Breed{
 
     @Column(name = "estado")
     @NotNull
-    private String status;
+    private Boolean status;
 
     @Column(name = "fecha_creacion")
     @NotNull
@@ -62,11 +62,11 @@ public class Breed{
         this.description = description;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

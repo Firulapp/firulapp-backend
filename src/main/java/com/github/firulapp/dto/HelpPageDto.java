@@ -8,7 +8,7 @@ public class HelpPageDto {
     private Long id;
     private String name;
     private String description;
-    private String status;
+    private Boolean status;
     private String link;
     private LocalDateTime createdAt;
     private Long createdBy;
@@ -39,11 +39,11 @@ public class HelpPageDto {
         this.description = description;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

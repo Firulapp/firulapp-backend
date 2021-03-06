@@ -10,7 +10,7 @@ public class BreedDto {
     private Long speciesId;
     private String name;
     private String description;
-    private String status;
+    private Boolean status;
     private LocalDateTime createdAt;
     private Long createdBy;
     private LocalDateTime modifiedAt;
@@ -40,11 +40,11 @@ public class BreedDto {
         this.description = description;
     }
 
-    public String getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
