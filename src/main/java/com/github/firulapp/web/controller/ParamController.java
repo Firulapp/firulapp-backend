@@ -46,13 +46,15 @@ public class ParamController {
     }
 
     @PostMapping(value = ApiPaths.SPECIES_ENDPOINTS)
-    private ResponseEntity<ObjectResponseDTO> saveSpecies(@RequestBody SpeciesDto speciesDto) throws SpeciesException {
+    private ResponseEntity<ObjectResponseDTO> saveSpecies(@RequestBody SpeciesDto speciesDto) {
         return ResponseEntity.ok(ObjectResponseDTO.success(speciesService.saveSpecies(speciesDto)));
     }
 
     @GetMapping(value = ApiPaths.BREED_ENDPOINTS)
-    private ResponseEntity<ListResponseDTO> getAllBreeds(){
-        return ResponseEntity.ok(ListResponseDTO.success(breedService.getAllBreeds()));
+    private ResponseEntity<ListResponseDTO> getAllBreeds(@RequestParam(required=false, value="_start") int listStart,
+                                                         @RequestParam(required=false, value="_end") int listEnd)
+            throws BreedException{
+        return ResponseEntity.ok(ListResponseDTO.success(breedService.getAllBreeds(listStart, listEnd)));
     }
 
     @GetMapping(value = ApiPaths.BREED_BY_ID)
@@ -66,8 +68,10 @@ public class ParamController {
     }
 
     @GetMapping(value = ApiPaths.CONDUCT_RULE_ENDPOINTS)
-    private ResponseEntity<ListResponseDTO> getAllConductRules(){
-        return ResponseEntity.ok(ListResponseDTO.success(conductRuleService.getAllRules()));
+    private ResponseEntity<ListResponseDTO> getAllConductRules(@RequestParam(required=false, value="_start") int listStart,
+                                                               @RequestParam(required=false, value="_end") int listEnd)
+            throws ConductRuleException{
+        return ResponseEntity.ok(ListResponseDTO.success(conductRuleService.getAllRules(listStart, listEnd)));
     }
 
     @GetMapping(value = ApiPaths.CONDUCT_RULE_BY_ID)
@@ -81,8 +85,10 @@ public class ParamController {
     }
 
     @GetMapping(value = ApiPaths.HELP_PAGE_ENDPOINTS)
-    private ResponseEntity<ListResponseDTO> getAllHelpPages(){
-        return ResponseEntity.ok(ListResponseDTO.success(helpPageService.getAllHelpPages()));
+    private ResponseEntity<ListResponseDTO> getAllHelpPages(@RequestParam(required=false, value="_start") int listStart,
+                                                            @RequestParam(required=false, value="_end") int listEnd)
+            throws HelpPageException{
+        return ResponseEntity.ok(ListResponseDTO.success(helpPageService.getAllHelpPages(listStart, listEnd)));
     }
 
     @GetMapping(value = ApiPaths.HELP_PAGE_BY_ID)
@@ -96,8 +102,10 @@ public class ParamController {
     }
 
     @GetMapping(value = ApiPaths.SERVICE_TYPE_ENDPOINTS)
-    private ResponseEntity<ListResponseDTO> getAllServiceTypes(){
-        return ResponseEntity.ok(ListResponseDTO.success(helpPageService.getAllHelpPages()));
+    private ResponseEntity<ListResponseDTO> getAllServiceTypes(@RequestParam(required=false, value="_start") int listStart,
+                                                               @RequestParam(required=false, value="_end") int listEnd)
+            throws ServiceTypeException{
+        return ResponseEntity.ok(ListResponseDTO.success(serviceTypeService.getAllServiceTypes(listStart, listEnd)));
     }
 
     @GetMapping(value = ApiPaths.SERVICE_TYPE_BY_ID)
@@ -111,8 +119,10 @@ public class ParamController {
     }
 
     @GetMapping(value = ApiPaths.PET_CARE_ENDPOINTS)
-    private ResponseEntity<ListResponseDTO> getAllPetCare(){
-        return ResponseEntity.ok(ListResponseDTO.success(petCareService.getAllPetCares()));
+    private ResponseEntity<ListResponseDTO> getAllPetCare(@RequestParam(required=false, value="_start") int listStart,
+                                                          @RequestParam(required=false, value="_end") int listEnd)
+            throws PetCareException{
+        return ResponseEntity.ok(ListResponseDTO.success(petCareService.getAllPetCares(listStart, listEnd)));
     }
 
     @GetMapping(value = ApiPaths.PET_CARE_BY_ID)
