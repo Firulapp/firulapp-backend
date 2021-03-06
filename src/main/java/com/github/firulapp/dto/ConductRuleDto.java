@@ -84,7 +84,7 @@ public class ConductRuleDto {
                 .append("id", id)
                 .append("name", name)
                 .append("description", description)
-                .append("state", status)
+                .append("status", status)
                 .append("createdAt", createdAt)
                 .append("createdBy", createdBy)
                 .append("modifiedAt", modifiedAt)

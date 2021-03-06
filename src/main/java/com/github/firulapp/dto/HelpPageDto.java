@@ -93,7 +93,7 @@ public class HelpPageDto {
                 .append("id", id)
                 .append("name", name)
                 .append("description", description)
-                .append("state", status)
+                .append("status", status)
                 .append("link", link)
                 .append("createdAt", createdAt)
                 .append("createdBy", createdBy)

@@ -1,5 +1,7 @@
 package com.github.firulapp.dto;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import java.time.LocalDateTime;
 
 public class PetCareDto {
@@ -111,5 +113,23 @@ public class PetCareDto {
 
     public void setModifiedBy(Long modifiedBy) {
         this.modifiedBy = modifiedBy;
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("name", name)
+                .append("description", description)
+                .append("status", status)
+                .append("picture", picture)
+                .append("link", link)
+                .append("speciesId", speciesId)
+                .append("breedId", breedId)
+                .append("createdAt", createdAt)
+                .append("createdBy", createdBy)
+                .append("modifiedAt", modifiedAt)
+                .append("modifiedBy", modifiedBy)
+                .toString();
     }
 }
