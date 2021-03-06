@@ -11,8 +11,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.print.attribute.standard.JobKOctets;
-
 @Controller
 @RequestMapping(value = {ApiPaths.PARAM_ENDPOINTS_URL})
 public class ParamController {
@@ -36,8 +34,10 @@ public class ParamController {
     private PetCareService petCareService;
 
     @GetMapping(value = ApiPaths.SPECIES_ENDPOINTS)
-    private ResponseEntity<ListResponseDTO> getAllSpecies(){
-        return ResponseEntity.ok(ListResponseDTO.success(speciesService.getAllSpecies()));
+    private ResponseEntity<ListResponseDTO> getAllSpecies(@RequestParam(required=false, value="_start") int listStart,
+                                                          @RequestParam(required=false, value="_end") int listEnd)
+            throws SpeciesException {
+        return ResponseEntity.ok(ListResponseDTO.success(speciesService.getAllSpecies(listStart, listEnd)));
     }
 
     @GetMapping(value = ApiPaths.SPECIES_BY_ID)
@@ -45,7 +45,7 @@ public class ParamController {
         return ResponseEntity.ok(ObjectResponseDTO.success(speciesService.getSpeciesById(id)));
     }
 
-    @PostMapping(value = ApiPaths.SPECIES_SAVE)
+    @PostMapping(value = ApiPaths.SPECIES_ENDPOINTS)
     private ResponseEntity<ObjectResponseDTO> saveSpecies(@RequestBody SpeciesDto speciesDto) throws SpeciesException {
         return ResponseEntity.ok(ObjectResponseDTO.success(speciesService.saveSpecies(speciesDto)));
     }
@@ -60,7 +60,7 @@ public class ParamController {
         return ResponseEntity.ok(ObjectResponseDTO.success(breedService.getBreedById(id)));
     }
 
-    @PostMapping(value = ApiPaths.BREED_SAVE)
+    @PostMapping(value = ApiPaths.BREED_ENDPOINTS)
     private ResponseEntity<ObjectResponseDTO> saveBreed(@RequestBody BreedDto breedDto){
         return ResponseEntity.ok(ObjectResponseDTO.success(breedService.saveBreed(breedDto)));
     }
@@ -75,7 +75,7 @@ public class ParamController {
         return ResponseEntity.ok(ObjectResponseDTO.success(conductRuleService.getRuleById(id)));
     }
 
-    @PostMapping(value = ApiPaths.CONDUCT_RULE_SAVE)
+    @PostMapping(value = ApiPaths.CONDUCT_RULE_ENDPOINTS)
     private ResponseEntity<ObjectResponseDTO> saveConductRule(@RequestBody ConductRuleDto conductRuleDto) {
         return ResponseEntity.ok(ObjectResponseDTO.success(conductRuleService.saveConductRule(conductRuleDto)));
     }
@@ -90,7 +90,7 @@ public class ParamController {
         return ResponseEntity.ok(ObjectResponseDTO.success(helpPageService.getHelpPageById(id)));
     }
 
-    @PostMapping(value = ApiPaths.HELP_PAGE_SAVE)
+    @PostMapping(value = ApiPaths.HELP_PAGE_ENDPOINTS)
     private ResponseEntity<ObjectResponseDTO> saveHelpPage(@RequestBody HelpPageDto helpPageDto) {
         return ResponseEntity.ok(ObjectResponseDTO.success(helpPageService.saveHelpPage(helpPageDto)));
     }
@@ -105,7 +105,7 @@ public class ParamController {
         return ResponseEntity.ok(ObjectResponseDTO.success(serviceTypeService.getServiceTypeById(id)));
     }
 
-    @PostMapping(value = ApiPaths.SERVICE_TYPE_SAVE)
+    @PostMapping(value = ApiPaths.SERVICE_TYPE_ENDPOINTS)
     private ResponseEntity<ObjectResponseDTO> saveServiceType(@RequestBody ServiceTypeDto serviceTypeDto) {
         return ResponseEntity.ok(ObjectResponseDTO.success(serviceTypeService.saveServiceType(serviceTypeDto)));
     }
@@ -120,7 +120,7 @@ public class ParamController {
         return ResponseEntity.ok(ObjectResponseDTO.success(petCareService.getPetCareById(id)));
     }
 
-    @PostMapping(ApiPaths.PET_CARE_SAVE)
+    @PostMapping(ApiPaths.PET_CARE_ENDPOINTS)
     private ResponseEntity<ObjectResponseDTO> savePetCare(@RequestBody PetCareDto petCareDto) {
         return ResponseEntity.ok(ObjectResponseDTO.success(petCareService.savePetCare(petCareDto)));
     }
