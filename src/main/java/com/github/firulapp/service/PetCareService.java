@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface PetCareService {
 
-    List<PetCareDto> getAllPetCares();
+    List<PetCareDto> getAllPetCares(Integer listStart, Integer listEnd) throws PetCareException;
 
     PetCareDto getPetCareById(Long id) throws PetCareException;
 

@@ -3,7 +3,6 @@ package com.github.firulapp.service.impl;
 import com.github.firulapp.domain.ConductRule;
 import com.github.firulapp.dto.ConductRuleDto;
 import com.github.firulapp.exceptions.ConductRuleException;
-import com.github.firulapp.exceptions.SpeciesException;
 import com.github.firulapp.mapper.impl.ConductRuleMapper;
 import com.github.firulapp.repository.ConductRuleRepository;
 import com.github.firulapp.service.ConductRuleService;

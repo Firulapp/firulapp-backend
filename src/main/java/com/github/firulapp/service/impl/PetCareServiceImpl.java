@@ -22,8 +22,17 @@ public class PetCareServiceImpl implements PetCareService {
     private PetCareMapper petCareMapper;
 
     @Override
-    public List<PetCareDto> getAllPetCares() {
-        return petCareMapper.mapAsList(petCareRepository.findAll());
+    public List<PetCareDto> getAllPetCares(Integer listStart, Integer listEnd) throws PetCareException{
+        List<PetCareDto> allCares= petCareMapper.mapAsList(petCareRepository.findAll());
+        if (listStart != null && listEnd!= null && listEnd != 0) {
+            if(allCares.size() > listEnd) {
+                return allCares.subList(listStart, listEnd);
+            }else{
+                return allCares;
+            }
+        }else{
+            throw new PetCareException(PetCareException.BASE_ERROR, "Error al mostrar el listado");
+        }
     }
 
     @Override

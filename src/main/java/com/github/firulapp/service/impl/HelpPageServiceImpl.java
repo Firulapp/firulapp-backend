@@ -2,9 +2,7 @@ package com.github.firulapp.service.impl;
 
 import com.github.firulapp.domain.HelpPage;
 import com.github.firulapp.dto.HelpPageDto;
-import com.github.firulapp.dto.SpeciesDto;
 import com.github.firulapp.exceptions.HelpPageException;
-import com.github.firulapp.exceptions.SpeciesException;
 import com.github.firulapp.mapper.impl.HelpPageMapper;
 import com.github.firulapp.repository.HelpPageRepository;
 import com.github.firulapp.service.HelpPageService;
