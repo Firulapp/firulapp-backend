@@ -24,7 +24,7 @@ public class SpeciesServiceImpl implements SpeciesService {
     @Override
     public List<SpeciesDto> getAllSpecies(Integer listStart, Integer listEnd) throws SpeciesException {
         List<SpeciesDto> allSpecies= speciesMapper.mapAsList(speciesRepository.findAll());
-        if ((listStart != null && listEnd!= null) || (listStart == 0 && listEnd == 0)) {
+        if (listStart != null && listEnd!= null && listEnd != 0) {
             if(allSpecies.size() > listEnd) {
                 return allSpecies.subList(listStart, listEnd);
             }else{
