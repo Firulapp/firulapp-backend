@@ -9,6 +9,7 @@ import com.github.firulapp.service.PetCareService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,17 +23,8 @@ public class PetCareServiceImpl implements PetCareService {
     private PetCareMapper petCareMapper;
 
     @Override
-    public List<PetCareDto> getAllPetCares(Integer listStart, Integer listEnd) throws PetCareException{
-        List<PetCareDto> allCares= petCareMapper.mapAsList(petCareRepository.findAll());
-        if (listStart != null && listEnd!= null && listEnd != 0) {
-            if(allCares.size() > listEnd) {
-                return allCares.subList(listStart, listEnd);
-            }else{
-                return allCares;
-            }
-        }else{
-            throw new PetCareException(PetCareException.BASE_ERROR, "Error al mostrar el listado");
-        }
+    public List<PetCareDto> getAllPetCares(){
+        return petCareMapper.mapAsList(petCareRepository.findAll());
     }
 
     @Override
@@ -43,6 +35,20 @@ public class PetCareServiceImpl implements PetCareService {
 
     @Override
     public PetCareDto savePetCare(PetCareDto petCareDto) {
-        return petCareMapper.mapToDto(petCareMapper.mapToEntity(petCareDto));
+        if(petCareDto.getId() != null) {
+            petCareDto.setModifiedAt(LocalDateTime.now());
+            return petCareMapper.mapToDto(petCareMapper.mapToEntity(petCareDto));
+        }else{
+            PetCare petCare = petCareMapper.mapToEntity(petCareDto);
+            petCare.setStatus(Boolean.TRUE);
+            petCare.setCreatedAt(LocalDateTime.now());
+            return petCareMapper.mapToDto(petCareRepository.save(petCare));
+        }
+    }
+
+    @Override
+    public void delete(PetCareDto petCareDto) {
+        Optional<PetCare> petCare = petCareRepository.findById(petCareDto.getId());
+        petCare.ifPresent(value -> petCareRepository.delete(petCare.get()));
     }
 }

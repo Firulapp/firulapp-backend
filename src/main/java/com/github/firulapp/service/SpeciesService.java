@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface SpeciesService {
 
-    List<SpeciesDto> getAllSpecies(Integer listStart, Integer listEnd) throws SpeciesException;
+    List<SpeciesDto> getAllSpecies();
 
     SpeciesDto getSpeciesById(Long id) throws SpeciesException;
 
     SpeciesDto saveSpecies(SpeciesDto speciesDto);
+
+    void delete(SpeciesDto speciesDto);
 }

@@ -9,6 +9,7 @@ import com.github.firulapp.service.ConductRuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,17 +23,8 @@ public class ConductRuleServiceImpl implements ConductRuleService {
     private ConductRuleMapper conductRuleMapper;
 
     @Override
-    public List<ConductRuleDto> getAllRules(Integer listStart, Integer listEnd) throws ConductRuleException {
-        List<ConductRuleDto> allRules = conductRuleMapper.mapAsList(conductRuleRepository.findAll());
-        if (listStart != null && listEnd!= null && listEnd != 0) {
-            if(allRules.size() > listEnd) {
-                return allRules.subList(listStart, listEnd);
-            }else{
-                return allRules;
-            }
-        }else{
-            throw new ConductRuleException(ConductRuleException.BASE_ERROR, "Error al mostrar el listado");
-        }
+    public List<ConductRuleDto> getAllRules(){
+        return conductRuleMapper.mapAsList(conductRuleRepository.findAll());
     }
 
     @Override
@@ -43,6 +35,20 @@ public class ConductRuleServiceImpl implements ConductRuleService {
 
     @Override
     public ConductRuleDto saveConductRule(ConductRuleDto conductRuleDto) {
-        return conductRuleMapper.mapToDto(conductRuleRepository.save(conductRuleMapper.mapToEntity(conductRuleDto)));
+        if(conductRuleDto.getId() != null){
+            conductRuleDto.setModifiedAt(LocalDateTime.now());
+            return conductRuleMapper.mapToDto(conductRuleRepository.save(conductRuleMapper.mapToEntity(conductRuleDto)));
+        }else {
+            ConductRule conductRule = conductRuleMapper.mapToEntity(conductRuleDto);
+            conductRule.setStatus(Boolean.TRUE);
+            conductRule.setCreatedAt(LocalDateTime.now());
+            return conductRuleMapper.mapToDto(conductRuleRepository.save(conductRule));
+        }
+    }
+
+    @Override
+    public void delete(ConductRuleDto conductRuleDto) {
+        Optional<ConductRule> conductRule = conductRuleRepository.findById(conductRuleDto.getId());
+        conductRule.ifPresent(value -> conductRuleRepository.delete(conductRule.get()));
     }
 }

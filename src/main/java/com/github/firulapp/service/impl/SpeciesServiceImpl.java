@@ -9,6 +9,7 @@ import com.github.firulapp.service.SpeciesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,17 +23,8 @@ public class SpeciesServiceImpl implements SpeciesService {
     private SpeciesMapper speciesMapper;
 
     @Override
-    public List<SpeciesDto> getAllSpecies(Integer listStart, Integer listEnd) throws SpeciesException {
-        List<SpeciesDto> allSpecies= speciesMapper.mapAsList(speciesRepository.findAll());
-        if (listStart != null && listEnd!= null && listEnd != 0) {
-            if(allSpecies.size() > listEnd) {
-                return allSpecies.subList(listStart, listEnd);
-            }else{
-                return allSpecies;
-            }
-        }else{
-            throw new SpeciesException(SpeciesException.BASE_ERROR, "Error al mostrar el listado");
-        }
+    public List<SpeciesDto> getAllSpecies() {
+        return speciesMapper.mapAsList(speciesRepository.findAll());
     }
 
     @Override
@@ -43,6 +35,20 @@ public class SpeciesServiceImpl implements SpeciesService {
 
     @Override
     public SpeciesDto saveSpecies(SpeciesDto speciesDto) {
-        return speciesMapper.mapToDto(speciesRepository.save(speciesMapper.mapToEntity(speciesDto)));
+        if(speciesDto.getId() != null) {
+            speciesDto.setModifiedAt(LocalDateTime.now());
+            return speciesMapper.mapToDto(speciesRepository.save(speciesMapper.mapToEntity(speciesDto)));
+        }else{
+            Species species = speciesMapper.mapToEntity(speciesDto);
+            species.setStatus(Boolean.TRUE);
+            species.setCreatedAt(LocalDateTime.now());
+            return speciesMapper.mapToDto(speciesRepository.save(species));
+        }
+    }
+
+    @Override
+    public void delete(SpeciesDto speciesDto) {
+        Optional<Species> species = speciesRepository.findById(speciesDto.getId());
+        species.ifPresent(value -> speciesRepository.delete(species.get()));
     }
 }

@@ -22,17 +22,8 @@ public class ServiceTypeServiceImpl implements ServiceTypeService {
     private ServiceTypeMapper serviceTypeMapper;
 
     @Override
-    public List<ServiceTypeDto> getAllServiceTypes(Integer listStart, Integer listEnd) throws ServiceTypeException {
-        List<ServiceTypeDto> allTypes= serviceTypeMapper.mapAsList(serviceTypeRepository.findAll());
-        if (listStart != null && listEnd!= null && listEnd != 0) {
-            if(allTypes.size() > listEnd) {
-                return allTypes.subList(listStart, listEnd);
-            }else{
-                return allTypes;
-            }
-        }else{
-            throw new ServiceTypeException(ServiceTypeException.BASE_ERROR, "Error al mostrar el listado");
-        }
+    public List<ServiceTypeDto> getAllServiceTypes(){
+        return serviceTypeMapper.mapAsList(serviceTypeRepository.findAll());
     }
 
     @Override
@@ -44,5 +35,11 @@ public class ServiceTypeServiceImpl implements ServiceTypeService {
     @Override
     public ServiceTypeDto saveServiceType(ServiceTypeDto serviceTypeDto) {
         return serviceTypeMapper.mapToDto(serviceTypeRepository.save(serviceTypeMapper.mapToEntity(serviceTypeDto)));
+    }
+
+    @Override
+    public void delete(ServiceTypeDto serviceTypeDto) {
+        Optional<ServiceType> serviceType = serviceTypeRepository.findById(serviceTypeDto.getId());
+        serviceType.ifPresent(value -> serviceTypeRepository.delete(serviceType.get()));
     }
 }

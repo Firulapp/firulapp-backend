@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface ConductRuleService {
 
-    List<ConductRuleDto> getAllRules(Integer listStart, Integer listEnd) throws ConductRuleException;
+    List<ConductRuleDto> getAllRules();
 
     ConductRuleDto getRuleById(Long id) throws ConductRuleException;
 
     ConductRuleDto saveConductRule(ConductRuleDto conductRuleDto);
+
+    void delete(ConductRuleDto conductRuleDto);
 }

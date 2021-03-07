@@ -7,6 +7,7 @@ import com.github.firulapp.service.*;
 import com.github.firulapp.web.response.ListResponseDTO;
 import com.github.firulapp.web.response.ObjectResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -34,10 +35,8 @@ public class ParamController {
     private PetCareService petCareService;
 
     @GetMapping(value = ApiPaths.SPECIES_ENDPOINTS)
-    private ResponseEntity<ListResponseDTO> getAllSpecies(@RequestParam(required=false, value="_start") int listStart,
-                                                          @RequestParam(required=false, value="_end") int listEnd)
-            throws SpeciesException {
-        return ResponseEntity.ok(ListResponseDTO.success(speciesService.getAllSpecies(listStart, listEnd)));
+    private ResponseEntity<ListResponseDTO> getAllSpecies(){
+        return ResponseEntity.ok(ListResponseDTO.success(speciesService.getAllSpecies()));
     }
 
     @GetMapping(value = ApiPaths.SPECIES_BY_ID)
@@ -50,11 +49,15 @@ public class ParamController {
         return ResponseEntity.ok(ObjectResponseDTO.success(speciesService.saveSpecies(speciesDto)));
     }
 
+    @DeleteMapping(value = ApiPaths.SPECIES_ENDPOINTS)
+    private ResponseEntity<Void> deleteSpeciesRegister(@RequestBody SpeciesDto speciesDto) {
+        speciesService.delete(speciesDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping(value = ApiPaths.BREED_ENDPOINTS)
-    private ResponseEntity<ListResponseDTO> getAllBreeds(@RequestParam(required=false, value="_start") int listStart,
-                                                         @RequestParam(required=false, value="_end") int listEnd)
-            throws BreedException{
-        return ResponseEntity.ok(ListResponseDTO.success(breedService.getAllBreeds(listStart, listEnd)));
+    private ResponseEntity<ListResponseDTO> getAllBreeds(){
+        return ResponseEntity.ok(ListResponseDTO.success(breedService.getAllBreeds()));
     }
 
     @GetMapping(value = ApiPaths.BREED_BY_ID)
@@ -67,11 +70,20 @@ public class ParamController {
         return ResponseEntity.ok(ObjectResponseDTO.success(breedService.saveBreed(breedDto)));
     }
 
+    @GetMapping(value = ApiPaths.BREED_BY_SPECIES_ID)
+    private ResponseEntity<ListResponseDTO> getBreedsBySpecies(@PathVariable(value = "id") Long speciesId){
+        return ResponseEntity.ok(ListResponseDTO.success(breedService.getBreedBySpeciesId(speciesId)));
+    }
+
+    @DeleteMapping(value = ApiPaths.BREED_ENDPOINTS)
+    private ResponseEntity<Void> deleteBreedRegister(@RequestBody BreedDto breedDto) {
+        breedService.delete(breedDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping(value = ApiPaths.CONDUCT_RULE_ENDPOINTS)
-    private ResponseEntity<ListResponseDTO> getAllConductRules(@RequestParam(required=false, value="_start") int listStart,
-                                                               @RequestParam(required=false, value="_end") int listEnd)
-            throws ConductRuleException{
-        return ResponseEntity.ok(ListResponseDTO.success(conductRuleService.getAllRules(listStart, listEnd)));
+    private ResponseEntity<ListResponseDTO> getAllConductRules(){
+        return ResponseEntity.ok(ListResponseDTO.success(conductRuleService.getAllRules()));
     }
 
     @GetMapping(value = ApiPaths.CONDUCT_RULE_BY_ID)
@@ -84,11 +96,15 @@ public class ParamController {
         return ResponseEntity.ok(ObjectResponseDTO.success(conductRuleService.saveConductRule(conductRuleDto)));
     }
 
+    @DeleteMapping(value = ApiPaths.CONDUCT_RULE_ENDPOINTS)
+    private ResponseEntity<Void> deleteConductRule(@RequestBody ConductRuleDto conductRuleDto) {
+        conductRuleService.delete(conductRuleDto);
+        return new ResponseEntity<Void>(HttpStatus.OK);
+    }
+
     @GetMapping(value = ApiPaths.HELP_PAGE_ENDPOINTS)
-    private ResponseEntity<ListResponseDTO> getAllHelpPages(@RequestParam(required=false, value="_start") int listStart,
-                                                            @RequestParam(required=false, value="_end") int listEnd)
-            throws HelpPageException{
-        return ResponseEntity.ok(ListResponseDTO.success(helpPageService.getAllHelpPages(listStart, listEnd)));
+    private ResponseEntity<ListResponseDTO> getAllHelpPages(){
+        return ResponseEntity.ok(ListResponseDTO.success(helpPageService.getAllHelpPages()));
     }
 
     @GetMapping(value = ApiPaths.HELP_PAGE_BY_ID)
@@ -101,11 +117,15 @@ public class ParamController {
         return ResponseEntity.ok(ObjectResponseDTO.success(helpPageService.saveHelpPage(helpPageDto)));
     }
 
+    @DeleteMapping(value = ApiPaths.HELP_PAGE_ENDPOINTS)
+    private ResponseEntity<Void> deleteHelpPage(@RequestBody HelpPageDto helpPageDto) {
+        helpPageService.delete(helpPageDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping(value = ApiPaths.SERVICE_TYPE_ENDPOINTS)
-    private ResponseEntity<ListResponseDTO> getAllServiceTypes(@RequestParam(required=false, value="_start") int listStart,
-                                                               @RequestParam(required=false, value="_end") int listEnd)
-            throws ServiceTypeException{
-        return ResponseEntity.ok(ListResponseDTO.success(serviceTypeService.getAllServiceTypes(listStart, listEnd)));
+    private ResponseEntity<ListResponseDTO> getAllServiceTypes(){
+        return ResponseEntity.ok(ListResponseDTO.success(serviceTypeService.getAllServiceTypes()));
     }
 
     @GetMapping(value = ApiPaths.SERVICE_TYPE_BY_ID)
@@ -118,11 +138,15 @@ public class ParamController {
         return ResponseEntity.ok(ObjectResponseDTO.success(serviceTypeService.saveServiceType(serviceTypeDto)));
     }
 
+    @DeleteMapping(value = ApiPaths.SERVICE_TYPE_ENDPOINTS)
+    private ResponseEntity<Void> deleteServiceType(@RequestBody ServiceTypeDto serviceTypeDto) {
+        serviceTypeService.delete(serviceTypeDto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping(value = ApiPaths.PET_CARE_ENDPOINTS)
-    private ResponseEntity<ListResponseDTO> getAllPetCare(@RequestParam(required=false, value="_start") int listStart,
-                                                          @RequestParam(required=false, value="_end") int listEnd)
-            throws PetCareException{
-        return ResponseEntity.ok(ListResponseDTO.success(petCareService.getAllPetCares(listStart, listEnd)));
+    private ResponseEntity<ListResponseDTO> getAllPetCare(){
+        return ResponseEntity.ok(ListResponseDTO.success(petCareService.getAllPetCares()));
     }
 
     @GetMapping(value = ApiPaths.PET_CARE_BY_ID)
@@ -133,5 +157,11 @@ public class ParamController {
     @PostMapping(ApiPaths.PET_CARE_ENDPOINTS)
     private ResponseEntity<ObjectResponseDTO> savePetCare(@RequestBody PetCareDto petCareDto) {
         return ResponseEntity.ok(ObjectResponseDTO.success(petCareService.savePetCare(petCareDto)));
+    }
+
+    @DeleteMapping(value = ApiPaths.PET_CARE_ENDPOINTS)
+    private ResponseEntity<Void> deletePetCareRegister(@RequestBody PetCareDto petCareDto) {
+        petCareService.delete(petCareDto);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

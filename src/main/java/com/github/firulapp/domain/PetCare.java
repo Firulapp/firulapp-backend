@@ -37,15 +37,12 @@ public class PetCare{
     private String description;
 
     @Column(name = "estado")
-    @NotNull
     private Boolean status;
 
     @Column(name = "fecha_creacion")
-    @NotNull
     private LocalDateTime createdAt;
 
     @Column(name = "usuario_creacion")
-    @NotNull
     private Long createdBy;
 
     @Column(name = "fecha_modificacion")

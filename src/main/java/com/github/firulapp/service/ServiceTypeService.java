@@ -7,9 +7,11 @@ import java.util.List;
 
 public interface ServiceTypeService {
 
-    List<ServiceTypeDto> getAllServiceTypes(Integer listStart, Integer listEnd) throws ServiceTypeException;
+    List<ServiceTypeDto> getAllServiceTypes();
 
     ServiceTypeDto getServiceTypeById(Long id) throws ServiceTypeException;
 
     ServiceTypeDto saveServiceType(ServiceTypeDto serviceTypeDto);
+
+    void delete(ServiceTypeDto serviceTypeDto);
 }

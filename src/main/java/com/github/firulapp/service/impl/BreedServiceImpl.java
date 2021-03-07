@@ -11,6 +11,7 @@ import com.github.firulapp.service.BreedService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,17 +25,8 @@ public class BreedServiceImpl implements BreedService {
     private BreedMapper breedMapper;
 
     @Override
-    public List<BreedDto> getAllBreeds(Integer listStart, Integer listEnd) throws BreedException {
-        List<BreedDto> allBreeds = breedMapper.mapAsList(breedRepository.findAll());
-        if (listStart != null && listEnd!= null && listEnd != 0) {
-            if(allBreeds.size() > listEnd) {
-                return allBreeds.subList(listStart, listEnd);
-            }else{
-                return allBreeds;
-            }
-        }else{
-            throw new BreedException(BreedException.BASE_ERROR, "Error al mostrar el listado");
-        }
+    public List<BreedDto> getAllBreeds(){
+        return breedMapper.mapAsList(breedRepository.findAll());
     }
 
     @Override
@@ -45,11 +37,25 @@ public class BreedServiceImpl implements BreedService {
 
     @Override
     public BreedDto saveBreed(BreedDto breedDto) {
-        return breedMapper.mapToDto(breedRepository.save(breedMapper.mapToEntity(breedDto)));
+        if(breedDto.getId() != null){
+            breedDto.setModifiedAt(LocalDateTime.now());
+            return breedMapper.mapToDto(breedRepository.save(breedMapper.mapToEntity(breedDto)));
+        }else {
+            Breed entity = breedMapper.mapToEntity(breedDto);
+            entity.setStatus(Boolean.TRUE);
+            entity.setCreatedAt(LocalDateTime.now());
+            return breedMapper.mapToDto(breedRepository.save(entity));
+        }
     }
 
     @Override
     public List<BreedDto> getBreedBySpeciesId(Long speciesId) {
         return breedMapper.mapAsList(breedRepository.findBySpeciesId(speciesId));
+    }
+
+    @Override
+    public void delete(BreedDto breedDto) {
+        Optional<Breed> breed = breedRepository.findById(breedDto.getId());
+        breed.ifPresent(value -> breedRepository.delete(value));
     }
 }

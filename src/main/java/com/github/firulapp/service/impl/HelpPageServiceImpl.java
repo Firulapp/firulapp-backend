@@ -9,6 +9,7 @@ import com.github.firulapp.service.HelpPageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,17 +22,8 @@ public class HelpPageServiceImpl implements HelpPageService {
     private HelpPageMapper helpPageMapper;
 
     @Override
-    public List<HelpPageDto> getAllHelpPages(Integer listStart, Integer listEnd) throws HelpPageException {
-        List<HelpPageDto> allPages= helpPageMapper.mapAsList(helpPageRepository.findAll());
-        if (listStart != null && listEnd!= null && listEnd != 0) {
-            if(allPages.size() > listEnd) {
-                return allPages.subList(listStart, listEnd);
-            }else{
-                return allPages;
-            }
-        }else{
-            throw new HelpPageException(HelpPageException.BASE_ERROR, "Error al mostrar el listado");
-        }
+    public List<HelpPageDto> getAllHelpPages(){
+        return helpPageMapper.mapAsList(helpPageRepository.findAll());
     }
 
     @Override
@@ -42,6 +34,20 @@ public class HelpPageServiceImpl implements HelpPageService {
 
     @Override
     public HelpPageDto saveHelpPage(HelpPageDto helpPageDto) {
-        return helpPageMapper.mapToDto(helpPageRepository.save(helpPageMapper.mapToEntity(helpPageDto)));
+        if(helpPageDto.getId() != null){
+            helpPageDto.setModifiedAt(LocalDateTime.now());
+            return helpPageMapper.mapToDto(helpPageRepository.save(helpPageMapper.mapToEntity(helpPageDto)));
+        }else {
+            HelpPage helpPage = helpPageMapper.mapToEntity(helpPageDto);
+            helpPage.setStatus(Boolean.TRUE);
+            helpPage.setCreatedAt(LocalDateTime.now());
+            return helpPageMapper.mapToDto(helpPageRepository.save(helpPage));
+        }
+    }
+
+    @Override
+    public void delete(HelpPageDto helpPageDto) {
+        Optional<HelpPage> helpPage = helpPageRepository.findById(helpPageDto.getId());
+        helpPage.ifPresent(value -> helpPageRepository.delete(helpPage.get()));
     }
 }
