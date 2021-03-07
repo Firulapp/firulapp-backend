@@ -9,6 +9,7 @@ import com.github.firulapp.service.ServiceTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,7 +35,15 @@ public class ServiceTypeServiceImpl implements ServiceTypeService {
 
     @Override
     public ServiceTypeDto saveServiceType(ServiceTypeDto serviceTypeDto) {
-        return serviceTypeMapper.mapToDto(serviceTypeRepository.save(serviceTypeMapper.mapToEntity(serviceTypeDto)));
+        if(serviceTypeDto.getId()!=null) {
+            serviceTypeDto.setModifiedAt(LocalDateTime.now());
+            return serviceTypeMapper.mapToDto(serviceTypeRepository.save(serviceTypeMapper.mapToEntity(serviceTypeDto)));
+        }else{
+            ServiceType serviceType = serviceTypeMapper.mapToEntity(serviceTypeDto);
+            serviceType.setStatus(Boolean.TRUE);
+            serviceType.setCreatedAt(LocalDateTime.now());
+            return serviceTypeMapper.mapToDto(serviceTypeRepository.save(serviceType));
+        }
     }
 
     @Override

@@ -38,7 +38,7 @@ public class ConductRuleServiceImpl implements ConductRuleService {
         if(conductRuleDto.getId() != null){
             conductRuleDto.setModifiedAt(LocalDateTime.now());
             return conductRuleMapper.mapToDto(conductRuleRepository.save(conductRuleMapper.mapToEntity(conductRuleDto)));
-        }else {
+        }else{
             ConductRule conductRule = conductRuleMapper.mapToEntity(conductRuleDto);
             conductRule.setStatus(Boolean.TRUE);
             conductRule.setCreatedAt(LocalDateTime.now());
