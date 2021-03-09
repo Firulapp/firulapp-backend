@@ -53,6 +53,6 @@ public class UserController {
 
     @PostMapping(value = ApiPaths.UPDATE_USER)
     public ResponseEntity<ObjectResponseDTO> updateUser(@RequestBody AppUserProfileDto appUserProfileDto) throws AppUserException{
-        return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.registerUser(appUserProfileDto)));
+        return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.updateUser(appUserProfileDto)));
     }
 }

@@ -26,6 +26,14 @@ public class AppUserDetailsServiceImpl implements AppUserDetailsService {
         if(appUserProfileDto.getId() != null){
             AppUserDetails appUserDetails = appUserDetailsRepository.findByUserId(userId);
             appUserDetails.setModifiedAt(LocalDateTime.now());
+            appUserDetails.setName(appUserProfileDto.getName());
+            appUserDetails.setSurname(appUserProfileDto.getSurname());
+            appUserDetails.setBirthDate(appUserProfileDto.getBirthDate());
+            appUserDetails.setCity(appUserProfileDto.getCity());
+            appUserDetails.setDocument(appUserProfileDto.getDocument());
+            appUserDetails.setDocumentType(appUserProfileDto.getDocumentType());
+            appUserDetails.setNotifications(appUserProfileDto.isNotifications());
+            appUserDetails.setProfilePicture(appUserProfileDto.getProfilePicture());
             return userDetailsMapper.mapToDto(appUserDetailsRepository.save(appUserDetails));
         }else{
             AppUserDetails appUserDetails = new AppUserDetails();
