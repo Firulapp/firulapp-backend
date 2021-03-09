@@ -17,11 +17,11 @@ public class AppUserException extends BusinessException{
     /**
      * Builds a User Not Found Exception
      *
-     * @param userId User id
+     * @param usernameOrId username or id not found
      * @return AppUserException
      */
-    public static AppUserException notFound(String username) {
-        return new AppUserException(NOT_FOUND, String.format("AppUser %s no encontrado" , username));
+    public static AppUserException notFound(String usernameOrId) {
+        return new AppUserException(NOT_FOUND, String.format("AppUser %s no encontrado" , usernameOrId));
     }
 
     public static AppUserException emailRegistered(String email) {
@@ -37,8 +37,7 @@ public class AppUserException extends BusinessException{
         return new AppUserException(PASSWORDS_DONT_MATCH, "Las contraseñas no coinciden");
     }
     public static AppUserException missingData() {
-        return new AppUserException(MISSING_DATA,
-                String.format("Faltan datos para realizar la accion"));
+        return new AppUserException(MISSING_DATA,"Faltan datos para realizar la accion");
     }
 }
 

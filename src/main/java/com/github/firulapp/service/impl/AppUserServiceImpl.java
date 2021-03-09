@@ -113,7 +113,7 @@ public class AppUserServiceImpl implements AppUserService {
             AppUserDetailsDto userDetails = appUserDetailsService.getByUserId(id);
             return prepareUserProfileDto(appUser, userDetails);
         }else{
-            throw AppUserException.notFound("null");
+            throw AppUserException.notFound(String.valueOf(id));
         }
     }
 
@@ -132,6 +132,7 @@ public class AppUserServiceImpl implements AppUserService {
                 userEntity.setUsername(userProfileDto.getUsername());
                 userEntity.setEmail(userProfileDto.getEmail());
                 userEntity.setModifiedAt(LocalDateTime.now());
+                userEntity.setEnabled(userProfileDto.getEnabled());
                 AppUser updatedUser = appUserRepository.save(userEntity);
 
                 AppUserDetailsDto updatedDetailsDto = appUserDetailsService.saveUserDetails(userProfileDto, userDetails.getUserId());
@@ -160,6 +161,7 @@ public class AppUserServiceImpl implements AppUserService {
         profileDto.setProfilePicture(userDetails.getProfilePicture());
         profileDto.setBirthDate(userDetails.getBirthDate());
         profileDto.setNotifications(userDetails.isNotifications());
+        profileDto.setEnabled(appUser.isEnabled());
         return profileDto;
     }
 }

@@ -9,6 +9,7 @@ public class AppUserProfileDto extends AppUserDetailsDto{
     private String encryptedPassword;
     private String confirmPassword;
     private String userType;
+    private Boolean enabled;
 
     public String getUsername() {
         return username;
@@ -50,6 +51,14 @@ public class AppUserProfileDto extends AppUserDetailsDto{
         this.userType = userType;
     }
 
+    public Boolean getEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -58,6 +67,7 @@ public class AppUserProfileDto extends AppUserDetailsDto{
                 .append("encryptedPassword", encryptedPassword)
                 .append("confirmPassword", confirmPassword)
                 .append("userType", userType)
+                .append("enabled", enabled)
                 .toString();
     }
 }
