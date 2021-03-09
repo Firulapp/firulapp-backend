@@ -99,7 +99,7 @@ public class ParamController {
     @DeleteMapping(value = ApiPaths.CONDUCT_RULE_ENDPOINTS)
     private ResponseEntity<Void> deleteConductRule(@RequestBody ConductRuleDto conductRuleDto) {
         conductRuleService.delete(conductRuleDto);
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = ApiPaths.HELP_PAGE_ENDPOINTS)

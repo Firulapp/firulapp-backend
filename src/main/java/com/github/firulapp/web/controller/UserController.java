@@ -3,7 +3,7 @@ package com.github.firulapp.web.controller;
 import com.github.firulapp.constants.ApiPaths;
 import com.github.firulapp.dto.AppSessionDto;
 import com.github.firulapp.dto.AppUserDto;
-import com.github.firulapp.dto.AppUserProfile;
+import com.github.firulapp.dto.AppUserProfileDto;
 import com.github.firulapp.exceptions.AppUserException;
 import com.github.firulapp.service.AppUserService;
 import com.github.firulapp.web.response.ListResponseDTO;
@@ -30,8 +30,8 @@ public class UserController {
     }
 
     @PostMapping(value = ApiPaths.REGISTER_URL)
-    public ResponseEntity<ObjectResponseDTO> register(@RequestBody AppUserProfile appUserProfile) throws AppUserException{
-        return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.registerUser(appUserProfile)));
+    public ResponseEntity<ObjectResponseDTO> register(@RequestBody AppUserProfileDto appUserProfileDto) throws AppUserException{
+        return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.registerUser(appUserProfileDto)));
     }
 
     @PostMapping(value = ApiPaths.LOGOUT_URL)
@@ -40,8 +40,19 @@ public class UserController {
         return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
-    @GetMapping(value = ApiPaths.GET_BY_TYPE)
+    @GetMapping(value = ApiPaths.GET_USER_BY_TYPE)
     public ResponseEntity<ListResponseDTO> getUserByType(@RequestParam String userType) {
         return ResponseEntity.ok(ListResponseDTO.success(appUserService.getUserByType(userType)));
+    }
+
+    @GetMapping(ApiPaths.GET_USER_PROFILE_BY_ID)
+    public ResponseEntity<ObjectResponseDTO> getProfileById(@PathVariable Long id) throws AppUserException {
+        return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.getUserById(id)));
+    }
+
+
+    @PostMapping(value = ApiPaths.UPDATE_USER)
+    public ResponseEntity<ObjectResponseDTO> updateUser(@RequestBody AppUserProfileDto appUserProfileDto) throws AppUserException{
+        return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.registerUser(appUserProfileDto)));
     }
 }

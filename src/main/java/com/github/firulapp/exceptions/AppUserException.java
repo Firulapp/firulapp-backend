@@ -8,6 +8,7 @@ public class AppUserException extends BusinessException{
     public static final String EMAIL_REGISTERED = BASE_ERROR + ".emailAlreadyExists";
     public static final String USERNAME_REGISTERED = BASE_ERROR + ".usernameAlreadyExists";
     public static final String PASSWORDS_DONT_MATCH = BASE_ERROR + ".passwordsDontMatch";
+    public static final String MISSING_DATA = BASE_ERROR + ".missing.data";
 
     public AppUserException(String errorCode, String message) {
         super(errorCode, message);
@@ -34,6 +35,10 @@ public class AppUserException extends BusinessException{
     }
     public static AppUserException passwordDoNotMatch() {
         return new AppUserException(PASSWORDS_DONT_MATCH, "Las contraseñas no coinciden");
+    }
+    public static AppUserException missingData() {
+        return new AppUserException(MISSING_DATA,
+                String.format("Faltan datos para realizar la accion"));
     }
 }
 

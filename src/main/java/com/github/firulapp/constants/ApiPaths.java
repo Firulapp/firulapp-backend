@@ -12,8 +12,9 @@ public class ApiPaths {
     public static final String LOGIN_URL = "/login";
     public static final String REGISTER_URL = "/register";
     public static final String LOGOUT_URL = "/logout";
-    public static final String GET_BY_TYPE = "/type";
-    public static final String GET_BY_ID = "/{id}";
+    public static final String GET_USER_BY_TYPE = "/type";
+    public static final String GET_USER_PROFILE_BY_ID = "/{id}";
+    public static final String UPDATE_USER = "/update";
 
     /**
      * Params endpoints' URLs

@@ -1,10 +1,8 @@
 package com.github.firulapp.dto;
 
-import com.github.firulapp.domain.AppUser;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class AppUserDetailsDto {
 
