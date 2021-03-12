@@ -116,3 +116,25 @@ CREATE TABLE cuidado_mascota(
     fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
     usuario_modificacion BIGINT
 );
+
+CREATE TABLE mascota(
+    id BIGSERIAL PRIMARY KEY,
+    id_usuario BIGINT REFERENCES usuario(id),
+    id_especie BIGINT REFERENCES especie_animal(id),
+    id_raza BIGINT REFERENCES raza_animal(id),
+    nombre VARCHAR(255),
+    fecha_nacimiento DATE,
+    edad INT,
+    tamanho VARCHAR(10),
+    ciudad VARCHAR(255),
+    direccion VARCHAR(255),
+    color_primario VARCHAR(255),
+    color_secundario VARCHAR(255),
+    estado BOOLEAN,
+    fotografia BYTEA,
+    descripcion VARCHAR(255),
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT
+);

@@ -37,7 +37,7 @@ public class UserController {
     @PostMapping(value = ApiPaths.LOGOUT_URL)
     public ResponseEntity<Void> logout(@RequestBody AppSessionDto appSessionDto)throws AppUserException{
         appUserService.userLogout(appSessionDto);
-        return new ResponseEntity<Void>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = ApiPaths.GET_USER_BY_TYPE)
@@ -49,7 +49,6 @@ public class UserController {
     public ResponseEntity<ObjectResponseDTO> getProfileById(@PathVariable Long id) throws AppUserException {
         return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.getUserById(id)));
     }
-
 
     @PostMapping(value = ApiPaths.UPDATE_USER)
     public ResponseEntity<ObjectResponseDTO> updateUser(@RequestBody AppUserProfileDto appUserProfileDto) throws AppUserException{
