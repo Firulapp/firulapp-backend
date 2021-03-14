@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface AppUserService {
 
-    AppUserDto registerUser(AppUserProfileDto registerUserDto) throws AppUserException;
+    AppSessionDto registerUser(AppUserProfileDto registerUserDto) throws AppUserException;
 
     AppSessionDto userLogin(AppUserDto userDto) throws AppUserException;
 

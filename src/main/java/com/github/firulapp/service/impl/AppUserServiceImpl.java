@@ -37,7 +37,7 @@ public class AppUserServiceImpl implements AppUserService {
     private AppUserMapper appUserMapper;
 
     @Override
-    public AppUserDto registerUser(AppUserProfileDto registerUserDto) throws AppUserException{
+    public AppSessionDto registerUser(AppUserProfileDto registerUserDto) throws AppUserException{
         if(appUserRepository.findByUsername(registerUserDto.getUsername()) == null){
             if(appUserRepository.findByEmail(registerUserDto.getEmail()) == null) {
                 if(registerUserDto.getEncryptedPassword().equals(registerUserDto.getConfirmPassword())) {
@@ -54,9 +54,7 @@ public class AppUserServiceImpl implements AppUserService {
 
                     appUserDetailsService.saveUserDetails(registerUserDto, appUser.getId());
                     AppUserDeviceDto userDeviceDto = appUserDeviceService.saveUserDevice(appUser.getId());
-                    appSessionService.initiateSession(appUser.getId(), userDeviceDto.getId());
-
-                    return appUserMapper.mapToDto(appUser);
+                    return appSessionService.initiateSession(appUser.getId(), userDeviceDto.getId());
                 }else{
                     throw AppUserException.passwordDoNotMatch();
                 }
