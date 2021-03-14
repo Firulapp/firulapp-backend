@@ -4,7 +4,7 @@ import com.github.firulapp.domain.AppUser;
 import com.github.firulapp.dto.AppSessionDto;
 import com.github.firulapp.dto.AppUserDeviceDto;
 import com.github.firulapp.dto.AppUserDto;
-import com.github.firulapp.dto.RegisterAppUserDto;
+import com.github.firulapp.dto.AppUserProfile;
 import com.github.firulapp.exceptions.AppUserException;
 import com.github.firulapp.mapper.impl.AppUserMapper;
 import com.github.firulapp.repository.AppUserRepository;
@@ -39,7 +39,7 @@ public class AppUserServiceImpl implements AppUserService {
     private AppUserMapper appUserMapper;
 
     @Override
-    public AppUserDto registerUser(RegisterAppUserDto registerUserDto) throws AppUserException{
+    public AppUserDto registerUser(AppUserProfile registerUserDto) throws AppUserException{
         if(appUserRepository.findByUsername(registerUserDto.getUsername()) == null){
             if(appUserRepository.findByEmail(registerUserDto.getEmail()) == null) {
                 if(registerUserDto.getEncryptedPassword().equals(registerUserDto.getConfirmPassword())) {

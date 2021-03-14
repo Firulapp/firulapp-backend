@@ -11,16 +11,28 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // For example: Use only Http Basic and not form login.
+
         http
                 .csrf().disable()
                 .authorizeRequests()
                 .antMatchers(ApiPaths.BASE_URL).permitAll()
-                .antMatchers(ApiPaths.USER_ENDPOINTS_URL+"/*").permitAll()
                 .antMatchers(ApiPaths.USER_ENDPOINTS_URL+ApiPaths.REGISTER_URL).permitAll()
                 .antMatchers(ApiPaths.USER_ENDPOINTS_URL+ApiPaths.LOGIN_URL).permitAll()
                 .antMatchers(ApiPaths.USER_ENDPOINTS_URL+ApiPaths.LOGOUT_URL).permitAll()
                 .antMatchers(ApiPaths.USER_ENDPOINTS_URL+ApiPaths.GET_BY_TYPE).permitAll()
+                .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.SPECIES_BY_ID).permitAll()
+                .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.SPECIES_ENDPOINTS).permitAll()
+                .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.BREED_BY_ID).permitAll()
+                .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.BREED_BY_SPECIES_ID).permitAll()
+                .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.BREED_ENDPOINTS).permitAll()
+                .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.CONDUCT_RULE_BY_ID).permitAll()
+                .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.CONDUCT_RULE_ENDPOINTS).permitAll()
+                .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.HELP_PAGE_BY_ID).permitAll()
+                .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.HELP_PAGE_ENDPOINTS).permitAll()
+                .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.SERVICE_TYPE_BY_ID).permitAll()
+                .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.SERVICE_TYPE_ENDPOINTS).permitAll()
+                .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.PET_CARE_BY_ID).permitAll()
+                .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.PET_CARE_ENDPOINTS).permitAll()
                 .anyRequest().authenticated()
                 .and().httpBasic();
 

@@ -3,7 +3,7 @@ package com.github.firulapp.web.controller;
 import com.github.firulapp.constants.ApiPaths;
 import com.github.firulapp.dto.AppSessionDto;
 import com.github.firulapp.dto.AppUserDto;
-import com.github.firulapp.dto.RegisterAppUserDto;
+import com.github.firulapp.dto.AppUserProfile;
 import com.github.firulapp.exceptions.AppUserException;
 import com.github.firulapp.service.AppUserService;
 import com.github.firulapp.web.response.ListResponseDTO;
@@ -30,8 +30,8 @@ public class UserController {
     }
 
     @PostMapping(value = ApiPaths.REGISTER_URL)
-    public ResponseEntity<ObjectResponseDTO> register(@RequestBody RegisterAppUserDto registerAppUserDto) throws AppUserException{
-        return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.registerUser(registerAppUserDto)));
+    public ResponseEntity<ObjectResponseDTO> register(@RequestBody AppUserProfile appUserProfile) throws AppUserException{
+        return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.registerUser(appUserProfile)));
     }
 
     @PostMapping(value = ApiPaths.LOGOUT_URL)

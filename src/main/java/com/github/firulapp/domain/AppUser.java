@@ -31,10 +31,10 @@ public class AppUser {
     private String userType;
 
     @Column(name = "habilitado", nullable = false)
-    private boolean enabled;
+    private Boolean enabled;
 
     @Column(name = "logueado", nullable = false)
-    private boolean loggedIn;
+    private Boolean loggedIn;
 
     @Column(name = "fecha_creacion", nullable = false)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
@@ -86,19 +86,19 @@ public class AppUser {
         this.userType = userType;
     }
 
-    public boolean isEnabled() {
+    public Boolean isEnabled() {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
     }
 
-    public boolean isLoggedIn() {
+    public Boolean isLoggedIn() {
         return loggedIn;
     }
 
-    public void setLoggedIn(boolean loggedIn) {
+    public void setLoggedIn(Boolean loggedIn) {
         this.loggedIn = loggedIn;
     }
 

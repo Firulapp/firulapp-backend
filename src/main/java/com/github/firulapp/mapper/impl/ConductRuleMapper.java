@@ -1,0 +1,45 @@
+package com.github.firulapp.mapper.impl;
+
+import com.github.firulapp.domain.ConductRule;
+import com.github.firulapp.dto.ConductRuleDto;
+import com.github.firulapp.mapper.BaseMapper;
+import com.github.firulapp.mapper.OrikaBeanMapper;
+import ma.glasnost.orika.MapperFacade;
+import org.springframework.stereotype.Component;
+
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+
+@Component
+public class ConductRuleMapper implements BaseMapper<ConductRule, ConductRuleDto> {
+
+    private OrikaBeanMapper mapper;
+
+    public ConductRuleMapper(OrikaBeanMapper mapper) {
+        this.mapper = mapper;
+    }
+
+    @Override
+    public List<ConductRuleDto> mapAsList(List<ConductRule> list) {
+        return list.stream()
+                .filter(Objects::nonNull)
+                .map(this::mapToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public ConductRuleDto mapToDto(ConductRule entity) {
+        return mapper.map(entity, ConductRuleDto.class);
+    }
+
+    @Override
+    public ConductRule mapToEntity(ConductRuleDto dto) {
+        return mapper.map(dto, ConductRule.class);
+    }
+
+    @Override
+    public MapperFacade getMapper() {
+        return null;
+    }
+}

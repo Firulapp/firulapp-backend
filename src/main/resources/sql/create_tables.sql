@@ -44,3 +44,75 @@ CREATE TABLE sesion_usuario(
     fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
     usuario_modificacion BIGINT
 );
+
+CREATE TABLE regla_conducta(
+    id BIGSERIAL PRIMARY KEY,
+    titulo VARCHAR(255) NOT NULL,
+    descripcion TEXT NOT NULL,
+    estado BOOLEAN NOT NULL DEFAULT TRUE,
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT
+);
+
+CREATE TABLE especie_animal(
+    id BIGSERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT NOT NULL,
+    estado BOOLEAN NOT NULL DEFAULT TRUE,
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT
+);
+
+CREATE TABLE raza_animal(
+    id BIGSERIAL PRIMARY KEY,
+    id_especie BIGINT NOT NULL REFERENCES especie_animal(id),
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT NOT NULL,
+    estado BOOLEAN NOT NULL DEFAULT TRUE,
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT
+);
+
+CREATE TABLE tipo_servicio(
+    id BIGSERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    descripcion TEXT NOT NULL,
+    estado BOOLEAN NOT NULL DEFAULT TRUE,
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT
+);
+
+CREATE TABLE ayuda(
+    id BIGSERIAL PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    descripcion TEXT NOT NULL,
+    estado BOOLEAN NOT NULL DEFAULT TRUE,
+    enlace VARCHAR(255),
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT
+);
+
+CREATE TABLE cuidado_mascota(
+    id BIGSERIAL PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL,
+    descripcion TEXT NOT NULL,
+    estado BOOLEAN NOT NULL DEFAULT TRUE,
+    imagen BYTEA,
+    link VARCHAR(255),
+    id_especie BIGINT REFERENCES especie_animal(id),
+    id_raza BIGINT REFERENCES raza_animal(id),
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT
+);

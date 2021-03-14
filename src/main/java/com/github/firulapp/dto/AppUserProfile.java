@@ -2,7 +2,7 @@ package com.github.firulapp.dto;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-public class RegisterAppUserDto extends AppUserDetailsDto{
+public class AppUserProfile extends AppUserDetailsDto{
 
     private String username;
     private String email;
