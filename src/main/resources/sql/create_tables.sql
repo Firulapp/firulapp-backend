@@ -10,6 +10,18 @@ CREATE TABLE usuario(
     fecha_modificacion TIMESTAMP WITHOUT TIME ZONE
 );
 
+CREATE TABLE ciudad(
+   id BIGSERIAL PRIMARY KEY NOT NULL,
+   nombre VARCHAR(100) NOT NULL,
+   departamento VARCHAR(100) NOT NULL,
+   pais VARCHAR(100) NOT NULL,
+   estado BOOLEAN,
+   fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+   usuario_creacion BIGINT NOT NULL,
+   fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+   usuario_modificacion BIGINT
+);
+
 CREATE TABLE detalle_usuario(
     id BIGSERIAL PRIMARY KEY,
     id_usuario BIGINT NOT NULL REFERENCES usuario(id),
@@ -17,7 +29,7 @@ CREATE TABLE detalle_usuario(
     tipo_documento VARCHAR(50) NOT NULL,
     nombres VARCHAR(100) NOT NULL,
     apellidos VARCHAR(100) NOT NULL,
-    ciudad VARCHAR(50) NOT NULL,
+    ciudad BIGINT REFERENCES ciudad(id) NOT NULL,
     foto_perfil BYTEA,
     fecha_nacimiento DATE NOT NULL,
     notificaciones BOOLEAN NOT NULL,
@@ -126,7 +138,7 @@ CREATE TABLE mascota(
     fecha_nacimiento DATE,
     edad INT,
     tamanho VARCHAR(10),
-    ciudad VARCHAR(255),
+    ciudad BIGINT REFERENCES ciudad(id),
     direccion VARCHAR(255),
     color_primario VARCHAR(255),
     color_secundario VARCHAR(255),
@@ -138,15 +150,3 @@ CREATE TABLE mascota(
     fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
     usuario_modificacion BIGINT
 );
-
-CREATE TABLE ciudad(
-    id BIGSERIAL PRIMARY KEY NOT NULL,
-    nombre VARCHAR(100) NOT NULL,
-    departamento VARCHAR(100) NOT NULL,
-    pais VARCHAR(100) NOT NULL,
-    estado BOOLEAN,
-    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-    usuario_creacion BIGINT NOT NULL,
-    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
-    usuario_modificacion BIGINT
-)
