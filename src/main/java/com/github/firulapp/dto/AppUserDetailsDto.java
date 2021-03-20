@@ -12,7 +12,7 @@ public class AppUserDetailsDto {
     private String documentType;
     private String name;
     private String surname;
-    private String city;
+    private Long city;
     private byte[] profilePicture;
     private LocalDate birthDate;
     private Boolean notifications;
@@ -65,11 +65,11 @@ public class AppUserDetailsDto {
         this.surname = surname;
     }
 
-    public String getCity() {
+    public Long getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(Long city) {
         this.city = city;
     }
 

@@ -15,7 +15,7 @@ public class PetDto {
     private LocalDate birthDate;
     private int age;
     private String petSize;
-    private String city;
+    private Long city;
     private String address;
     private String primaryColor;
     private String secondaryColor;
@@ -91,11 +91,11 @@ public class PetDto {
         this.petSize = petSize;
     }
 
-    public String getCity() {
+    public Long getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(Long city) {
         this.city = city;
     }
 

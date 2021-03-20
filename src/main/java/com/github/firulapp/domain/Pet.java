@@ -38,7 +38,7 @@ public class Pet {
     private String petSize;
 
     @Column(name = "ciudad")
-    private String city;
+    private Long city;
 
     @Column(name = "direccion")
     private String address;
@@ -134,11 +134,11 @@ public class Pet {
         this.petSize = petSize;
     }
 
-    public String getCity() {
+    public Long getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(Long city) {
         this.city = city;
     }
 
