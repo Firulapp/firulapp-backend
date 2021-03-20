@@ -21,6 +21,10 @@ public class ObjectResponseDTO<T> extends BaseResponseDTO {
         this.dto = dto;
     }
 
+    public ObjectResponseDTO(boolean success, String errorCode, String message, HttpStatus httpStatus) {
+        super(success, errorCode, message, httpStatus);
+    }
+
     public T getDto() {
         return dto;
     }
@@ -33,4 +37,7 @@ public class ObjectResponseDTO<T> extends BaseResponseDTO {
         return new ObjectResponseDTO(true, HttpStatus.OK, dto);
     }
 
+    public static ObjectResponseDTO error(String errorCode, String errorMessage, HttpStatus httpStatus){
+        return new ObjectResponseDTO(false, errorCode, errorMessage, httpStatus);
+    }
 }

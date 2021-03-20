@@ -27,7 +27,12 @@ public class BaseResponseDTO {
     public BaseResponseDTO(boolean success, HttpStatus httpStatus) {
         this.success = success;
         this.httpStatus = httpStatus;
+    }
+    public BaseResponseDTO(boolean success, String errorCode, String message, HttpStatus httpStatus) {
+        this.success = success;
+        this.errorCode = errorCode;
         this.message = message;
+        this.httpStatus = httpStatus;
     }
 
     protected BaseResponseDTO(Builder<?> builder) {
