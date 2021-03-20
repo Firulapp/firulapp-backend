@@ -138,3 +138,15 @@ CREATE TABLE mascota(
     fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
     usuario_modificacion BIGINT
 );
+
+CREATE TABLE ciudad(
+    id BIGSERIAL PRIMARY KEY NOT NULL,
+    nombre VARCHAR(100) NOT NULL,
+    departamento VARCHAR(100) NOT NULL,
+    pais VARCHAR(100) NOT NULL,
+    estado BOOLEAN,
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT
+)
