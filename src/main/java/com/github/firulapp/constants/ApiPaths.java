@@ -34,6 +34,10 @@ public class ApiPaths {
     public static final String SERVICE_TYPE_BY_ID = SERVICE_TYPE_ENDPOINTS + ID;
     public static final String PET_CARE_ENDPOINTS = "/petcare";
     public static final String PET_CARE_BY_ID = PET_CARE_ENDPOINTS + ID;
+    public static final String CITY_ENDPOINTS = "/city";
+    public static final String CITY_BY_ID = CITY_ENDPOINTS + ID;
+    public static final String CITY_BY_COUNTRY = CITY_ENDPOINTS + "/pais/{pais}";
+    public static final String CITY_BY_DISTRICT = CITY_BY_COUNTRY + "/departamento/{departamento}";
 
     /**
      * Pet endpoints' URLs
