@@ -140,129 +140,329 @@
 			"name": "Params",
 			"item": [
 				{
-					"name": "GetAllSpecies",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{SERVER_URL}}/param/species",
-							"host": [
-								"{{SERVER_URL}}"
-							],
-							"path": [
-								"param",
-								"species"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetSpeciesById",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{SERVER_URL}}/param/species/1",
-							"host": [
-								"{{SERVER_URL}}"
-							],
-							"path": [
-								"param",
-								"species",
-								"1"
-							],
-							"query": [
-								{
-									"key": "id",
-									"value": "1",
-									"disabled": true
+					"name": "Especies",
+					"item": [
+						{
+							"name": "GetAllSpecies",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/species",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"species"
+									]
 								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SaveConductRule",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": null,\n    \"name\": \"Reglas de Conducta de Firulapp\",\n    \"description\": \"Estas son las reglas de comportamiento para los usuarios de la aplicación\",\n    \"status\": true,\n    \"createdAt\": null,\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{SERVER_URL}}/param/rules",
-							"host": [
-								"{{SERVER_URL}}"
-							],
-							"path": [
-								"param",
-								"rules"
-							]
+						{
+							"name": "GetSpeciesById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/species/1",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"species",
+										"1"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SaveSpecies",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": null,\n    \"name\": \"Cotorra\",\n    \"description\": \"Charlatanos repetidores\",\n    \"status\": true,\n    \"createdAt\": null,\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SERVER_URL}}/param/species",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"species"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteSpecies",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 5,\n    \"name\": \"Cotorra\",\n    \"description\": \"Charlatanos repetidores\",\n    \"status\": true,\n    \"createdAt\": \"2021-03-07T17:46:44.514724\",\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SERVER_URL}}/param/species",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"species"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "SaveSpecies",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": null,\n    \"name\": \"Cotorra\",\n    \"description\": \"Charlatanos repetidores\",\n    \"status\": true,\n    \"createdAt\": null,\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "Razas",
+					"item": [
+						{
+							"name": "GetAllBreeds",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/breed",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"breed"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{SERVER_URL}}/param/species",
-							"host": [
-								"{{SERVER_URL}}"
-							],
-							"path": [
-								"param",
-								"species"
-							]
+						{
+							"name": "GetBreedById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/breed/1",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"breed",
+										"1"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "DeleteSpecies",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": 5,\n    \"name\": \"Cotorra\",\n    \"description\": \"Charlatanos repetidores\",\n    \"status\": true,\n    \"createdAt\": \"2021-03-07T17:46:44.514724\",\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+					"name": "ReglasConducta",
+					"item": [
+						{
+							"name": "SaveConductRule",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": null,\n    \"name\": \"Reglas de Conducta de Firulapp\",\n    \"description\": \"Estas son las reglas de comportamiento para los usuarios de la aplicación\",\n    \"status\": true,\n    \"createdAt\": null,\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SERVER_URL}}/param/rules",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"rules"
+									]
 								}
-							}
+							},
+							"response": []
 						},
-						"url": {
-							"raw": "{{SERVER_URL}}/param/species",
-							"host": [
-								"{{SERVER_URL}}"
-							],
-							"path": [
-								"param",
-								"species"
-							]
+						{
+							"name": "GetAllConductRules",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/rules",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"rules"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetConductRuleById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/rules/1",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"rules",
+										"1"
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
+				},
+				{
+					"name": "Ciudades",
+					"item": [
+						{
+							"name": "GetAllCities",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/city",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"city"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCityById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/city/1",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"city",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCitiesByCountry",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/city/pais/Paraguay",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"city",
+										"pais",
+										"Paraguay"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCitiesByDepartamentoAndPais",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/city/pais/Paraguay/departamento/Cordillera",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"city",
+										"pais",
+										"Paraguay",
+										"departamento",
+										"Cordillera"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SaveCity",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": null,\n    \"name\": \"Nueva Colombia\",\n    \"district\": \"Cordillera\",\n    \"country\": \"Paraguay\",\n    \"status\": true,\n    \"createdAt\": null,\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SERVER_URL}}/param/city",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"city"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
