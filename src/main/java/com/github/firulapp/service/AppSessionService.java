@@ -1,7 +1,6 @@
 package com.github.firulapp.service;
 
 import com.github.firulapp.dto.AppSessionDto;
-import com.github.firulapp.dto.AppUserDeviceDto;
 
 public interface AppSessionService {
 

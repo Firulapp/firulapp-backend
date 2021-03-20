@@ -1,7 +1,6 @@
 package com.github.firulapp.service.impl;
 
 import com.github.firulapp.domain.AppUserDetails;
-import com.github.firulapp.domain.Breed;
 import com.github.firulapp.dto.AppUserDetailsDto;
 import com.github.firulapp.dto.AppUserProfileDto;
 import com.github.firulapp.mapper.impl.AppUserDetailsMapper;

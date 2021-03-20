@@ -1,7 +1,6 @@
 package com.github.firulapp.service.impl;
 
 import com.github.firulapp.domain.AppUser;
-import com.github.firulapp.domain.AppUserDetails;
 import com.github.firulapp.dto.*;
 import com.github.firulapp.exceptions.AppUserException;
 import com.github.firulapp.mapper.impl.AppUserMapper;

@@ -1,10 +1,8 @@
 package com.github.firulapp.service.impl;
 
 import com.github.firulapp.domain.Breed;
-import com.github.firulapp.domain.Species;
 import com.github.firulapp.dto.BreedDto;
 import com.github.firulapp.exceptions.BreedException;
-import com.github.firulapp.exceptions.SpeciesException;
 import com.github.firulapp.mapper.impl.BreedMapper;
 import com.github.firulapp.repository.BreedRepository;
 import com.github.firulapp.service.BreedService;

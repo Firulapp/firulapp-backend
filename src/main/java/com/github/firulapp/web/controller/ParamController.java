@@ -4,13 +4,11 @@ import com.github.firulapp.constants.ApiPaths;
 import com.github.firulapp.dto.*;
 import com.github.firulapp.exceptions.*;
 import com.github.firulapp.service.*;
-import com.github.firulapp.web.response.BaseResponseDTO;
 import com.github.firulapp.web.response.ListResponseDTO;
 import com.github.firulapp.web.response.ObjectResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
