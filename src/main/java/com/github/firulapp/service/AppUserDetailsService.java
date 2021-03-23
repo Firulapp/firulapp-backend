@@ -1,11 +1,13 @@
 package com.github.firulapp.service;
 
 import com.github.firulapp.dto.AppUserDetailsDto;
-import com.github.firulapp.dto.AppUserProfile;
+import com.github.firulapp.dto.AppUserProfileDto;
 
 public interface AppUserDetailsService {
 
-    void saveUserDetails(AppUserProfile appUserProfile, Long userId);
+    AppUserDetailsDto saveUserDetails(AppUserProfileDto appUserProfileDto, Long userId);
 
     AppUserDetailsDto updateUserDetails(AppUserDetailsDto appUserDetailsDto, Long modifiedByUserId);
+
+    AppUserDetailsDto getByUserId(Long userId);
 }

@@ -1,8 +1,9 @@
 package com.github.firulapp.service.impl;
 
 import com.github.firulapp.domain.AppUserDetails;
+import com.github.firulapp.domain.Breed;
 import com.github.firulapp.dto.AppUserDetailsDto;
-import com.github.firulapp.dto.AppUserProfile;
+import com.github.firulapp.dto.AppUserProfileDto;
 import com.github.firulapp.mapper.impl.AppUserDetailsMapper;
 import com.github.firulapp.repository.AppUserDetailsRepository;
 import com.github.firulapp.service.AppUserDetailsService;
@@ -21,19 +22,33 @@ public class AppUserDetailsServiceImpl implements AppUserDetailsService {
     private AppUserDetailsMapper userDetailsMapper;
 
     @Override
-    public void saveUserDetails(AppUserProfile appUserProfile, Long userId) {
-        AppUserDetails appUserDetails = new AppUserDetails();
-        appUserDetails.setUserId(userId);
-        appUserDetails.setName(appUserProfile.getName());
-        appUserDetails.setSurname(appUserProfile.getSurname());
-        appUserDetails.setBirthDate(appUserProfile.getBirthDate());
-        appUserDetails.setCity(appUserProfile.getCity());
-        appUserDetails.setDocument(appUserProfile.getDocument());
-        appUserDetails.setDocumentType(appUserProfile.getDocumentType());
-        appUserDetails.setNotifications(true);
-        appUserDetails.setProfilePicture(appUserProfile.getProfilePicture());
-        appUserDetails.setCreatedAt(LocalDateTime.now());
-        appUserDetailsRepository.save(appUserDetails);
+    public AppUserDetailsDto saveUserDetails(AppUserProfileDto appUserProfileDto, Long userId) {
+        if(appUserProfileDto.getId() != null){
+            AppUserDetails appUserDetails = appUserDetailsRepository.findByUserId(userId);
+            appUserDetails.setModifiedAt(LocalDateTime.now());
+            appUserDetails.setName(appUserProfileDto.getName());
+            appUserDetails.setSurname(appUserProfileDto.getSurname());
+            appUserDetails.setBirthDate(appUserProfileDto.getBirthDate());
+            appUserDetails.setCity(appUserProfileDto.getCity());
+            appUserDetails.setDocument(appUserProfileDto.getDocument());
+            appUserDetails.setDocumentType(appUserProfileDto.getDocumentType());
+            appUserDetails.setNotifications(appUserProfileDto.isNotifications());
+            appUserDetails.setProfilePicture(appUserProfileDto.getProfilePicture());
+            return userDetailsMapper.mapToDto(appUserDetailsRepository.save(appUserDetails));
+        }else{
+            AppUserDetails appUserDetails = new AppUserDetails();
+            appUserDetails.setUserId(userId);
+            appUserDetails.setName(appUserProfileDto.getName());
+            appUserDetails.setSurname(appUserProfileDto.getSurname());
+            appUserDetails.setBirthDate(appUserProfileDto.getBirthDate());
+            appUserDetails.setCity(appUserProfileDto.getCity());
+            appUserDetails.setDocument(appUserProfileDto.getDocument());
+            appUserDetails.setDocumentType(appUserProfileDto.getDocumentType());
+            appUserDetails.setNotifications(true);
+            appUserDetails.setProfilePicture(appUserProfileDto.getProfilePicture());
+            appUserDetails.setCreatedAt(LocalDateTime.now());
+            return userDetailsMapper.mapToDto(appUserDetailsRepository.save(appUserDetails));
+        }
     }
 
     @Override
@@ -42,5 +57,10 @@ public class AppUserDetailsServiceImpl implements AppUserDetailsService {
         userDetails.setModifiedAt(LocalDateTime.now());
         userDetails.setModifiedBy(modifiedByUserId);
         return userDetailsMapper.mapToDto(appUserDetailsRepository.save(userDetails));
+    }
+
+    @Override
+    public AppUserDetailsDto getByUserId(Long userId) {
+        return userDetailsMapper.mapToDto(appUserDetailsRepository.findByUserId(userId));
     }
 }
