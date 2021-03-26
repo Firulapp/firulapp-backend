@@ -13,7 +13,7 @@ public interface AppUserService {
 
     AppSessionDto userLogin(AppUserDto userDto) throws AppUserException;
 
-    void userLogout(AppSessionDto appSessionDto) throws AppUserException;
+    void userLogout(AppSessionDto appSessionDto);
 
     List<AppUserDto> getUserByType(String userType);
 
