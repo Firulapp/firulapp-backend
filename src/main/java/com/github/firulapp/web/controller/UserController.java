@@ -25,17 +25,25 @@ public class UserController {
     private AppUserService appUserService;
 
     @PostMapping(value = ApiPaths.LOGIN_URL)
-    public ResponseEntity<ObjectResponseDTO> login(@RequestBody AppUserDto appUser) throws AppUserException {
-        return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.userLogin(appUser)));
+    public ResponseEntity<ObjectResponseDTO> login(@RequestBody AppUserDto appUser) {
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.userLogin(appUser)));
+        } catch (AppUserException exception){
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping(value = ApiPaths.REGISTER_URL)
-    public ResponseEntity<ObjectResponseDTO> register(@RequestBody AppUserProfileDto appUserProfileDto) throws AppUserException{
-        return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.registerUser(appUserProfileDto)));
+    public ResponseEntity<ObjectResponseDTO> register(@RequestBody AppUserProfileDto appUserProfileDto){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.registerUser(appUserProfileDto)));
+        } catch (AppUserException exception){
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping(value = ApiPaths.LOGOUT_URL)
-    public ResponseEntity<Void> logout(@RequestBody AppSessionDto appSessionDto)throws AppUserException{
+    public ResponseEntity<Void> logout(@RequestBody AppSessionDto appSessionDto){
         appUserService.userLogout(appSessionDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -46,12 +54,20 @@ public class UserController {
     }
 
     @GetMapping(ApiPaths.GET_USER_PROFILE_BY_ID)
-    public ResponseEntity<ObjectResponseDTO> getProfileById(@PathVariable Long id) throws AppUserException {
-        return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.getUserById(id)));
+    public ResponseEntity<ObjectResponseDTO> getProfileById(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.getUserById(id)));
+        } catch (AppUserException exception){
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @PostMapping(value = ApiPaths.UPDATE_USER)
-    public ResponseEntity<ObjectResponseDTO> updateUser(@RequestBody AppUserProfileDto appUserProfileDto) throws AppUserException{
-        return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.updateUser(appUserProfileDto)));
+    public ResponseEntity<ObjectResponseDTO> updateUser(@RequestBody AppUserProfileDto appUserProfileDto){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.updateUser(appUserProfileDto)));
+        } catch (AppUserException exception){
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
     }
 }

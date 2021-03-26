@@ -6,13 +6,13 @@ import com.github.firulapp.exceptions.*;
 import com.github.firulapp.service.*;
 import com.github.firulapp.web.response.ListResponseDTO;
 import com.github.firulapp.web.response.ObjectResponseDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @Controller
 @RequestMapping(value = {ApiPaths.PARAM_ENDPOINTS_URL})
@@ -45,8 +45,12 @@ public class ParamController {
     }
 
     @GetMapping(value = ApiPaths.SPECIES_BY_ID)
-    public ResponseEntity<ObjectResponseDTO> getSpeciesById(@PathVariable Long id) throws SpeciesException {
-        return ResponseEntity.ok(ObjectResponseDTO.success(speciesService.getSpeciesById(id)));
+    public ResponseEntity<ObjectResponseDTO> getSpeciesById(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(speciesService.getSpeciesById(id)));
+        } catch (Exception e){
+            return new ResponseEntity<>(ObjectResponseDTO.error(SpeciesException.notFound(id).getErrorCode(), SpeciesException.notFound(id).getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(value = ApiPaths.SPECIES_ENDPOINTS)
@@ -66,8 +70,13 @@ public class ParamController {
     }
 
     @GetMapping(value = ApiPaths.BREED_BY_ID)
-    public ResponseEntity<ObjectResponseDTO> getBreedById(@PathVariable Long id) throws BreedException {
-        return ResponseEntity.ok(ObjectResponseDTO.success(breedService.getBreedById(id)));
+    public ResponseEntity<ObjectResponseDTO> getBreedById(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(breedService.getBreedById(id)));
+        } catch (Exception e){
+            BreedException exception = BreedException.notFound(id);
+            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(value = ApiPaths.BREED_ENDPOINTS)
@@ -92,8 +101,13 @@ public class ParamController {
     }
 
     @GetMapping(value = ApiPaths.CONDUCT_RULE_BY_ID)
-    public ResponseEntity<ObjectResponseDTO> getConductRuleById(@PathVariable Long id) throws ConductRuleException {
-        return ResponseEntity.ok(ObjectResponseDTO.success(conductRuleService.getRuleById(id)));
+    public ResponseEntity<ObjectResponseDTO> getConductRuleById(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(conductRuleService.getRuleById(id)));
+        } catch (Exception e){
+            ConductRuleException exception = ConductRuleException.notFound(id);
+            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(value = ApiPaths.CONDUCT_RULE_ENDPOINTS)
@@ -113,8 +127,13 @@ public class ParamController {
     }
 
     @GetMapping(value = ApiPaths.HELP_PAGE_BY_ID)
-    public ResponseEntity<ObjectResponseDTO> getHelpPageById(@PathVariable Long id) throws HelpPageException {
-        return ResponseEntity.ok(ObjectResponseDTO.success(helpPageService.getHelpPageById(id)));
+    public ResponseEntity<ObjectResponseDTO> getHelpPageById(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(helpPageService.getHelpPageById(id)));
+        } catch (Exception e){
+            HelpPageException exception = HelpPageException.notFound(id);
+            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(value = ApiPaths.HELP_PAGE_ENDPOINTS)
@@ -134,8 +153,13 @@ public class ParamController {
     }
 
     @GetMapping(value = ApiPaths.SERVICE_TYPE_BY_ID)
-    public ResponseEntity<ObjectResponseDTO> getServiceType(@PathVariable Long id) throws ServiceTypeException {
-        return ResponseEntity.ok(ObjectResponseDTO.success(serviceTypeService.getServiceTypeById(id)));
+    public ResponseEntity<ObjectResponseDTO> getServiceType(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(serviceTypeService.getServiceTypeById(id)));
+        } catch (Exception e){
+            ServiceTypeException exception = ServiceTypeException.notFound(id);
+            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(value = ApiPaths.SERVICE_TYPE_ENDPOINTS)
@@ -155,8 +179,13 @@ public class ParamController {
     }
 
     @GetMapping(value = ApiPaths.PET_CARE_BY_ID)
-    public ResponseEntity<ObjectResponseDTO> getPetCareId(@PathVariable Long id) throws PetCareException {
-        return ResponseEntity.ok(ObjectResponseDTO.success(petCareService.getPetCareById(id)));
+    public ResponseEntity<ObjectResponseDTO> getPetCareId(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(petCareService.getPetCareById(id)));
+        } catch (Exception e) {
+            PetCareException exception = PetCareException.notFound(id);
+            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(ApiPaths.PET_CARE_ENDPOINTS)
@@ -181,9 +210,7 @@ public class ParamController {
             return ResponseEntity.ok(ObjectResponseDTO.success(cityService.getCityById(id)));
         } catch (Exception e){
             CityException exception = CityException.notFound(id);
-            return ResponseEntity.of(Optional.of(
-                    ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND)
-            ));
+            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -204,9 +231,7 @@ public class ParamController {
             return ResponseEntity.ok(ObjectResponseDTO.success(cityService.saveCity(cityDto)));
         } catch (Exception e){
             CityException exception = CityException.duplicatedEntry(cityDto.getName(), cityDto.getCountry());
-            return ResponseEntity.of(Optional.of(
-                    ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST)
-            ));
+            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -217,9 +242,7 @@ public class ParamController {
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e){
             CityException exception = CityException.notFound(cityDto.getId());
-            return ResponseEntity.of(Optional.of(
-                    ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND)
-            ));
+            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
         }
     }
 }
