@@ -19,7 +19,7 @@ public class HelpPageException extends BusinessException implements Supplier<Hel
          * @return HelpPageException
          */
         public static HelpPageException notFound(Long id) {
-        return new HelpPageException(NOT_FOUND, String.format("Página de ayuda con id %n no encontrado" , id));
+        return new HelpPageException(NOT_FOUND, "Página de ayuda con id " + id + " no encontrado");
     }
 
         @Override

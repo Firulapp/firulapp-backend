@@ -24,11 +24,11 @@ public class PetException extends BusinessException implements Supplier<PetExcep
      * @return PetException
      */
     public static PetException notFound(Long id) {
-        return new PetException(NOT_FOUND, String.format("Mascota con id %n no encontrado" , id));
+        return new PetException(NOT_FOUND, "Mascota con " + id + " no encontrado");
     }
 
     public static PetException userPetsNotFound(Long userId) {
-        return new PetException(USER_PETS_NOT_FOUND, String.format("Mascotas de usuario con id %n no encontrado" , userId));
+        return new PetException(USER_PETS_NOT_FOUND, "Mascotas de usuario con id " + userId + " no encontrado");
     }
 
     public static PetException saveException(){
@@ -36,8 +36,9 @@ public class PetException extends BusinessException implements Supplier<PetExcep
     }
 
     public static PetException deleteFailed(PetDto petDto){
-        return new PetException(DELETE_FAILED, String.format("No se pudo eliminar el registro de la mascota %o", petDto));
+        return new PetException(DELETE_FAILED, "No se pudo eliminar el registro de la mascota " + petDto.toString());
     }
+
 
     @Override
     public PetException get() {
