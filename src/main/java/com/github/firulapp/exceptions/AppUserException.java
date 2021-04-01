@@ -17,21 +17,19 @@ public class AppUserException extends BusinessException{
     /**
      * Builds a User Not Found Exception
      *
-     * @param usernameOrId username or id not found
+     * @param usernameOrEmail username or id not found
      * @return AppUserException
      */
-    public static AppUserException notFound(String usernameOrId) {
-        return new AppUserException(NOT_FOUND, String.format("AppUser %s no encontrado" , usernameOrId));
+    public static AppUserException notFound(String usernameOrEmail) {
+        return new AppUserException(NOT_FOUND, "AppUser " + usernameOrEmail + " no encontrado");
     }
 
     public static AppUserException emailRegistered(String email) {
-        return new AppUserException(EMAIL_REGISTERED,
-                                    String.format("El email %s ya está registrado en la aplicación", email));
+        return new AppUserException(EMAIL_REGISTERED, "El email " + email + " ya está registrado en la aplicación");
     }
 
     public static AppUserException usernameRegistered(String username) {
-        return new AppUserException(USERNAME_REGISTERED,
-                                    String.format("El nombre de usuario %s ya existe", username));
+        return new AppUserException(USERNAME_REGISTERED, "El nombre de usuario " + username + " ya existe");
     }
     public static AppUserException passwordDoNotMatch() {
         return new AppUserException(PASSWORDS_DONT_MATCH, "Las contraseñas no coinciden");

@@ -19,7 +19,7 @@ public class BreedException extends BusinessException implements Supplier<BreedE
      * @return BreedException
      */
     public static BreedException notFound(Long id) {
-        return new BreedException(NOT_FOUND, String.format("Raza con id %n no encontrado" , id));
+        return new BreedException(NOT_FOUND, "Raza con id " + id + " no encontrado");
     }
 
     @Override

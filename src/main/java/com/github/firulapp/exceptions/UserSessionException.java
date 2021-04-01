@@ -12,12 +12,11 @@ public class UserSessionException extends BusinessException{
     }
 
     public static UserSessionException notFound() {
-        return new UserSessionException(NOT_FOUND, String.format("AppUserSession %s no encontrado"));
+        return new UserSessionException(NOT_FOUND, "AppUserSession no encontrado");
     }
 
     public static UserSessionException sessionExpired(String username) {
-        return new UserSessionException(SESSION_EXPIRED,
-                String.format("La sesión del usuario %s ha expirado", username));
+        return new UserSessionException(SESSION_EXPIRED, "La sesión del usuario " + username + " ha expirado");
     }
 
 }

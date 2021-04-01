@@ -1,5 +1,7 @@
 package com.github.firulapp.web.response;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -8,6 +10,8 @@ import org.springframework.http.HttpStatus;
 public class ObjectResponseDTO<T> extends BaseResponseDTO {
 
     private T dto;
+
+    private static final Logger logger = LoggerFactory.getLogger(ObjectResponseDTO.class);
 
     public ObjectResponseDTO() {
     }
@@ -38,6 +42,7 @@ public class ObjectResponseDTO<T> extends BaseResponseDTO {
     }
 
     public static ObjectResponseDTO error(String errorCode, String errorMessage, HttpStatus httpStatus){
+        logger.error(errorMessage);
         return new ObjectResponseDTO(false, errorCode, errorMessage, httpStatus);
     }
 }
