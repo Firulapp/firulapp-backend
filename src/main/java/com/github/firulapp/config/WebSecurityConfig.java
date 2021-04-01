@@ -44,6 +44,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.GET_PET_BY_USER_ID).permitAll()
                 .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.SAVE).permitAll()
                 .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.DELETE).permitAll()
+                .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.GET_PET_MEDICAL_RECORD_BY_PET_ID).permitAll()
+                .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.GET_PET_MEDICAL_RECORD_BY_PET_ID_AND_DATE).permitAll()
+                .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.GET_PET_MEDICAL_RECORD_BY_ID).permitAll()
+                .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.SAVE_OR_UPDATE_PET_MEDICAL_RECORD).permitAll()
+                .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.DELETE_PET_MEDICAL_RECORD).permitAll()
                 .anyRequest().authenticated()
                 .and().httpBasic();
 
