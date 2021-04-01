@@ -54,7 +54,7 @@ public class PetController {
         }
     }
 
-    @PostMapping(value = ApiPaths.SAVE_OR_UPDATE_PET_REGISTER)
+    @PostMapping(value = ApiPaths.SAVE)
     public ResponseEntity<ObjectResponseDTO> registerOrUpdatePet(@RequestBody PetDto petDto) {
         try {
             return ResponseEntity.ok(ObjectResponseDTO.success(petService.registerOrUpdatePet(petDto)));
@@ -63,7 +63,7 @@ public class PetController {
         }
     }
 
-    @DeleteMapping(value = ApiPaths.DELETE_PET_REGISTER)
+    @DeleteMapping(value = ApiPaths.DELETE)
     public ResponseEntity<Void> deletePetRegister(@RequestBody PetDto petDto) {
         try {
             petService.deletePetRegister(petDto);

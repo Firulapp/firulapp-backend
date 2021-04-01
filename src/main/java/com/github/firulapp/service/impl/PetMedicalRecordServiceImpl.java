@@ -1,6 +1,5 @@
 package com.github.firulapp.service.impl;
 
-import com.github.firulapp.domain.PetCare;
 import com.github.firulapp.domain.PetMedicalRecord;
 import com.github.firulapp.dto.PetMedicalRecordDto;
 import com.github.firulapp.exceptions.PetMedicalRecordException;

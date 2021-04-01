@@ -5,6 +5,9 @@ public class ApiPaths {
     public static final String API_PATTERN = "/api/.*";
     public static final String BASE_URL = "/api";
     public static final String ID = "/{id}";
+    public static final String SAVE = "/save";
+    public static final String DELETE = "/delete";
+    public static final String UPDATE = "/update";
 
     /**
      * User endpoints' URLs
@@ -15,7 +18,6 @@ public class ApiPaths {
     public static final String LOGOUT_URL = "/logout";
     public static final String GET_USER_BY_TYPE = "/type";
     public static final String GET_USER_PROFILE_BY_ID = ID;
-    public static final String UPDATE_USER = "/update";
 
     /**
      * Params endpoints' URLs
@@ -46,8 +48,16 @@ public class ApiPaths {
     public static final String GET_PET_BY_ID = ID;
     public static final String GET_PET_BY_USER_ID = "/user/{userId}";
     public static final String GET_PET_BY_USER_AND_SPECIES = GET_PET_BY_USER_ID + "/species/{speciesId}";
-    public static final String SAVE_OR_UPDATE_PET_REGISTER = "/save";
-    public static final String DELETE_PET_REGISTER = "/delete";
+
+    /**
+     * Pet Medical Records endpoints' URLs
+     */
+    public static final String PET_MEDICAL_RECORD_ENDPOINTS_URL = "/medical/record";
+    public static final String GET_PET_MEDICAL_RECORD_BY_ID = PET_MEDICAL_RECORD_ENDPOINTS_URL + ID;
+    public static final String GET_PET_MEDICAL_RECORD_BY_PET_ID = PET_MEDICAL_RECORD_ENDPOINTS_URL + "/{petId}";
+    public static final String GET_PET_MEDICAL_RECORD_BY_PET_ID_AND_DATE = GET_PET_MEDICAL_RECORD_BY_PET_ID + "/consultAt/{consultDate}";
+    public static final String SAVE_OR_UPDATE_PET_MEDICAL_RECORD = PET_MEDICAL_RECORD_ENDPOINTS_URL + SAVE;
+    public static final String DELETE_PET_MEDICAL_RECORD = PET_MEDICAL_RECORD_ENDPOINTS_URL + DELETE;
 
     private ApiPaths() {
 

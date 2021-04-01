@@ -62,7 +62,7 @@ public class UserController {
         }
     }
 
-    @PostMapping(value = ApiPaths.UPDATE_USER)
+    @PostMapping(value = ApiPaths.UPDATE)
     public ResponseEntity<ObjectResponseDTO> updateUser(@RequestBody AppUserProfileDto appUserProfileDto){
         try {
             return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.updateUser(appUserProfileDto)));
