@@ -150,3 +150,28 @@ CREATE TABLE mascota(
     fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
     usuario_modificacion BIGINT
 );
+
+CREATE TABLE ficha_medica_mascota(
+    id BIGSERIAL PRIMARY KEY,
+    id_mascota BIGINT REFERENCES mascota(id),
+    tratamiento TEXT,
+    observacion TEXT,
+    diagnostico TEXT,
+    recordatorio_tratamiento BOOLEAN,
+    peso_mascota BIGINT,
+    medida BIGINT,
+    fecha_consulta DATE NOT NULL,
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT
+);
+
+CREATE TABLE recordatorio_tratamiento_mascota(
+    id BIGSERIAL PRIMARY KEY,
+    id_ficha_medica BIGINT REFERENCES ficha_medica_mascota(id),
+    fecha_inicio DATE NOT NULL,
+    fecha_fin DATE,
+    hora_inicio TIME NOT NULL,
+    frecuencia_horas BIGINT
+)
