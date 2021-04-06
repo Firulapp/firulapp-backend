@@ -7,6 +7,7 @@ public class PetMedicalRecordDto {
 
     private Long id;
     private Long petId;
+    private String vet;
     private String treatment;
     private String observations;
     private String diagnostic;
@@ -33,6 +34,14 @@ public class PetMedicalRecordDto {
 
     public void setPetId(Long petId) {
         this.petId = petId;
+    }
+
+    public String getVet() {
+        return vet;
+    }
+
+    public void setVet(String vet) {
+        this.vet = vet;
     }
 
     public String getTreatment() {

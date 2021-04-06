@@ -17,6 +17,9 @@ public class PetMedicalRecord {
     @Column(name = "id_mascota")
     private Long petId;
 
+    @Column(name = "veterinaria")
+    private String vet;
+
     @Column(name = "tratamiento")
     private String treatment;
 
@@ -64,6 +67,14 @@ public class PetMedicalRecord {
 
     public void setPetId(Long idMascota) {
         this.petId = idMascota;
+    }
+
+    public String getVet() {
+        return vet;
+    }
+
+    public void setVet(String vet) {
+        this.vet = vet;
     }
 
     public String getTreatment() {
