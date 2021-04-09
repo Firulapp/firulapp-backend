@@ -14,7 +14,7 @@ public interface PetMedicalRecordService {
 
     PetMedicalRecordDto getPetMedicalRecordById(Long id) throws PetMedicalRecordException;
 
-    PetMedicalRecordDto savePetMedicalRecord(PetMedicalRecordDto petMedicalRecordDto);
+    PetMedicalRecordDto savePetMedicalRecord(PetMedicalRecordDto petMedicalRecordDto) throws PetMedicalRecordException;
 
     void deletePetMedicalRecord(PetMedicalRecordDto petMedicalRecordDto);
 }
