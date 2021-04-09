@@ -54,7 +54,7 @@ public class ApiPaths {
      */
     public static final String PET_MEDICAL_RECORD_ENDPOINTS_URL = "/medical/record";
     public static final String GET_PET_MEDICAL_RECORD_BY_ID = PET_MEDICAL_RECORD_ENDPOINTS_URL + ID;
-    public static final String GET_PET_MEDICAL_RECORD_BY_PET_ID = PET_MEDICAL_RECORD_ENDPOINTS_URL + "/{petId}";
+    public static final String GET_PET_MEDICAL_RECORD_BY_PET_ID = PET_MEDICAL_RECORD_ENDPOINTS_URL + "/pet/{petId}";
     public static final String GET_PET_MEDICAL_RECORD_BY_PET_ID_AND_DATE = GET_PET_MEDICAL_RECORD_BY_PET_ID + "/consultAt/{consultDate}";
     public static final String SAVE_OR_UPDATE_PET_MEDICAL_RECORD = PET_MEDICAL_RECORD_ENDPOINTS_URL + SAVE;
     public static final String DELETE_PET_MEDICAL_RECORD = PET_MEDICAL_RECORD_ENDPOINTS_URL + DELETE;
