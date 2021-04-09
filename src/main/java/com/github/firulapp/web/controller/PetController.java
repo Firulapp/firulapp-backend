@@ -3,9 +3,11 @@ package com.github.firulapp.web.controller;
 import com.github.firulapp.constants.ApiPaths;
 import com.github.firulapp.dto.PetDto;
 import com.github.firulapp.dto.PetMedicalRecordDto;
+import com.github.firulapp.dto.PetVaccinationRecordDto;
 import com.github.firulapp.exceptions.*;
 import com.github.firulapp.service.PetMedicalRecordService;
 import com.github.firulapp.service.PetService;
+import com.github.firulapp.service.PetVaccinationRecordService;
 import com.github.firulapp.web.response.ListResponseDTO;
 import com.github.firulapp.web.response.ObjectResponseDTO;
 import org.slf4j.Logger;
@@ -26,6 +28,8 @@ public class PetController {
     private PetService petService;
     @Autowired
     private PetMedicalRecordService petMedicalRecordService;
+    @Autowired
+    private PetVaccinationRecordService petVaccinationRecordService;
 
     private Logger logger = LoggerFactory.getLogger(PetController.class);
 
@@ -102,12 +106,45 @@ public class PetController {
 
     @PostMapping(value = ApiPaths.SAVE_OR_UPDATE_PET_MEDICAL_RECORD)
     public ResponseEntity<ObjectResponseDTO> savePetMedicalRecord(@RequestBody PetMedicalRecordDto dto) {
-        return ResponseEntity.ok(ObjectResponseDTO.success(petMedicalRecordService.savePetMedicalRecord(dto)));
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(petMedicalRecordService.savePetMedicalRecord(dto)));
+        } catch (PetMedicalRecordException exception){
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping(value = ApiPaths.DELETE_PET_MEDICAL_RECORD)
     public ResponseEntity<Void> deletePetMedicalRecord(@RequestBody PetMedicalRecordDto dto){
         petMedicalRecordService.deletePetMedicalRecord(dto);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = ApiPaths.GET_PET_VACCINATION_RECORD_BY_PET_ID)
+    public ResponseEntity<ListResponseDTO> getPetVaccinationRecordByPetId(@PathVariable(name = "petId") Long petId){
+        return ResponseEntity.ok(ListResponseDTO.success(petVaccinationRecordService.getPetVaccinationRecordsByPetId(petId)));
+    }
+
+    @GetMapping(value = ApiPaths.GET_PET_VACCINATION_RECORD_BY_ID)
+    public ResponseEntity<ObjectResponseDTO> getPetVaccinationRecordById(@PathVariable(name = "id") Long id){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(petVaccinationRecordService.getPetVaccinationRecordById(id)));
+        } catch (PetVaccinationRecordException exception){
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value = ApiPaths.SAVE_OR_UPDATE_PET_VACCINATION_RECORD)
+    public ResponseEntity<ObjectResponseDTO> savePetVaccinationRecord(@RequestBody PetVaccinationRecordDto dto) {
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(petVaccinationRecordService.savePetVaccinationRecord(dto)));
+        } catch (PetVaccinationRecordException exception){
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping(value = ApiPaths.DELETE_PET_VACCINATION_RECORD)
+    public ResponseEntity<Void> deletePetVaccinationRecord(@RequestBody PetVaccinationRecordDto dto){
+        petVaccinationRecordService.deletePetVaccinationRecord(dto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }
