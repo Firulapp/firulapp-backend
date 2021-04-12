@@ -24,7 +24,7 @@ public class PetVaccinationRecordServiceImpl implements PetVaccinationRecordServ
 
     @Override
     public List<PetVaccinationRecordDto> getPetVaccinationRecordsByPetId(Long petId) {
-        return vaccinationRecordMapper.mapAsList(vaccinationRecordRepository.findByPetId(petId));
+        return vaccinationRecordMapper.mapAsList(vaccinationRecordRepository.findByPetIdOrderByVaccinationDate(petId));
     }
 
     @Override
