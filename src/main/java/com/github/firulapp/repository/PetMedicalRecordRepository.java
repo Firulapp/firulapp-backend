@@ -10,7 +10,7 @@ import java.util.List;
 @Component
 public interface PetMedicalRecordRepository extends JpaRepository<PetMedicalRecord, Long> {
 
-    List<PetMedicalRecord> findByPetIdOrdeOrderByConsultedAtDesc(Long petId);
+    List<PetMedicalRecord> findByPetIdOrderByConsultedAtDesc(Long petId);
 
     List<PetMedicalRecord> findByPetIdAndConsultedAt(Long petId, LocalDate consultedAt);
 }
