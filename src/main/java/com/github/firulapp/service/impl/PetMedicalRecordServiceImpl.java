@@ -25,7 +25,7 @@ public class PetMedicalRecordServiceImpl implements PetMedicalRecordService {
 
     @Override
     public List<PetMedicalRecordDto> getPetMedicalRecordsByPetId(Long petId) {
-        return petMedicalRecordMapper.mapAsList(petMedicalRecordRepository.findByPetIdOrdeOrderByConsultedAtDesc(petId));
+        return petMedicalRecordMapper.mapAsList(petMedicalRecordRepository.findByPetIdOrderByConsultedAtDesc(petId));
     }
 
     @Override
