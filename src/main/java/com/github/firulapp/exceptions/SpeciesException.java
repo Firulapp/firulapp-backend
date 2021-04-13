@@ -19,7 +19,7 @@ public class SpeciesException extends BusinessException implements Supplier<Spec
      * @return SpeciesException
      */
     public static SpeciesException notFound(Long id) {
-        return new SpeciesException(NOT_FOUND, String.format("Especies con id %n no encontrado" , id));
+        return new SpeciesException(NOT_FOUND, "Especies con id " + id + " no encontrado");
     }
 
     @Override

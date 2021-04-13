@@ -19,7 +19,7 @@ public class ConductRuleException extends BusinessException implements Supplier<
      * @return ConductRuleException
      */
     public static ConductRuleException notFound(Long id) {
-        return new ConductRuleException(NOT_FOUND, String.format("Regla de conducta con id %n no encontrada" , id));
+        return new ConductRuleException(NOT_FOUND, "Regla de conducta con id " + id + " no encontrada");
     }
 
     @Override

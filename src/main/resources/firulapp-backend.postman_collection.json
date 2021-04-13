@@ -6,94 +6,602 @@
 	},
 	"item": [
 		{
-			"name": "RegisterUser",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "// Cambiar los datos segun sea necesario\n{\n    \"id\": null,\n    \"userId\": null,\n    \"document\": \"1111111\",\n    \"documentType\": \"CI\",\n    \"name\": \"Admin\",\n    \"surname\": \"User\",\n    \"city\": \"Asunción\",\n    \"profilePicture\": null,\n    \"birthDate\": \"1998-06-26T00:00:00.000Z\",\n    \"notifications\": true,\n    \"username\": \"admin\",\n    \"email\": \"usermail@gmail.com\",\n    \"encryptedPassword\": \"admin\",\n    \"confirmPassword\": \"admin\",\n    \"userType\": \"ADMIN\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Users",
+			"item": [
+				{
+					"name": "GET UserProfileById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_URL}}/user/1",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"user",
+								"1"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/api/user/register",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"user",
-						"register"
-					]
+				{
+					"name": "RegisterUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// Cambiar los datos segun sea necesario\n{\n    \"id\": null,\n    \"userId\": null,\n    \"document\": \"1111111\",\n    \"documentType\": \"CI\",\n    \"name\": \"Admin\",\n    \"surname\": \"User\",\n    \"city\": \"Asunción\",\n    \"profilePicture\": null,\n    \"birthDate\": \"1998-06-26T00:00:00.000Z\",\n    \"notifications\": true,\n    \"username\": \"admin\",\n    \"email\": \"usermail@gmail.com\",\n    \"encryptedPassword\": \"admin\",\n    \"confirmPassword\": \"admin\",\n    \"userType\": \"ADMIN\",\n    \"enabled\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER_URL}}/user/register",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//cambiar los datos segun sea necesario\n{\n    \"id\": 1,\n    \"username\": \"jvillagra\",\n    \"email\": \"jazvillagra.jv@gmail.com\",\n    \"encryptedPassword\": \"jazvillagra\",\n    \"enabled\": true,\n    \"loguedIn\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER_URL}}/user/login",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "//cambiar los datos segun sea neceasrio\n{\n    \"id\": 1,\n    \"userId\": 1,\n    \"deviceId\": 1,\n    \"startDate\": \"2021-02-26T17:59:36.449779\",\n    \"endDate\": \"2021-02-26T17:59:36.449779\" ,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER_URL}}/user/logout",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"user",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateUser",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"userId\": 1,\n    \"document\": \"4549688\",\n    \"documentType\": \"CI\",\n    \"name\": \"Paula\",\n    \"surname\": \"Villagra\",\n    \"city\": \"Asunción\",\n    \"profilePicture\": null,\n    \"birthDate\": \"1998-06-27\",\n    \"notifications\": true,\n    \"username\": \"jvillagra\",\n    \"email\": \"jazvillagra.jv@gmail.com\",\n    \"encryptedPassword\": null,\n    \"confirmPassword\": null,\n    \"userType\": \"ADMIN\",\n    \"enabled\": true\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER_URL}}/user/update",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"user",
+								"update"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Login",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "//cambiar los datos segun sea necesario\n{\n    \"id\": 1,\n    \"username\": \"jvillagra\",\n    \"email\": \"jazvillagra.jv@gmail.com\",\n    \"encryptedPassword\": \"jazvillagra\",\n    \"enabled\": true,\n    \"loguedIn\": true\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Params",
+			"item": [
+				{
+					"name": "Especies",
+					"item": [
+						{
+							"name": "GetAllSpecies",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/species",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"species"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetSpeciesById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/species/1",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"species",
+										"1"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "1",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SaveSpecies",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": null,\n    \"name\": \"Cotorra\",\n    \"description\": \"Charlatanos repetidores\",\n    \"status\": true,\n    \"createdAt\": null,\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SERVER_URL}}/param/species",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"species"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteSpecies",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 5,\n    \"name\": \"Cotorra\",\n    \"description\": \"Charlatanos repetidores\",\n    \"status\": true,\n    \"createdAt\": \"2021-03-07T17:46:44.514724\",\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SERVER_URL}}/param/species",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"species"
+									]
+								}
+							},
+							"response": []
 						}
-					}
+					]
 				},
-				"url": {
-					"raw": "http://localhost:8080/api/user/login",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"user",
-						"login"
+				{
+					"name": "Razas",
+					"item": [
+						{
+							"name": "GetAllBreeds",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/breed",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"breed"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetBreedById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/breed/1",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"breed",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ReglasConducta",
+					"item": [
+						{
+							"name": "SaveConductRule",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": null,\n    \"name\": \"Reglas de Conducta de Firulapp\",\n    \"description\": \"Estas son las reglas de comportamiento para los usuarios de la aplicación\",\n    \"status\": true,\n    \"createdAt\": null,\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SERVER_URL}}/param/rules",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"rules"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllConductRules",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/rules",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"rules"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetConductRuleById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/rules/1",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"rules",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Ciudades",
+					"item": [
+						{
+							"name": "GetAllCities",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/city",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"city"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCityById",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/city/1",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"city",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCitiesByCountry",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/city/pais/Paraguay",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"city",
+										"pais",
+										"Paraguay"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetCitiesByDepartamentoAndPais",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/city/pais/Paraguay/departamento/Cordillera",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"city",
+										"pais",
+										"Paraguay",
+										"departamento",
+										"Cordillera"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SaveCity",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": null,\n    \"name\": \"Nueva Colombia\",\n    \"district\": \"Cordillera\",\n    \"country\": \"Paraguay\",\n    \"status\": true,\n    \"createdAt\": null,\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SERVER_URL}}/param/city",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"city"
+									]
+								}
+							},
+							"response": []
+						}
 					]
 				}
-			},
-			"response": []
+			]
 		},
 		{
-			"name": "Logout",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "//cambiar los datos segun sea neceasrio\n{\n    \"id\": 1,\n    \"userId\": 1,\n    \"asociatedAt\": \"2021-02-26T17:59:36.449779\",\n    \"disassociatedAt\": null ,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
-					"options": {
-						"raw": {
-							"language": "json"
+			"name": "Pets",
+			"item": [
+				{
+					"name": "SaveOrUpdatePet",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": null,\n    \"userId\": 1,\n    \"speciesId\": 1,\n    \"breedId\": 1,\n    \"name\": \"Popi\",\n    \"birthDate\": null,\n    \"age\": 1,\n    \"petSize\": \"Mediano\",\n    \"city\": \"Asunción\",\n    \"address\": \"Calle 2 y Ruta 1\",\n    \"primaryColor\": \"Marrón\",\n    \"secondaryColor\": null,\n    \"status\": true,\n    \"picture\": null,\n    \"description\": \"Saltarín de 3 patitas\",\n    \"createdAt\": null,\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER_URL}}/pet/save",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"pet",
+								"save"
+							]
 						}
-					}
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "http://localhost:8080/api/user/logout",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"user",
-						"logout"
-					]
+				{
+					"name": "deletePetRegister",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": 1,\n    \"userId\": 1,\n    \"speciesId\": 1,\n    \"breedId\": 1,\n    \"name\": \"Popi\",\n    \"birthDate\": null,\n    \"age\": 1,\n    \"petSize\": \"Mediano\",\n    \"city\": \"Asunción\",\n    \"address\": \"Calle 2 y Ruta 1\",\n    \"primaryColor\": \"Marrón\",\n    \"secondaryColor\": null,\n    \"status\": true,\n    \"picture\": null,\n    \"description\": \"Saltarín de 3 patitas\",\n    \"createdAt\": \"2021-03-11T20:38:30.196854\",\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER_URL}}/pet/delete",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"pet",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPetById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_URL}}/pet/1",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"pet",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPetByUserAndSpecies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_URL}}/pet/user/1/species/1",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"pet",
+								"user",
+								"1",
+								"species",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPetByUserId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_URL}}/pet/user/1",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"pet",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
-			},
-			"response": []
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
 		}
 	]
 }

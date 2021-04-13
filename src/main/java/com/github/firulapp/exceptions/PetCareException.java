@@ -19,7 +19,7 @@ public class PetCareException extends BusinessException implements Supplier<PetC
      * @return PetCareException
      */
     public static PetCareException notFound(Long id) {
-        return new PetCareException(NOT_FOUND, String.format("Recomendación de cuidado con id %n no encontrado" , id));
+        return new PetCareException(NOT_FOUND, "Recomendación de cuidado con id " + id + " no encontrada");
     }
 
     @Override

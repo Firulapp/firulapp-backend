@@ -41,8 +41,7 @@ public class AppUserDetails {
     private String surname;
 
     @Column(name = "ciudad")
-    @NotNull
-    private String city;
+    private Long city;
 
     @Column(name = "foto_perfil")
     private byte[] profilePicture;
@@ -117,11 +116,11 @@ public class AppUserDetails {
         this.surname = surname;
     }
 
-    public String getCity() {
+    public Long getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(Long city) {
         this.city = city;
     }
 

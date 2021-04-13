@@ -19,7 +19,7 @@ public class ServiceTypeException extends BusinessException implements Supplier<
      * @return ServiceTypeException
      */
     public static ServiceTypeException notFound(Long id) {
-        return new ServiceTypeException(NOT_FOUND, String.format("Tipo de servicio con id %n no encontrado" , id));
+        return new ServiceTypeException(NOT_FOUND, "Tipo de servicio con id " + id + " no encontrado");
     }
 
     @Override

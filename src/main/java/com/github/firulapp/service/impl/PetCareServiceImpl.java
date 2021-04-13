@@ -37,7 +37,7 @@ public class PetCareServiceImpl implements PetCareService {
     public PetCareDto savePetCare(PetCareDto petCareDto) {
         if(petCareDto.getId() != null) {
             petCareDto.setModifiedAt(LocalDateTime.now());
-            return petCareMapper.mapToDto(petCareMapper.mapToEntity(petCareDto));
+            return petCareMapper.mapToDto(petCareRepository.save(petCareMapper.mapToEntity(petCareDto)));
         }else{
             PetCare petCare = petCareMapper.mapToEntity(petCareDto);
             petCare.setStatus(Boolean.TRUE);

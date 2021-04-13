@@ -6,6 +6,8 @@ import com.github.firulapp.exceptions.*;
 import com.github.firulapp.service.*;
 import com.github.firulapp.web.response.ListResponseDTO;
 import com.github.firulapp.web.response.ObjectResponseDTO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,134 +36,213 @@ public class ParamController {
     @Autowired
     private PetCareService petCareService;
 
+    @Autowired
+    private CityService cityService;
+
     @GetMapping(value = ApiPaths.SPECIES_ENDPOINTS)
-    private ResponseEntity<ListResponseDTO> getAllSpecies(){
+    public ResponseEntity<ListResponseDTO> getAllSpecies(){
         return ResponseEntity.ok(ListResponseDTO.success(speciesService.getAllSpecies()));
     }
 
     @GetMapping(value = ApiPaths.SPECIES_BY_ID)
-    private ResponseEntity<ObjectResponseDTO> getSpeciesById(@PathVariable Long id) throws SpeciesException {
-        return ResponseEntity.ok(ObjectResponseDTO.success(speciesService.getSpeciesById(id)));
+    public ResponseEntity<ObjectResponseDTO> getSpeciesById(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(speciesService.getSpeciesById(id)));
+        } catch (Exception e){
+            return new ResponseEntity<>(ObjectResponseDTO.error(SpeciesException.notFound(id).getErrorCode(), SpeciesException.notFound(id).getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(value = ApiPaths.SPECIES_ENDPOINTS)
-    private ResponseEntity<ObjectResponseDTO> saveSpecies(@RequestBody SpeciesDto speciesDto) {
+    public ResponseEntity<ObjectResponseDTO> saveSpecies(@RequestBody SpeciesDto speciesDto) {
         return ResponseEntity.ok(ObjectResponseDTO.success(speciesService.saveSpecies(speciesDto)));
     }
 
     @DeleteMapping(value = ApiPaths.SPECIES_ENDPOINTS)
-    private ResponseEntity<Void> deleteSpeciesRegister(@RequestBody SpeciesDto speciesDto) {
+    public ResponseEntity<Void> deleteSpeciesRegister(@RequestBody SpeciesDto speciesDto) {
         speciesService.delete(speciesDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = ApiPaths.BREED_ENDPOINTS)
-    private ResponseEntity<ListResponseDTO> getAllBreeds(){
+    public ResponseEntity<ListResponseDTO> getAllBreeds(){
         return ResponseEntity.ok(ListResponseDTO.success(breedService.getAllBreeds()));
     }
 
     @GetMapping(value = ApiPaths.BREED_BY_ID)
-    private ResponseEntity<ObjectResponseDTO> getBreedById(@PathVariable Long id) throws BreedException {
-        return ResponseEntity.ok(ObjectResponseDTO.success(breedService.getBreedById(id)));
+    public ResponseEntity<ObjectResponseDTO> getBreedById(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(breedService.getBreedById(id)));
+        } catch (Exception e){
+            BreedException exception = BreedException.notFound(id);
+            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(value = ApiPaths.BREED_ENDPOINTS)
-    private ResponseEntity<ObjectResponseDTO> saveBreed(@RequestBody BreedDto breedDto){
+    public ResponseEntity<ObjectResponseDTO> saveBreed(@RequestBody BreedDto breedDto){
         return ResponseEntity.ok(ObjectResponseDTO.success(breedService.saveBreed(breedDto)));
     }
 
     @GetMapping(value = ApiPaths.BREED_BY_SPECIES_ID)
-    private ResponseEntity<ListResponseDTO> getBreedsBySpecies(@PathVariable(value = "id") Long speciesId){
+    public ResponseEntity<ListResponseDTO> getBreedsBySpecies(@PathVariable(value = "id") Long speciesId){
         return ResponseEntity.ok(ListResponseDTO.success(breedService.getBreedBySpeciesId(speciesId)));
     }
 
     @DeleteMapping(value = ApiPaths.BREED_ENDPOINTS)
-    private ResponseEntity<Void> deleteBreedRegister(@RequestBody BreedDto breedDto) {
+    public ResponseEntity<Void> deleteBreedRegister(@RequestBody BreedDto breedDto) {
         breedService.delete(breedDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = ApiPaths.CONDUCT_RULE_ENDPOINTS)
-    private ResponseEntity<ListResponseDTO> getAllConductRules(){
+    public ResponseEntity<ListResponseDTO> getAllConductRules(){
         return ResponseEntity.ok(ListResponseDTO.success(conductRuleService.getAllRules()));
     }
 
     @GetMapping(value = ApiPaths.CONDUCT_RULE_BY_ID)
-    private ResponseEntity<ObjectResponseDTO> getConductRuleById(@PathVariable Long id) throws ConductRuleException {
-        return ResponseEntity.ok(ObjectResponseDTO.success(conductRuleService.getRuleById(id)));
+    public ResponseEntity<ObjectResponseDTO> getConductRuleById(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(conductRuleService.getRuleById(id)));
+        } catch (Exception e){
+            ConductRuleException exception = ConductRuleException.notFound(id);
+            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(value = ApiPaths.CONDUCT_RULE_ENDPOINTS)
-    private ResponseEntity<ObjectResponseDTO> saveConductRule(@RequestBody ConductRuleDto conductRuleDto) {
+    public ResponseEntity<ObjectResponseDTO> saveConductRule(@RequestBody ConductRuleDto conductRuleDto) {
         return ResponseEntity.ok(ObjectResponseDTO.success(conductRuleService.saveConductRule(conductRuleDto)));
     }
 
     @DeleteMapping(value = ApiPaths.CONDUCT_RULE_ENDPOINTS)
-    private ResponseEntity<Void> deleteConductRule(@RequestBody ConductRuleDto conductRuleDto) {
+    public ResponseEntity<Void> deleteConductRule(@RequestBody ConductRuleDto conductRuleDto) {
         conductRuleService.delete(conductRuleDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = ApiPaths.HELP_PAGE_ENDPOINTS)
-    private ResponseEntity<ListResponseDTO> getAllHelpPages(){
+    public ResponseEntity<ListResponseDTO> getAllHelpPages(){
         return ResponseEntity.ok(ListResponseDTO.success(helpPageService.getAllHelpPages()));
     }
 
     @GetMapping(value = ApiPaths.HELP_PAGE_BY_ID)
-    private ResponseEntity<ObjectResponseDTO> getHelpPageById(@PathVariable Long id) throws HelpPageException {
-        return ResponseEntity.ok(ObjectResponseDTO.success(helpPageService.getHelpPageById(id)));
+    public ResponseEntity<ObjectResponseDTO> getHelpPageById(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(helpPageService.getHelpPageById(id)));
+        } catch (Exception e){
+            HelpPageException exception = HelpPageException.notFound(id);
+            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(value = ApiPaths.HELP_PAGE_ENDPOINTS)
-    private ResponseEntity<ObjectResponseDTO> saveHelpPage(@RequestBody HelpPageDto helpPageDto) {
+    public ResponseEntity<ObjectResponseDTO> saveHelpPage(@RequestBody HelpPageDto helpPageDto) {
         return ResponseEntity.ok(ObjectResponseDTO.success(helpPageService.saveHelpPage(helpPageDto)));
     }
 
     @DeleteMapping(value = ApiPaths.HELP_PAGE_ENDPOINTS)
-    private ResponseEntity<Void> deleteHelpPage(@RequestBody HelpPageDto helpPageDto) {
+    public ResponseEntity<Void> deleteHelpPage(@RequestBody HelpPageDto helpPageDto) {
         helpPageService.delete(helpPageDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = ApiPaths.SERVICE_TYPE_ENDPOINTS)
-    private ResponseEntity<ListResponseDTO> getAllServiceTypes(){
+    public ResponseEntity<ListResponseDTO> getAllServiceTypes(){
         return ResponseEntity.ok(ListResponseDTO.success(serviceTypeService.getAllServiceTypes()));
     }
 
     @GetMapping(value = ApiPaths.SERVICE_TYPE_BY_ID)
-    private ResponseEntity<ObjectResponseDTO> getServiceType(@PathVariable Long id) throws ServiceTypeException {
-        return ResponseEntity.ok(ObjectResponseDTO.success(serviceTypeService.getServiceTypeById(id)));
+    public ResponseEntity<ObjectResponseDTO> getServiceType(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(serviceTypeService.getServiceTypeById(id)));
+        } catch (Exception e){
+            ServiceTypeException exception = ServiceTypeException.notFound(id);
+            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(value = ApiPaths.SERVICE_TYPE_ENDPOINTS)
-    private ResponseEntity<ObjectResponseDTO> saveServiceType(@RequestBody ServiceTypeDto serviceTypeDto) {
+    public ResponseEntity<ObjectResponseDTO> saveServiceType(@RequestBody ServiceTypeDto serviceTypeDto) {
         return ResponseEntity.ok(ObjectResponseDTO.success(serviceTypeService.saveServiceType(serviceTypeDto)));
     }
 
     @DeleteMapping(value = ApiPaths.SERVICE_TYPE_ENDPOINTS)
-    private ResponseEntity<Void> deleteServiceType(@RequestBody ServiceTypeDto serviceTypeDto) {
+    public ResponseEntity<Void> deleteServiceType(@RequestBody ServiceTypeDto serviceTypeDto) {
         serviceTypeService.delete(serviceTypeDto);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = ApiPaths.PET_CARE_ENDPOINTS)
-    private ResponseEntity<ListResponseDTO> getAllPetCare(){
+    public ResponseEntity<ListResponseDTO> getAllPetCare(){
         return ResponseEntity.ok(ListResponseDTO.success(petCareService.getAllPetCares()));
     }
 
     @GetMapping(value = ApiPaths.PET_CARE_BY_ID)
-    private ResponseEntity<ObjectResponseDTO> getPetCareId(@PathVariable Long id) throws PetCareException {
-        return ResponseEntity.ok(ObjectResponseDTO.success(petCareService.getPetCareById(id)));
+    public ResponseEntity<ObjectResponseDTO> getPetCareId(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(petCareService.getPetCareById(id)));
+        } catch (Exception e) {
+            PetCareException exception = PetCareException.notFound(id);
+            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping(ApiPaths.PET_CARE_ENDPOINTS)
-    private ResponseEntity<ObjectResponseDTO> savePetCare(@RequestBody PetCareDto petCareDto) {
+    public ResponseEntity<ObjectResponseDTO> savePetCare(@RequestBody PetCareDto petCareDto) {
         return ResponseEntity.ok(ObjectResponseDTO.success(petCareService.savePetCare(petCareDto)));
     }
 
     @DeleteMapping(value = ApiPaths.PET_CARE_ENDPOINTS)
-    private ResponseEntity<Void> deletePetCareRegister(@RequestBody PetCareDto petCareDto) {
+    public ResponseEntity<Void> deletePetCareRegister(@RequestBody PetCareDto petCareDto) {
         petCareService.delete(petCareDto);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping(value = ApiPaths.CITY_ENDPOINTS)
+    public ResponseEntity<ObjectResponseDTO> getAllCities(){
+        return ResponseEntity.ok(ObjectResponseDTO.success(cityService.getAllCities()));
+    }
+
+    @GetMapping(value = ApiPaths.CITY_BY_ID)
+    public ResponseEntity<ObjectResponseDTO> getCityById(@PathVariable Long id){
+        try{
+            return ResponseEntity.ok(ObjectResponseDTO.success(cityService.getCityById(id)));
+        } catch (Exception e){
+            CityException exception = CityException.notFound(id);
+            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping(value = ApiPaths.CITY_BY_COUNTRY)
+    public ResponseEntity<ObjectResponseDTO> getCitiesByCountry(@PathVariable(name = "pais") String country){
+        return ResponseEntity.ok(ObjectResponseDTO.success(cityService.getCitiesByCountry(country)));
+    }
+
+    @GetMapping(value = ApiPaths.CITY_BY_DISTRICT)
+    public ResponseEntity<ObjectResponseDTO> getCitiesByDistrict(@PathVariable(name = "pais") String country,
+                                                                 @PathVariable(name = "departamento") String district){
+        return ResponseEntity.ok(ObjectResponseDTO.success(cityService.getCitiesByDistrictAndCountry(district, country)));
+    }
+
+    @PostMapping(value = ApiPaths.CITY_ENDPOINTS)
+    public ResponseEntity<ObjectResponseDTO> saveCity(@RequestBody CityDto cityDto) {
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(cityService.saveCity(cityDto)));
+        } catch (Exception e){
+            CityException exception = CityException.duplicatedEntry(cityDto.getName(), cityDto.getCountry());
+            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @DeleteMapping(value = ApiPaths.CITY_ENDPOINTS)
+    public ResponseEntity<ObjectResponseDTO> deleteCity(@RequestBody CityDto cityDto){
+        try {
+            cityService.deleteCity(cityDto);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (Exception e){
+            CityException exception = CityException.notFound(cityDto.getId());
+            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        }
     }
 }

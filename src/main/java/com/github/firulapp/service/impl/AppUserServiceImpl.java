@@ -1,7 +1,6 @@
 package com.github.firulapp.service.impl;
 
 import com.github.firulapp.domain.AppUser;
-import com.github.firulapp.domain.AppUserDetails;
 import com.github.firulapp.dto.*;
 import com.github.firulapp.exceptions.AppUserException;
 import com.github.firulapp.mapper.impl.AppUserMapper;
@@ -81,20 +80,23 @@ public class AppUserServiceImpl implements AppUserService {
             }else{
                 throw AppUserException.passwordDoNotMatch();
             }
-        }else {
-            throw AppUserException.notFound(userDto.getUsername().isEmpty() ? userDto.getUsername() : userDto.getEmail());
+        } else {
+            if(userDto.getUsername().isEmpty() || userDto.getUsername().isBlank()) {
+                throw AppUserException.notFound(userDto.getEmail());
+            }else{
+                throw AppUserException.notFound(userDto.getUsername());
+            }
         }
     }
 
     @Override
-    public void userLogout(AppSessionDto appSessionDto) throws AppUserException {
+    public void userLogout(AppSessionDto appSessionDto) {
         Optional<AppUser> appUser = appUserRepository.findById(appSessionDto.getUserId());
         if(appUser.isPresent()) {
             appSessionService.closeSession(appSessionDto);
             AppUser user = appUser.get();
             user.setLoggedIn(Boolean.FALSE);
             appUserRepository.save(user);
-
         }
     }
 
@@ -114,7 +116,6 @@ public class AppUserServiceImpl implements AppUserService {
             throw AppUserException.notFound(String.valueOf(id));
         }
     }
-
 
     @Override
     public AppUserProfileDto updateUser(AppUserProfileDto userProfileDto) throws AppUserException{

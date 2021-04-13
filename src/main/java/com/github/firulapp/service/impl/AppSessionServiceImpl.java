@@ -1,11 +1,8 @@
 package com.github.firulapp.service.impl;
 
 import com.github.firulapp.domain.AppSession;
-import com.github.firulapp.domain.AppUserDevice;
 import com.github.firulapp.dto.AppSessionDto;
-import com.github.firulapp.dto.AppUserDeviceDto;
 import com.github.firulapp.mapper.impl.AppSessionMapper;
-import com.github.firulapp.mapper.impl.AppUserDeviceMapper;
 import com.github.firulapp.repository.AppSessionRepository;
 import com.github.firulapp.service.AppSessionService;
 import org.springframework.beans.factory.annotation.Autowired;
