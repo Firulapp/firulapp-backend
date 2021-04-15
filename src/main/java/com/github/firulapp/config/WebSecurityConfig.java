@@ -1,7 +1,6 @@
 package com.github.firulapp.config;
 
 import com.github.firulapp.constants.ApiPaths;
-import io.swagger.annotations.Api;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -22,7 +21,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ApiPaths.USER_ENDPOINTS_URL+ApiPaths.LOGOUT_URL).permitAll()
                 .antMatchers(ApiPaths.USER_ENDPOINTS_URL+ApiPaths.GET_USER_BY_TYPE).permitAll()
                 .antMatchers(ApiPaths.USER_ENDPOINTS_URL+ApiPaths.GET_USER_PROFILE_BY_ID).permitAll()
-                .antMatchers(ApiPaths.USER_ENDPOINTS_URL+ApiPaths.UPDATE_USER).permitAll()
+                .antMatchers(ApiPaths.USER_ENDPOINTS_URL+ApiPaths.UPDATE).permitAll()
                 .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.SPECIES_BY_ID).permitAll()
                 .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.SPECIES_ENDPOINTS).permitAll()
                 .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.BREED_BY_ID).permitAll()
@@ -43,8 +42,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.GET_PET_BY_ID).permitAll()
                 .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.GET_PET_BY_USER_AND_SPECIES).permitAll()
                 .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.GET_PET_BY_USER_ID).permitAll()
-                .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.SAVE_OR_UPDATE_PET_REGISTER).permitAll()
-                .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.DELETE_PET_REGISTER).permitAll()
+                .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.SAVE).permitAll()
+                .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.DELETE).permitAll()
+                .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.GET_PET_MEDICAL_RECORD_BY_PET_ID).permitAll()
+                .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.GET_PET_MEDICAL_RECORD_BY_PET_ID_AND_DATE).permitAll()
+                .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.GET_PET_MEDICAL_RECORD_BY_ID).permitAll()
+                .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.SAVE_OR_UPDATE_PET_MEDICAL_RECORD).permitAll()
+                .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.DELETE_PET_MEDICAL_RECORD).permitAll()
                 .anyRequest().authenticated()
                 .and().httpBasic();
 
