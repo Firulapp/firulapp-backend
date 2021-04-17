@@ -182,10 +182,23 @@ CREATE TABLE vacunacion_mascota(
     usuario_modificacion BIGINT
 );
 
+CREATE TABLE actividad_mascota(
+    id BIGSERIAL PRIMARY KEY,
+    id_mascota BIGINT REFERENCES mascota(id),
+    fecha_actividad DATE,
+    hora_actividad TIME NOT NULL,
+    detalle TEXT NOT NULL,
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT
+);
+
 CREATE TABLE recordatorio_evento(
     id BIGSERIAL PRIMARY KEY,
     id_ficha_medica BIGINT REFERENCES ficha_medica_mascota(id) MATCH SIMPLE,
     id_vacunacion_mascota BIGINT REFERENCES vacunacion_mascota(id) MATCH SIMPLE,
+    id_actividad_mascota BIGINT REFERENCES mascota(id) MATCH SIMPLE,
     fecha_inicio DATE NOT NULL,
     fecha_fin DATE,
     hora_inicio TIME NOT NULL,
