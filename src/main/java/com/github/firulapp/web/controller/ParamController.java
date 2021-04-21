@@ -200,8 +200,8 @@ public class ParamController {
     }
 
     @GetMapping(value = ApiPaths.CITY_ENDPOINTS)
-    public ResponseEntity<ObjectResponseDTO> getAllCities(){
-        return ResponseEntity.ok(ObjectResponseDTO.success(cityService.getAllCities()));
+    public ResponseEntity<ListResponseDTO> getAllCities(){
+        return ResponseEntity.ok(ListResponseDTO.success(cityService.getAllCities()));
     }
 
     @GetMapping(value = ApiPaths.CITY_BY_ID)
@@ -215,14 +215,14 @@ public class ParamController {
     }
 
     @GetMapping(value = ApiPaths.CITY_BY_COUNTRY)
-    public ResponseEntity<ObjectResponseDTO> getCitiesByCountry(@PathVariable(name = "pais") String country){
-        return ResponseEntity.ok(ObjectResponseDTO.success(cityService.getCitiesByCountry(country)));
+    public ResponseEntity<ListResponseDTO> getCitiesByCountry(@PathVariable(name = "pais") String country){
+        return ResponseEntity.ok(ListResponseDTO.success(cityService.getCitiesByCountry(country)));
     }
 
     @GetMapping(value = ApiPaths.CITY_BY_DISTRICT)
-    public ResponseEntity<ObjectResponseDTO> getCitiesByDistrict(@PathVariable(name = "pais") String country,
+    public ResponseEntity<ListResponseDTO> getCitiesByDistrict(@PathVariable(name = "pais") String country,
                                                                  @PathVariable(name = "departamento") String district){
-        return ResponseEntity.ok(ObjectResponseDTO.success(cityService.getCitiesByDistrictAndCountry(district, country)));
+        return ResponseEntity.ok(ListResponseDTO.success(cityService.getCitiesByDistrictAndCountry(district, country)));
     }
 
     @PostMapping(value = ApiPaths.CITY_ENDPOINTS)

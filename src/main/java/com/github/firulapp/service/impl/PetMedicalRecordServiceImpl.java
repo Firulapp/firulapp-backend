@@ -40,10 +40,14 @@ public class PetMedicalRecordServiceImpl implements PetMedicalRecordService {
     }
 
     @Override
-    public PetMedicalRecordDto savePetMedicalRecord(PetMedicalRecordDto petMedicalRecordDto) {
+    public PetMedicalRecordDto savePetMedicalRecord(PetMedicalRecordDto petMedicalRecordDto) throws PetMedicalRecordException {
 
         if(petMedicalRecordDto.getId() != null){
-            petMedicalRecordDto.setModifiedAt(LocalDateTime.now());
+            if(petMedicalRecordDto.getModifiedBy()!=null) {
+                petMedicalRecordDto.setModifiedAt(LocalDateTime.now());
+            }else{
+                throw PetMedicalRecordException.missingData();
+            }
         } else {
             petMedicalRecordDto.setCreatedAt(LocalDateTime.now());
         }

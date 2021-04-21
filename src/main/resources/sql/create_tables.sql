@@ -24,12 +24,12 @@ CREATE TABLE ciudad(
 
 CREATE TABLE detalle_usuario(
     id BIGSERIAL PRIMARY KEY,
-    id_usuario BIGINT NOT NULL REFERENCES usuario(id),
+    id_usuario BIGINT NOT NULL REFERENCES usuario(id) ON DELETE CASCADE,
     nro_documento VARCHAR(18) NOT NULL,
     tipo_documento VARCHAR(50) NOT NULL,
     nombres VARCHAR(100) NOT NULL,
     apellidos VARCHAR(100) NOT NULL,
-    ciudad BIGINT REFERENCES ciudad(id) NOT NULL,
+    ciudad BIGINT REFERENCES ciudad(id) NOT NULL ON DELETE CASCADE,
     foto_perfil BYTEA,
     fecha_nacimiento DATE NOT NULL,
     notificaciones BOOLEAN NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE detalle_usuario(
 
 CREATE TABLE dispositivo_usuario(
     id BIGSERIAL PRIMARY KEY,
-    id_usuario BIGINT NOT NULL REFERENCES usuario(id),
+    id_usuario BIGINT NOT NULL REFERENCES usuario(id) ON DELETE CASCADE,
     fecha_asociacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     fecha_desasociacion TIMESTAMP WITHOUT TIME ZONE,
     fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
@@ -49,8 +49,8 @@ CREATE TABLE dispositivo_usuario(
 
 CREATE TABLE sesion_usuario(
     id BIGSERIAL PRIMARY KEY,
-    id_usuario BIGINT NOT NULL REFERENCES usuario(id),
-    id_dispositivo BIGINT NOT NULL REFERENCES dispositivo_usuario(id),
+    id_usuario BIGINT NOT NULL REFERENCES usuario(id) ON DELETE CASCADE,
+    id_dispositivo BIGINT NOT NULL REFERENCES dispositivo_usuario(id) ON DELETE CASCADE,
     fecha_inicio TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     fecha_fin TIMESTAMP WITHOUT TIME ZONE,
     fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
@@ -81,7 +81,7 @@ CREATE TABLE especie_animal(
 
 CREATE TABLE raza_animal(
     id BIGSERIAL PRIMARY KEY,
-    id_especie BIGINT NOT NULL REFERENCES especie_animal(id),
+    id_especie BIGINT NOT NULL REFERENCES especie_animal(id) ON DELETE CASCADE,
     nombre VARCHAR(100) NOT NULL,
     descripcion TEXT NOT NULL,
     estado BOOLEAN NOT NULL DEFAULT TRUE,
@@ -121,8 +121,8 @@ CREATE TABLE cuidado_mascota(
     estado BOOLEAN NOT NULL DEFAULT TRUE,
     imagen BYTEA,
     link VARCHAR(255),
-    id_especie BIGINT REFERENCES especie_animal(id),
-    id_raza BIGINT REFERENCES raza_animal(id),
+    id_especie BIGINT REFERENCES especie_animal(id) ON DELETE CASCADE,
+    id_raza BIGINT REFERENCES raza_animal(id) ON DELETE CASCADE,
     fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     usuario_creacion BIGINT NOT NULL,
     fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
@@ -131,14 +131,14 @@ CREATE TABLE cuidado_mascota(
 
 CREATE TABLE mascota(
     id BIGSERIAL PRIMARY KEY,
-    id_usuario BIGINT REFERENCES usuario(id),
-    id_especie BIGINT REFERENCES especie_animal(id),
-    id_raza BIGINT REFERENCES raza_animal(id),
+    id_usuario BIGINT REFERENCES usuario(id) ON DELETE CASCADE,
+    id_especie BIGINT REFERENCES especie_animal(id) ON DELETE CASCADE,
+    id_raza BIGINT REFERENCES raza_animal(id) ON DELETE CASCADE,
     nombre VARCHAR(255),
     fecha_nacimiento DATE,
     edad INT,
     tamanho VARCHAR(10),
-    ciudad BIGINT REFERENCES ciudad(id),
+    ciudad BIGINT REFERENCES ciudad(id) ON DELETE CASCADE,
     direccion VARCHAR(255),
     color_primario VARCHAR(255),
     color_secundario VARCHAR(255),
@@ -153,7 +153,7 @@ CREATE TABLE mascota(
 
 CREATE TABLE ficha_medica_mascota(
     id BIGSERIAL PRIMARY KEY,
-    id_mascota BIGINT REFERENCES mascota(id),
+    id_mascota BIGINT REFERENCES mascota(id) ON DELETE CASCADE,
     veterinaria VARCHAR(255) NOT NULL,
     tratamiento TEXT,
     observacion TEXT,
@@ -168,13 +168,28 @@ CREATE TABLE ficha_medica_mascota(
     usuario_modificacion BIGINT
 );
 
+CREATE TABLE vacunacion_mascota(
+    id BIGSERIAL PRIMARY KEY,
+    id_mascota BIGINT REFERENCES mascota(id) ON DELETE CASCADE,
+    veterinaria VARCHAR(255) NOT NULL,
+    recordatorio BOOLEAN NOT NULL,
+    vacuna VARCHAR(255) NOT NULL,
+    fecha_vacunacion DATE NOT NULL,
+    observacion TEXT,
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT
+);
+
 CREATE TABLE recordatorio_evento(
     id BIGSERIAL PRIMARY KEY,
-    id_ficha_medica BIGINT REFERENCES ficha_medica_mascota(id),
+    id_ficha_medica BIGINT REFERENCES ficha_medica_mascota(id) MATCH SIMPLE ON DELETE CASCADE,
+    id_vacunacion_mascota BIGINT REFERENCES vacunacion_mascota(id) MATCH SIMPLE ON DELETE CASCADE,
     fecha_inicio DATE NOT NULL,
     fecha_fin DATE,
     hora_inicio TIME NOT NULL,
     frecuencia_horas BIGINT,
     frecuencia_meses BIGINT,
     mensaje VARCHAR(255) NOT NULL
-)
+);
