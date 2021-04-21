@@ -153,7 +153,7 @@ CREATE TABLE mascota(
 
 CREATE TABLE ficha_medica_mascota(
     id BIGSERIAL PRIMARY KEY,
-    id_mascota BIGINT REFERENCES mascota(id),
+    id_mascota BIGINT REFERENCES mascota(id) ON DELETE CASCADE,
     veterinaria VARCHAR(255) NOT NULL,
     tratamiento TEXT,
     observacion TEXT,
@@ -170,7 +170,7 @@ CREATE TABLE ficha_medica_mascota(
 
 CREATE TABLE vacunacion_mascota(
     id BIGSERIAL PRIMARY KEY,
-    id_mascota BIGINT REFERENCES mascota(id),
+    id_mascota BIGINT REFERENCES mascota(id) ON DELETE CASCADE,
     veterinaria VARCHAR(255) NOT NULL,
     recordatorio BOOLEAN NOT NULL,
     vacuna VARCHAR(255) NOT NULL,
@@ -196,9 +196,8 @@ CREATE TABLE actividad_mascota(
 
 CREATE TABLE recordatorio_evento(
     id BIGSERIAL PRIMARY KEY,
-    id_ficha_medica BIGINT REFERENCES ficha_medica_mascota(id) MATCH SIMPLE,
-    id_vacunacion_mascota BIGINT REFERENCES vacunacion_mascota(id) MATCH SIMPLE,
-    id_actividad_mascota BIGINT REFERENCES mascota(id) MATCH SIMPLE,
+    id_ficha_medica BIGINT REFERENCES ficha_medica_mascota(id) MATCH SIMPLE ON DELETE CASCADE,
+    id_vacunacion_mascota BIGINT REFERENCES vacunacion_mascota(id) MATCH SIMPLE ON DELETE CASCADE,
     fecha_inicio DATE NOT NULL,
     fecha_fin DATE,
     hora_inicio TIME NOT NULL,
