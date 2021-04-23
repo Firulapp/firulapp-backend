@@ -8,7 +8,7 @@ public class PetActivityDto {
     private Long id;
     private Long petId;
     private LocalDate activityDate;
-    private LocalDate activityTime;
+    private LocalDateTime activityTime;
     private String detail;
     private LocalDateTime createdAt;
     private Long createdBy;
@@ -39,11 +39,11 @@ public class PetActivityDto {
         this.activityDate = activityDate;
     }
 
-    public LocalDate getActivityTime() {
+    public LocalDateTime getActivityTime() {
         return activityTime;
     }
 
-    public void setActivityTime(LocalDate activityTime) {
+    public void setActivityTime(LocalDateTime activityTime) {
         this.activityTime = activityTime;
     }
 

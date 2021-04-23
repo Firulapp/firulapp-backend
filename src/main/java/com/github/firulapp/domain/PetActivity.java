@@ -21,7 +21,7 @@ public class PetActivity {
     private LocalDate activityDate;
 
     @Column(name = "hora_actividad")
-    private LocalDate activityTime;
+    private LocalDateTime activityTime;
 
     @Column(name = "detalle")
     private String detail;
@@ -62,11 +62,11 @@ public class PetActivity {
         this.activityDate = activityDate;
     }
 
-    public LocalDate getActivityTime() {
+    public LocalDateTime getActivityTime() {
         return activityTime;
     }
 
-    public void setActivityTime(LocalDate activityTime) {
+    public void setActivityTime(LocalDateTime activityTime) {
         this.activityTime = activityTime;
     }
 
