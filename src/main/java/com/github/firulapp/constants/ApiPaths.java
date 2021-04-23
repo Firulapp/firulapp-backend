@@ -77,6 +77,11 @@ public class ApiPaths {
     public static final String SAVE_OR_UPDATE_PET_ACTIVITY = PET_ACTIVITY_ENDPOINT_URL + SAVE;
     public static final String DELETE_PET_ACTIVITY = PET_ACTIVITY_ENDPOINT_URL + DELETE;
 
+    /**
+     * User Agenda endpoints' URL
+     */
+    public static final String USER_AGENDA_ENDPOINT_URL = "/agenda/"+ ID;
+
     private ApiPaths() {
     }
 }

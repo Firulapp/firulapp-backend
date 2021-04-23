@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,7 +36,6 @@ public class PetActivityServiceImpl implements PetActivityService {
 
     @Override
     public PetActivityDto savePetActivity(PetActivityDto petActivityDto) throws PetActivityException {
-
         if(petActivityDto.getId() != null){
             if(petActivityDto.getModifiedBy()!=null) {
                 petActivityDto.setModifiedAt(LocalDateTime.now());
@@ -45,6 +45,10 @@ public class PetActivityServiceImpl implements PetActivityService {
         } else {
             petActivityDto.setCreatedAt(LocalDateTime.now());
         }
+        LocalDateTime formattedActivityTime = LocalDateTime.of(petActivityDto.getActivityDate(),
+                                                                LocalTime.of(petActivityDto.getActivityTime().getHour(),
+                                                                        petActivityDto.getActivityTime().getMinute()));
+        petActivityDto.setActivityTime(formattedActivityTime);
         return petActivityMapper.mapToDto(petActivityRepository.save(petActivityMapper.mapToEntity(petActivityDto)));
 
     }
