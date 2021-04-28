@@ -63,7 +63,7 @@ public class AgendaActivityServiceImpl implements AgendaActivityService {
                     agendaActivity.setActivityId(petActivity.getId());
                     agendaActivity.setActivityDate(petActivity.getActivityDate());
                     agendaActivity.setActivityTime(petActivity.getActivityTime());
-                    agendaActivity.setDetails(petActivity.getDetail());
+                    agendaActivity.setDetails(petActivity.getActivityTitle());
                     userAgenda.add(agendaActivity);
                 }
             }

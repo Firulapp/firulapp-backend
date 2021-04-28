@@ -23,6 +23,12 @@ public class PetActivity {
     @Column(name = "hora_actividad")
     private LocalDateTime activityTime;
 
+    @Column(name = "titulo")
+    private String activityTitle;
+
+    @Column(name = "recordatorio")
+    private Boolean reminders;
+
     @Column(name = "detalle")
     private String detail;
 
@@ -68,6 +74,14 @@ public class PetActivity {
 
     public void setActivityTime(LocalDateTime activityTime) {
         this.activityTime = activityTime;
+    }
+
+    public String getActivityTitle() {
+        return activityTitle;
+    }
+
+    public void setActivityTitle(String activityTitle) {
+        this.activityTitle = activityTitle;
     }
 
     public String getDetail() {

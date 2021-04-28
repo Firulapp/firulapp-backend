@@ -9,7 +9,9 @@ public class PetActivityDto {
     private Long petId;
     private LocalDate activityDate;
     private LocalDateTime activityTime;
+    private String activityTitle;
     private String detail;
+    private Boolean reminder;
     private LocalDateTime createdAt;
     private Long createdBy;
     private LocalDateTime modifiedAt;
@@ -45,6 +47,22 @@ public class PetActivityDto {
 
     public void setActivityTime(LocalDateTime activityTime) {
         this.activityTime = activityTime;
+    }
+
+    public String getActivityTitle() {
+        return activityTitle;
+    }
+
+    public void setActivityTitle(String activityTitle) {
+        this.activityTitle = activityTitle;
+    }
+
+    public Boolean getReminder() {
+        return reminder;
+    }
+
+    public void setReminder(Boolean reminder) {
+        this.reminder = reminder;
     }
 
     public String getDetail() {
