@@ -1,5 +1,6 @@
 package com.github.firulapp.service.impl;
 
+import com.github.firulapp.constants.PetStatus;
 import com.github.firulapp.domain.Pet;
 import com.github.firulapp.dto.PetDto;
 import com.github.firulapp.exceptions.AppUserException;
@@ -87,6 +88,15 @@ public class PetServiceImpl implements PetService {
             petRepository.delete(petMapper.mapToEntity(petDto));
         }catch(Exception e){
             throw PetException.deleteFailed(petDto);
+        }
+    }
+
+    @Override
+    public List<PetDto> getPetsForAdoption() throws PetException {
+        try {
+            return petMapper.mapAsList(petRepository.findByStatus(PetStatus.ADOPTAR));
+        } catch (Exception e){
+            throw PetException.notFound();
         }
     }
 }

@@ -39,6 +39,9 @@ public class PetException extends BusinessException implements Supplier<PetExcep
         return new PetException(DELETE_FAILED, "No se pudo eliminar el registro de la mascota " + petDto.toString());
     }
 
+    public static PetException notFound() {
+        return new PetException(NOT_FOUND, "No se encontraron registros con los parámetros requeridos");
+    }
 
     @Override
     public PetException get() {

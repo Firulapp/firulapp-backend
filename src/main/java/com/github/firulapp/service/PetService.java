@@ -19,4 +19,6 @@ public interface PetService {
     PetDto registerOrUpdatePet(PetDto petDto) throws PetException, AppUserException, SpeciesException, BreedException;
 
     void deletePetRegister(PetDto petDto) throws PetException;
+
+    List<PetDto> getPetsForAdoption() throws PetException;
 }
