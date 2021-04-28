@@ -175,4 +175,13 @@ public class PetController {
     public ResponseEntity<ListResponseDTO> getPetActivitiesByPetId(@PathVariable(name = "petId")Long petId){
         return ResponseEntity.ok(ListResponseDTO.success(petActivityService.getPetActivitiesByPetId(petId)));
     }
+
+    @GetMapping(value = ApiPaths.GET_PET_IN_ADOPTION)
+    public ResponseEntity<ListResponseDTO> getPetsForAdoption(){
+        try {
+            return ResponseEntity.ok(ListResponseDTO.success(petService.getPetsForAdoption()));
+        }catch (PetException exception){
+            return new ResponseEntity<>(ListResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
 }
