@@ -142,7 +142,7 @@ CREATE TABLE mascota(
     direccion VARCHAR(255),
     color_primario VARCHAR(255),
     color_secundario VARCHAR(255),
-    estado BOOLEAN,
+    estado VARCHAR(30),
     fotografia BYTEA,
     descripcion VARCHAR(255),
     fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,

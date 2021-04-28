@@ -1,5 +1,6 @@
 package com.github.firulapp.dto;
 
+import com.github.firulapp.constants.PetStatus;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.time.LocalDate;
@@ -19,7 +20,7 @@ public class PetDto {
     private String address;
     private String primaryColor;
     private String secondaryColor;
-    private Boolean status;
+    private PetStatus status;
     private byte[] picture;
     private String description;
     private LocalDateTime createdAt;
@@ -123,11 +124,11 @@ public class PetDto {
         this.secondaryColor = secondaryColor;
     }
 
-    public Boolean getStatus() {
+    public PetStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(PetStatus status) {
         this.status = status;
     }
 
