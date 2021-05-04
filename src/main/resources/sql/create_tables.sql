@@ -184,11 +184,12 @@ CREATE TABLE vacunacion_mascota(
 
 CREATE TABLE actividad_mascota(
     id BIGSERIAL PRIMARY KEY,
-    id_mascota BIGINT REFERENCES mascota(id),
+    id_mascota BIGINT REFERENCES mascota(id) ON DELETE CASCADE ,
     fecha_actividad DATE,
     hora_actividad TIME NOT NULL,
     titulo VARCHAR(255) NOT NULL,
     detalle TEXT NOT NULL,
+    recordatorio BOOLEAN NOT NULL,
     fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     usuario_creacion BIGINT NOT NULL,
     fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
