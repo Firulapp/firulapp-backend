@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
@@ -92,10 +93,10 @@ public class PetServiceImpl implements PetService {
     }
 
     @Override
-    public List<PetDto> getPetsForAdoption() throws PetException {
+    public List<PetDto> getPetByStatus(String status) throws PetException {
         try {
-            return petMapper.mapAsList(petRepository.findByStatus(PetStatus.ADOPTAR));
-        } catch (Exception e){
+            return petMapper.mapAsList(petRepository.findByStatus(PetStatus.valueOf(status.toUpperCase(Locale.ROOT))));
+        } catch (Exception e) {
             throw PetException.notFound();
         }
     }

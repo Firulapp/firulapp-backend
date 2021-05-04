@@ -20,5 +20,5 @@ public interface PetService {
 
     void deletePetRegister(PetDto petDto) throws PetException;
 
-    List<PetDto> getPetsForAdoption() throws PetException;
+    List<PetDto> getPetByStatus(String status) throws PetException;
 }

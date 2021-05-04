@@ -1,7 +1,6 @@
 package com.github.firulapp.web.controller;
 
 import com.github.firulapp.constants.ApiPaths;
-import com.github.firulapp.domain.PetActivity;
 import com.github.firulapp.dto.PetActivityDto;
 import com.github.firulapp.dto.PetDto;
 import com.github.firulapp.dto.PetMedicalRecordDto;
@@ -176,10 +175,10 @@ public class PetController {
         return ResponseEntity.ok(ListResponseDTO.success(petActivityService.getPetActivitiesByPetId(petId)));
     }
 
-    @GetMapping(value = ApiPaths.GET_PET_IN_ADOPTION)
-    public ResponseEntity<ListResponseDTO> getPetsForAdoption(){
+    @GetMapping(value = ApiPaths.GET_PET_BY_STATUS)
+    public ResponseEntity<ListResponseDTO> getPetsByStatus(@PathVariable(name = "status") String status){
         try {
-            return ResponseEntity.ok(ListResponseDTO.success(petService.getPetsForAdoption()));
+            return ResponseEntity.ok(ListResponseDTO.success(petService.getPetByStatus(status)));
         }catch (PetException exception){
             return new ResponseEntity<>(ListResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
