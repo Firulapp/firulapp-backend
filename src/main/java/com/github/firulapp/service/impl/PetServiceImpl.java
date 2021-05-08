@@ -2,17 +2,14 @@ package com.github.firulapp.service.impl;
 
 import com.github.firulapp.constants.PetStatus;
 import com.github.firulapp.domain.Pet;
+import com.github.firulapp.dto.AppUserProfileDto;
+import com.github.firulapp.dto.CityDto;
 import com.github.firulapp.dto.PetDto;
-import com.github.firulapp.exceptions.AppUserException;
-import com.github.firulapp.exceptions.BreedException;
-import com.github.firulapp.exceptions.PetException;
-import com.github.firulapp.exceptions.SpeciesException;
+import com.github.firulapp.exceptions.*;
 import com.github.firulapp.mapper.impl.PetMapper;
 import com.github.firulapp.repository.PetRepository;
-import com.github.firulapp.service.AppUserService;
-import com.github.firulapp.service.BreedService;
-import com.github.firulapp.service.PetService;
-import com.github.firulapp.service.SpeciesService;
+import com.github.firulapp.service.*;
+import com.github.firulapp.util.EmailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +35,11 @@ public class PetServiceImpl implements PetService {
 
     @Autowired
     private BreedService breedService;
+
+    @Autowired
+    private CityService cityService;
+
+    private EmailUtils emailUtils = new EmailUtils();
 
     @Override
     public List<PetDto> getPetsByUserId(Long userId) throws PetException {
@@ -98,6 +100,24 @@ public class PetServiceImpl implements PetService {
             return petMapper.mapAsList(petRepository.findByStatus(PetStatus.valueOf(status.toUpperCase(Locale.ROOT))));
         } catch (Exception e) {
             throw PetException.notFound();
+        }
+    }
+
+    @Override
+    public void requestPetAdoption(Long petId, Long requesterId) {
+        try {
+            PetDto pet = getPetById(petId);
+            AppUserProfileDto petOwner = appUserService.getUserById(pet.getUserId());
+
+            if(!requesterId.equals(petOwner.getId())){
+                AppUserProfileDto adoptingUser = appUserService.getUserById(requesterId);
+                CityDto cityDto = cityService.getCityById(adoptingUser.getCity());
+                emailUtils.sendAdoptionRequest(pet, adoptingUser, petOwner, cityDto);
+            } else {
+                throw PetException.adoptionError(requesterId, petId, pet.getUserId());
+            }
+        } catch (AppUserException | PetException | CityException e){
+            e.printStackTrace();
         }
     }
 }

@@ -1,10 +1,7 @@
 package com.github.firulapp.web.controller;
 
 import com.github.firulapp.constants.ApiPaths;
-import com.github.firulapp.dto.PetActivityDto;
-import com.github.firulapp.dto.PetDto;
-import com.github.firulapp.dto.PetMedicalRecordDto;
-import com.github.firulapp.dto.PetVaccinationRecordDto;
+import com.github.firulapp.dto.*;
 import com.github.firulapp.exceptions.*;
 import com.github.firulapp.service.PetActivityService;
 import com.github.firulapp.service.PetMedicalRecordService;
@@ -182,5 +179,11 @@ public class PetController {
         }catch (PetException exception){
             return new ResponseEntity<>(ListResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @PostMapping(value = ApiPaths.REQUEST_PET_ADOPTION)
+    public ResponseEntity<Void> requestPetAdoption(@PathVariable(name = "id") Long petId, @PathVariable(name = "userId") Long adoptingUserId){
+        petService.requestPetAdoption(petId, adoptingUserId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

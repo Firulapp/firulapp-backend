@@ -49,6 +49,7 @@ public class ApiPaths {
     public static final String GET_PET_BY_USER_ID = "/user/{userId}";
     public static final String GET_PET_BY_USER_AND_SPECIES = GET_PET_BY_USER_ID + "/species/{speciesId}";
     public static final String GET_PET_BY_STATUS = "/status/{status}";
+    public static final String REQUEST_PET_ADOPTION = GET_PET_BY_ID + "/adopt/{userId}";
 
     /**
      * Pet Medical Records endpoints' URLs
