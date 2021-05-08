@@ -123,4 +123,12 @@ public class PetActivity {
     public void setModifiedBy(Long modifiedBy) {
         this.modifiedBy = modifiedBy;
     }
+    
+    public Boolean getReminders(){
+        return reminders;
+    }
+    
+    public void setReminders(Boolean reminders){
+        this.reminders = reminders;
+    }
 }
