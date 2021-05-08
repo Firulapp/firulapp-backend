@@ -1,6 +1,10 @@
 package com.github.firulapp.web.controller;
 
 import com.github.firulapp.constants.ApiPaths;
+import com.github.firulapp.dto.PetActivityDto;
+import com.github.firulapp.dto.PetDto;
+import com.github.firulapp.dto.PetMedicalRecordDto;
+import com.github.firulapp.dto.PetVaccinationRecordDto;
 import com.github.firulapp.dto.*;
 import com.github.firulapp.exceptions.*;
 import com.github.firulapp.service.PetActivityService;
@@ -149,7 +153,7 @@ public class PetController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping(value = ApiPaths.GET_PET_ACTIVITY_BY_ID)
+    @GetMapping(value = ApiPaths.PET_ACTIVITY_BY_ID)
     public ResponseEntity<ObjectResponseDTO> getPetActivityById(@PathVariable(name = "id")Long id){
         try{
             return ResponseEntity.ok(ObjectResponseDTO.success(petActivityService.getPetActivityById(id)));
@@ -170,6 +174,16 @@ public class PetController {
     @GetMapping(value = ApiPaths.GET_PET_ACTIVITY_BY_PET_ID)
     public ResponseEntity<ListResponseDTO> getPetActivitiesByPetId(@PathVariable(name = "petId")Long petId){
         return ResponseEntity.ok(ListResponseDTO.success(petActivityService.getPetActivitiesByPetId(petId)));
+    }
+
+    @DeleteMapping(value = ApiPaths.PET_ACTIVITY_BY_ID)
+    public ResponseEntity<Void> deletePetActivity(@PathVariable(name = "id") Long id){
+        try {
+            petActivityService.deletePetActivity(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (PetActivityException exception) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @GetMapping(value = ApiPaths.GET_PET_BY_STATUS)

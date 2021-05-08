@@ -74,10 +74,9 @@ public class ApiPaths {
      * Pet Activity endpoints' URL
      */
     public static final String PET_ACTIVITY_ENDPOINT_URL = "/activity";
-    public static final String GET_PET_ACTIVITY_BY_ID = PET_ACTIVITY_ENDPOINT_URL + ID;
+    public static final String PET_ACTIVITY_BY_ID = PET_ACTIVITY_ENDPOINT_URL + ID;
     public static final String GET_PET_ACTIVITY_BY_PET_ID = PET_ACTIVITY_ENDPOINT_URL + "/pet/{petId}";
     public static final String SAVE_OR_UPDATE_PET_ACTIVITY = PET_ACTIVITY_ENDPOINT_URL + SAVE;
-    public static final String DELETE_PET_ACTIVITY = PET_ACTIVITY_ENDPOINT_URL + DELETE;
 
     /**
      * User Agenda endpoints' URL
