@@ -14,11 +14,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER_URL}}/user/1",
+							"raw": "https://firulapp.sodep.com.py/api/user/1",
+							"protocol": "https",
 							"host": [
-								"{{SERVER_URL}}"
+								"firulapp",
+								"sodep",
+								"com",
+								"py"
 							],
 							"path": [
+								"api",
 								"user",
 								"1"
 							]
@@ -33,7 +38,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "// Cambiar los datos segun sea necesario\n{\n    \"id\": null,\n    \"userId\": null,\n    \"document\": \"1111111\",\n    \"documentType\": \"CI\",\n    \"name\": \"Admin\",\n    \"surname\": \"User\",\n    \"city\": \"Asunción\",\n    \"profilePicture\": null,\n    \"birthDate\": \"1998-06-26T00:00:00.000Z\",\n    \"notifications\": true,\n    \"username\": \"admin\",\n    \"email\": \"usermail@gmail.com\",\n    \"encryptedPassword\": \"admin\",\n    \"confirmPassword\": \"admin\",\n    \"userType\": \"ADMIN\",\n    \"enabled\": true\n}",
+							"raw": "{\n    \"id\": null,\n    \"userId\": null,\n    \"document\": \"4549688\",\n    \"documentType\": \"CI\",\n    \"name\": \"Jazmin\",\n    \"surname\": \"Villagra\",\n    \"city\": 11,\n    \"profilePicture\": null,\n    \"birthDate\": \"1998-06-27T00:00:00.000Z\",\n    \"notifications\": true,\n    \"username\": \"jazvillagra\",\n    \"email\": \"jazvillagra.jv@gmail.com\",\n    \"encryptedPassword\": \"jazvillagra\",\n    \"confirmPassword\": \"jazvillagra\",\n    \"userType\": \"ADMIN\",\n    \"enabled\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -41,11 +46,16 @@
 							}
 						},
 						"url": {
-							"raw": "{{SERVER_URL}}/user/register",
+							"raw": "https://firulapp.sodep.com.py/api/user/register",
+							"protocol": "https",
 							"host": [
-								"{{SERVER_URL}}"
+								"firulapp",
+								"sodep",
+								"com",
+								"py"
 							],
 							"path": [
+								"api",
 								"user",
 								"register"
 							]
@@ -60,7 +70,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "//cambiar los datos segun sea necesario\n{\n    \"id\": 1,\n    \"username\": \"jvillagra\",\n    \"email\": \"jazvillagra.jv@gmail.com\",\n    \"encryptedPassword\": \"jazvillagra\",\n    \"enabled\": true,\n    \"loguedIn\": true\n}",
+							"raw": "{\n    \"id\": 1,\n    \"username\": \"jvillagra\",\n    \"email\": \"jazvillagra.jv@gmail.com\",\n    \"encryptedPassword\": \"jazvillagra\",\n    \"enabled\": true,\n    \"loguedIn\": true\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -114,7 +124,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": 1,\n    \"userId\": 1,\n    \"document\": \"4549688\",\n    \"documentType\": \"CI\",\n    \"name\": \"Paula\",\n    \"surname\": \"Villagra\",\n    \"city\": \"Asunción\",\n    \"profilePicture\": null,\n    \"birthDate\": \"1998-06-27\",\n    \"notifications\": true,\n    \"username\": \"jvillagra\",\n    \"email\": \"jazvillagra.jv@gmail.com\",\n    \"encryptedPassword\": null,\n    \"confirmPassword\": null,\n    \"userType\": \"ADMIN\",\n    \"enabled\": true\n}",
+							"raw": "{\n        \"id\": 2,\n        \"userId\": 2,\n        \"document\": \"4549688\",\n        \"documentType\": \"CI\",\n        \"name\": \"Jazmin\",\n        \"surname\": \"Villagra\",\n        \"city\": 11,\n        \"profilePicture\": null,\n        \"birthDate\": \"1998-06-27\",\n        \"notifications\": true,\n        \"username\": \"jazvillagra\",\n        \"email\": \"jazvillagra.jv@gmail.com\",\n        \"encryptedPassword\": null,\n        \"confirmPassword\": null,\n        \"userType\": \"APP\",\n        \"enabled\": true\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -129,6 +139,25 @@
 							"path": [
 								"user",
 								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAgenda",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_URL}}/user/agenda/1",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"user",
+								"agenda",
+								"1"
 							]
 						}
 					},
@@ -362,11 +391,16 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{SERVER_URL}}/param/city",
+									"raw": "https://firulapp.sodep.com.py/api/param/city",
+									"protocol": "https",
 									"host": [
-										"{{SERVER_URL}}"
+										"firulapp",
+										"sodep",
+										"com",
+										"py"
 									],
 									"path": [
+										"api",
 										"param",
 										"city"
 									]
@@ -380,14 +414,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{SERVER_URL}}/param/city/1",
+									"raw": "{{SERVER_URL}}/param/city/11",
 									"host": [
 										"{{SERVER_URL}}"
 									],
 									"path": [
 										"param",
 										"city",
-										"1"
+										"11"
 									]
 								}
 							},
@@ -470,13 +504,39 @@
 			"name": "Pets",
 			"item": [
 				{
+					"name": "Fichas Medicas",
+					"item": [
+						{
+							"name": "GetVaccinationByPetId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/pet/medical/record/pet/1",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"pet",
+										"medical",
+										"record",
+										"pet",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "SaveOrUpdatePet",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": null,\n    \"userId\": 1,\n    \"speciesId\": 1,\n    \"breedId\": 1,\n    \"name\": \"Popi\",\n    \"birthDate\": null,\n    \"age\": 1,\n    \"petSize\": \"Mediano\",\n    \"city\": \"Asunción\",\n    \"address\": \"Calle 2 y Ruta 1\",\n    \"primaryColor\": \"Marrón\",\n    \"secondaryColor\": null,\n    \"status\": true,\n    \"picture\": null,\n    \"description\": \"Saltarín de 3 patitas\",\n    \"createdAt\": null,\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+							"raw": "{\n    \"id\": null,\n    \"userId\": 4,\n    \"speciesId\": 1,\n    \"breedId\": 1,\n    \"name\": \"Toti\",\n    \"birthDate\": null,\n    \"age\": 12,\n    \"petSize\": \"Mediano\",\n    \"city\": \"Asunción\",\n    \"address\": \"Gral Caballero Alvarez 349\",\n    \"primaryColor\": \"Blanco\",\n    \"secondaryColor\": \"Marrón\",\n    \"status\": null,\n    \"picture\": null,\n    \"description\": \"Mascota de la casa\",\n    \"createdAt\": null,\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -576,6 +636,56 @@
 								"pet",
 								"user",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RequestAdoption",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER_URL}}/pet/2/adopt/1",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"pet",
+								"2",
+								"adopt",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RequestPetFostering",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "amount",
+									"value": "150000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER_URL}}/pet/1/foster/4",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"pet",
+								"1",
+								"foster",
+								"4"
 							]
 						}
 					},

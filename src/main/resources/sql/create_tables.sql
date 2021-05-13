@@ -208,3 +208,14 @@ CREATE TABLE recordatorio_evento(
     frecuencia_meses BIGINT,
     mensaje VARCHAR(255) NOT NULL
 );
+
+CREATE TABLE padrinos_mascota(
+    id BIGSERIAL PRIMARY KEY,
+    id_mascota BIGINT REFERENCES mascota(id) ON DELETE CASCADE,
+    id_usuario BIGINT REFERENCES usuario(id) ON DELETE CASCADE,
+    monto INT,
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT
+);
