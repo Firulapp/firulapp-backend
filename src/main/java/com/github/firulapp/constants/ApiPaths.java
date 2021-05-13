@@ -68,6 +68,19 @@ public class ApiPaths {
     public static final String SAVE_OR_UPDATE_PET_VACCINATION_RECORD = PET_VACCINATION_RECORD_ENDPOINT_URL + SAVE;
     public static final String DELETE_PET_VACCINATION_RECORD = PET_VACCINATION_RECORD_ENDPOINT_URL + DELETE;
 
+    /**
+     * Pet Activity endpoints' URL
+     */
+    public static final String PET_ACTIVITY_ENDPOINT_URL = "/activity";
+    public static final String PET_ACTIVITY_BY_ID = PET_ACTIVITY_ENDPOINT_URL + ID;
+    public static final String GET_PET_ACTIVITY_BY_PET_ID = PET_ACTIVITY_ENDPOINT_URL + "/pet/{petId}";
+    public static final String SAVE_OR_UPDATE_PET_ACTIVITY = PET_ACTIVITY_ENDPOINT_URL + SAVE;
+
+    /**
+     * User Agenda endpoints' URL
+     */
+    public static final String USER_AGENDA_ENDPOINT_URL = "/agenda/"+ ID;
+
     private ApiPaths() {
     }
 }

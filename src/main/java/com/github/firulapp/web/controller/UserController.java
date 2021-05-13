@@ -4,7 +4,9 @@ import com.github.firulapp.constants.ApiPaths;
 import com.github.firulapp.dto.AppSessionDto;
 import com.github.firulapp.dto.AppUserDto;
 import com.github.firulapp.dto.AppUserProfileDto;
+import com.github.firulapp.exceptions.AgendaActivityException;
 import com.github.firulapp.exceptions.AppUserException;
+import com.github.firulapp.service.AgendaActivityService;
 import com.github.firulapp.service.AppUserService;
 import com.github.firulapp.web.response.ListResponseDTO;
 import com.github.firulapp.web.response.ObjectResponseDTO;
@@ -23,6 +25,9 @@ public class UserController {
 
     @Autowired
     private AppUserService appUserService;
+
+    @Autowired
+    private AgendaActivityService agendaActivityService;
 
     @PostMapping(value = ApiPaths.LOGIN_URL)
     public ResponseEntity<ObjectResponseDTO> login(@RequestBody AppUserDto appUser) {
@@ -68,6 +73,15 @@ public class UserController {
             return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.updateUser(appUserProfileDto)));
         } catch (AppUserException exception){
             return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = ApiPaths.USER_AGENDA_ENDPOINT_URL)
+    public ResponseEntity<ListResponseDTO> getUserAgendaById(@PathVariable(name = "id") Long id){
+        try {
+            return ResponseEntity.ok(ListResponseDTO.success(agendaActivityService.getAgendaActivityByUserId(id)));
+        }catch (AgendaActivityException exception){
+            return new ResponseEntity<>(ListResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
     }
 }
