@@ -15,7 +15,7 @@ public class ConductRuleException extends BusinessException implements Supplier<
     /**
      * Builds a Conduct Rule Not Found Exception
      *
-     * @param id Breed id
+     * @param id Conduct Rule id
      * @return ConductRuleException
      */
     public static ConductRuleException notFound(Long id) {
