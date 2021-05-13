@@ -13,6 +13,7 @@ public class PetException extends BusinessException implements Supplier<PetExcep
     public static final String SAVE_FAILED = BASE_ERROR + ".mapping.failed";
     public static final String DELETE_FAILED = BASE_ERROR + ".sql.delete.failed";
     public static final String ADOPTION_ERROR = BASE_ERROR + ".adoption.request.failed";
+    public static final String FOSTER_ERROR = BASE_ERROR +  ".foster.request.failed";
 
     public PetException(String errorCode, String message) {
         super(errorCode, message);
@@ -48,6 +49,16 @@ public class PetException extends BusinessException implements Supplier<PetExcep
         return new PetException(ADOPTION_ERROR, "No se pudo realizar la solicitud de adopcion del usuario con id " +
                                                 requesterId + " para la mascota con id " + petId +
                                                 " con userId " + userId);
+    }
+    public static PetException fosterError(Long requesterId, Long petId, Long userId) {
+        return new PetException(FOSTER_ERROR, "No se pudo realizar la solicitud de apadrinamiento del usuario con id " +
+                requesterId + " para la mascota con id " + petId +
+                " con userId " + userId);
+    }
+
+    public static PetException fosterError(Long requesterId, Long petId) {
+        return new PetException(FOSTER_ERROR, "No se pudo realizar la solicitud de apadrinamiento del usuario con id " +
+                requesterId + " para la mascota con id " + petId);
     }
 
     @Override

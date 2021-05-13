@@ -200,4 +200,15 @@ public class PetController {
         petService.requestPetAdoption(petId, adoptingUserId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @PostMapping(value = ApiPaths.REQUEST_FOSTER_PET)
+    public ResponseEntity<ObjectResponseDTO> requestFosterPet(@PathVariable(name = "id")Long petId,
+                                                              @PathVariable(name = "userId") Long fosterUserId,
+                                                              @RequestParam int amount){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(petService.requestFosterPet(petId, fosterUserId, amount)));
+        } catch (PetException exception){
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

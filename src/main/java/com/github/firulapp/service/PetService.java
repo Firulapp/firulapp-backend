@@ -1,6 +1,6 @@
 package com.github.firulapp.service;
 
-import com.github.firulapp.dto.AppUserProfileDto;
+import com.github.firulapp.dto.FosterRegisterDto;
 import com.github.firulapp.dto.PetDto;
 import com.github.firulapp.exceptions.AppUserException;
 import com.github.firulapp.exceptions.BreedException;
@@ -24,4 +24,6 @@ public interface PetService {
     List<PetDto> getPetByStatus(String status) throws PetException;
 
     void requestPetAdoption(Long petId, Long requesterId);
+
+    FosterRegisterDto requestFosterPet(Long petId, Long requesterId, int amount) throws PetException;
 }
