@@ -4,12 +4,10 @@ import com.github.firulapp.domain.ReportPet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Component
 public interface ReportPetRepository extends JpaRepository<ReportPet, Long> {
 
     @Query(value = "SELECT * FROM reporte_mascota rp " +
@@ -23,7 +21,7 @@ public interface ReportPetRepository extends JpaRepository<ReportPet, Long> {
                 "AND (rp.longitud_ubicacion BETWEEN :longitudeMin AND :longitudeMax)",
             nativeQuery = true)
     List<ReportPet> findByLocationLatitudeAndLocationLongitude(@Param("latitudeMin") Double latitudeMin,
-                                             @Param("longitudeMin") Double longitudeMin,
-                                             @Param("latitudeMax") Double latitudeMax,
-                                             @Param("longitudeMax") Double longitudeMax);
+                                                                 @Param("longitudeMin") Double longitudeMin,
+                                                                 @Param("latitudeMax") Double latitudeMax,
+                                                                 @Param("longitudeMax") Double longitudeMax);
 }
