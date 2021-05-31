@@ -4,7 +4,6 @@ import java.util.function.Supplier;
 
 public class PetMedicalRecordException extends BusinessException implements Supplier<PetMedicalRecordException> {
 
-
     private static final long serialVersionUID = 1L;
     public static final String BASE_ERROR = "pet.medical.record.error";
     public static final String NOT_FOUND = BASE_ERROR + ".notFound";

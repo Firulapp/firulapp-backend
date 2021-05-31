@@ -219,3 +219,22 @@ CREATE TABLE padrinos_mascota(
     fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
     usuario_modificacion BIGINT
 );
+
+CREATE TABLE reporte_mascota(
+    id BIGSERIAL PRIMARY KEY,
+    id_mascota BIGINT REFERENCES mascota(id) ON DELETE CASCADE,
+    id_usuario BIGINT REFERENCES usuario(id) ON DELETE CASCADE,
+    descripcion VARCHAR(255) NOT NULL,
+    estado VARCHAR(30),
+    calle_1 VARCHAR(100),
+    calle_2 VARCHAR(100),
+    ciudad BIGINT REFERENCES ciudad(id) ON DELETE CASCADE,
+    longitud_ubicacion REAL,
+    latitud_ubicacion REAL,
+    referencia VARCHAR(255),
+    observacion VARCHAR(255),
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT
+);
