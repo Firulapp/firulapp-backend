@@ -75,7 +75,7 @@ public class ParamController {
             return ResponseEntity.ok(ObjectResponseDTO.success(breedService.getBreedById(id)));
         } catch (Exception e){
             BreedException exception = BreedException.notFound(id);
-            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -106,7 +106,7 @@ public class ParamController {
             return ResponseEntity.ok(ObjectResponseDTO.success(conductRuleService.getRuleById(id)));
         } catch (Exception e){
             ConductRuleException exception = ConductRuleException.notFound(id);
-            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -132,7 +132,7 @@ public class ParamController {
             return ResponseEntity.ok(ObjectResponseDTO.success(helpPageService.getHelpPageById(id)));
         } catch (Exception e){
             HelpPageException exception = HelpPageException.notFound(id);
-            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -158,7 +158,7 @@ public class ParamController {
             return ResponseEntity.ok(ObjectResponseDTO.success(serviceTypeService.getServiceTypeById(id)));
         } catch (Exception e){
             ServiceTypeException exception = ServiceTypeException.notFound(id);
-            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -184,7 +184,7 @@ public class ParamController {
             return ResponseEntity.ok(ObjectResponseDTO.success(petCareService.getPetCareById(id)));
         } catch (Exception e) {
             PetCareException exception = PetCareException.notFound(id);
-            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -210,7 +210,7 @@ public class ParamController {
             return ResponseEntity.ok(ObjectResponseDTO.success(cityService.getCityById(id)));
         } catch (Exception e){
             CityException exception = CityException.notFound(id);
-            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -231,7 +231,7 @@ public class ParamController {
             return ResponseEntity.ok(ObjectResponseDTO.success(cityService.saveCity(cityDto)));
         } catch (Exception e){
             CityException exception = CityException.duplicatedEntry(cityDto.getName(), cityDto.getCountry());
-            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
         }
     }
 
@@ -242,7 +242,17 @@ public class ParamController {
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e){
             CityException exception = CityException.notFound(cityDto.getId());
-            return new ResponseEntity<ObjectResponseDTO>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.NOT_FOUND), HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping(value = ApiPaths.PET_CARE_BY_BREED_AND_SPECIES)
+    public ResponseEntity<ListResponseDTO> getPetCareByBreedAndSpecies(@PathVariable(name = "breedId") Long breedId,
+                                                                       @PathVariable(name = "speciesId") Long speciesId) {
+        try {
+            return ResponseEntity.ok(ListResponseDTO.success(petCareService.getPetCareBySpeciesAndBreed(speciesId, breedId)));
+        } catch (PetCareException e) {
+            return new ResponseEntity<>(ListResponseDTO.error(e.getErrorCode(), e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
     }
 }

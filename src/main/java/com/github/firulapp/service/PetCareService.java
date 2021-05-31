@@ -14,4 +14,6 @@ public interface PetCareService {
     PetCareDto savePetCare(PetCareDto petCareDto);
 
     void delete(PetCareDto petCareDto);
+
+    List<PetCareDto> getPetCareBySpeciesAndBreed(Long speciesId, Long breedId) throws PetCareException;
 }
