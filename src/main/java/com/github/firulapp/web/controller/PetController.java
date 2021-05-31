@@ -6,7 +6,6 @@ import com.github.firulapp.exceptions.*;
 import com.github.firulapp.service.*;
 import com.github.firulapp.web.response.ListResponseDTO;
 import com.github.firulapp.web.response.ObjectResponseDTO;
-import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping(value = {ApiPaths.PET_ENDPOINTS_URL})
@@ -210,17 +208,17 @@ public class PetController {
     }
 
     @GetMapping(value = ApiPaths.REPORT_BY_LOCATION)
-    public ResponseEntity<ObjectResponseDTO> getReportByLocation(@RequestParam(name = "latitudeMin")Double latitudeMin,
-                                                                 @RequestParam(name = "longitudeMin")Double longitudeMin,
-                                                                 @RequestParam(name = "latitudeMax")Double latitudeMax,
-                                                                 @RequestParam(name = "longitudeMax")Double longitudeMax){
-        return ResponseEntity.ok(ObjectResponseDTO.success(reportPetService.getReportsByLocation(latitudeMin, longitudeMin, latitudeMax, longitudeMax)));
+    public ResponseEntity<ListResponseDTO> getReportByLocation(@RequestParam(name = "latitudeMin")Double latitudeMin,
+                                                    @RequestParam(name = "longitudeMin")Double longitudeMin,
+                                                    @RequestParam(name = "latitudeMax")Double latitudeMax,
+                                                    @RequestParam(name = "longitudeMax")Double longitudeMax){
+        return ResponseEntity.ok(ListResponseDTO.success(reportPetService.getReportsByLocation(latitudeMin, longitudeMin, latitudeMax, longitudeMax)));
     }
 
     @GetMapping(value = ApiPaths.REPORT_BY_DATES)
-    public ResponseEntity<ObjectResponseDTO> getReportsByCreationDate(@RequestParam(name = "startDate") String startDate,
+    public ResponseEntity<ListResponseDTO> getReportsByCreationDate(@RequestParam(name = "startDate") String startDate,
                                                                       @RequestParam(name = "endDate") String endDate) {
-        return ResponseEntity.ok(ObjectResponseDTO.success(reportPetService.getReportsByCreationDate(startDate, endDate)));
+        return ResponseEntity.ok(ListResponseDTO.success(reportPetService.getReportsByCreationDate(startDate, endDate)));
     }
 
     @GetMapping(value = ApiPaths.REPORT_BY_ID)
