@@ -85,6 +85,13 @@ public class ApiPaths {
      */
     public static final String USER_AGENDA_ENDPOINT_URL = "/agenda/"+ ID;
 
+    /**
+     * Reports URLs
+     */
+    public static final String REPORT_URL = "/report";
+    public static final String REPORT_BY_LOCATION = REPORT_URL + "/location";
+    public static final String REPORT_BY_DATES = REPORT_URL + "/dates";
+    public static final String REPORT_BY_ID = REPORT_URL + ID;
     private ApiPaths() {
     }
 }
