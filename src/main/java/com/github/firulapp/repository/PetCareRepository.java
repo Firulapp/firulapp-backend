@@ -13,4 +13,6 @@ public interface PetCareRepository extends JpaRepository<PetCare, Long> {
                     "id_raza, fecha_creacion, usuario_creacion, " +
                     "fecha_modificacion, usuario_modificacion from public.cuidado_mascota", nativeQuery = true)
     List<PetCare> findAll();
+
+    List<PetCare> findBySpeciesIdAndBreedId(Long speciesId, Long breedId);
 }

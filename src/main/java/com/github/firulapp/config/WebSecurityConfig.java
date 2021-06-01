@@ -35,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.SERVICE_TYPE_ENDPOINTS).permitAll()
                 .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.PET_CARE_BY_ID).permitAll()
                 .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.PET_CARE_ENDPOINTS).permitAll()
+                .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.PET_CARE_BY_BREED_AND_SPECIES).permitAll()
                 .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.CITY_ENDPOINTS).permitAll()
                 .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.CITY_BY_ID).permitAll()
                 .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.CITY_BY_COUNTRY).permitAll()

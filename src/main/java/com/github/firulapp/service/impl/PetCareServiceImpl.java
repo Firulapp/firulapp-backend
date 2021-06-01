@@ -51,4 +51,13 @@ public class PetCareServiceImpl implements PetCareService {
         Optional<PetCare> petCare = petCareRepository.findById(petCareDto.getId());
         petCare.ifPresent(value -> petCareRepository.delete(petCare.get()));
     }
+
+    @Override
+    public List<PetCareDto> getPetCareBySpeciesAndBreed(Long speciesId, Long breedId) throws PetCareException {
+        try {
+            return petCareMapper.mapAsList(petCareRepository.findBySpeciesIdAndBreedId(speciesId, breedId));
+        } catch (Exception e){
+            throw PetCareException.notFound(speciesId, breedId);
+        }
+    }
 }
