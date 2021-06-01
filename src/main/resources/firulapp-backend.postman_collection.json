@@ -497,6 +497,51 @@
 							"response": []
 						}
 					]
+				},
+				{
+					"name": "CuidadosMascotas",
+					"item": [
+						{
+							"name": "GetByBreedIdAndSpeciesId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/petcare/breed/1/species/1",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"petcare",
+										"breed",
+										"1",
+										"species",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllPetCares",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/petcare",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"petcare"
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},
@@ -686,6 +731,94 @@
 								"1",
 								"foster",
 								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReportsByLocation",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "latitudeMin",
+									"value": "-25.423615081673837",
+									"description": "latitude right",
+									"type": "text"
+								},
+								{
+									"key": "longitudeMin",
+									"value": "-57.696329951473565",
+									"description": "longitude right",
+									"type": "text"
+								},
+								{
+									"key": "latitudeMax",
+									"value": "-25.264766463623385",
+									"description": "latitude lleft",
+									"type": "text"
+								},
+								{
+									"key": "longitudeMax",
+									"value": "-57.55981184986084",
+									"description": "longitude left",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER_URL}}/pet/report/location",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"pet",
+								"report",
+								"location"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ReportsByCreationDate",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "startDate",
+									"value": "2021-05-25 20:00:00",
+									"type": "text"
+								},
+								{
+									"key": "endDate",
+									"value": "2021-05-26 23:59:59",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER_URL}}/pet/report/dates",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"pet",
+								"report",
+								"dates"
 							]
 						}
 					},

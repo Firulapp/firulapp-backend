@@ -1,16 +1,9 @@
 package com.github.firulapp.web.controller;
 
 import com.github.firulapp.constants.ApiPaths;
-import com.github.firulapp.dto.PetActivityDto;
-import com.github.firulapp.dto.PetDto;
-import com.github.firulapp.dto.PetMedicalRecordDto;
-import com.github.firulapp.dto.PetVaccinationRecordDto;
 import com.github.firulapp.dto.*;
 import com.github.firulapp.exceptions.*;
-import com.github.firulapp.service.PetActivityService;
-import com.github.firulapp.service.PetMedicalRecordService;
-import com.github.firulapp.service.PetService;
-import com.github.firulapp.service.PetVaccinationRecordService;
+import com.github.firulapp.service.*;
 import com.github.firulapp.web.response.ListResponseDTO;
 import com.github.firulapp.web.response.ObjectResponseDTO;
 import org.slf4j.Logger;
@@ -35,6 +28,8 @@ public class PetController {
     private PetVaccinationRecordService petVaccinationRecordService;
     @Autowired
     private PetActivityService petActivityService;
+    @Autowired
+    private ReportPetService reportPetService;
 
     private Logger logger = LoggerFactory.getLogger(PetController.class);
 
@@ -208,6 +203,38 @@ public class PetController {
         try {
             return ResponseEntity.ok(ObjectResponseDTO.success(petService.requestFosterPet(petId, fosterUserId, amount)));
         } catch (PetException exception){
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = ApiPaths.REPORT_BY_LOCATION)
+    public ResponseEntity<ListResponseDTO> getReportByLocation(@RequestParam(name = "latitudeMin")Double latitudeMin,
+                                                    @RequestParam(name = "longitudeMin")Double longitudeMin,
+                                                    @RequestParam(name = "latitudeMax")Double latitudeMax,
+                                                    @RequestParam(name = "longitudeMax")Double longitudeMax){
+        return ResponseEntity.ok(ListResponseDTO.success(reportPetService.getReportsByLocation(latitudeMin, longitudeMin, latitudeMax, longitudeMax)));
+    }
+
+    @GetMapping(value = ApiPaths.REPORT_BY_DATES)
+    public ResponseEntity<ListResponseDTO> getReportsByCreationDate(@RequestParam(name = "startDate") String startDate,
+                                                                      @RequestParam(name = "endDate") String endDate) {
+        return ResponseEntity.ok(ListResponseDTO.success(reportPetService.getReportsByCreationDate(startDate, endDate)));
+    }
+
+    @GetMapping(value = ApiPaths.REPORT_BY_ID)
+    public ResponseEntity<ObjectResponseDTO> getReportById(@PathVariable Long id){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(reportPetService.getReportById(id)));
+        } catch (ReportPetException exception){
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value = ApiPaths.REPORT_URL)
+    public ResponseEntity<ObjectResponseDTO> saveOrUpdateReport(@RequestParam ReportPetDto reportPetDto){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(reportPetService.saveReport(reportPetDto)));
+        } catch (ReportPetException exception){
             return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
     }
