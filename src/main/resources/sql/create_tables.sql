@@ -238,3 +238,14 @@ CREATE TABLE reporte_mascota(
     fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
     usuario_modificacion BIGINT
 );
+
+CREATE TABLE tel_usuario(
+    id BIGSERIAL PRIMARY KEY,
+    id_usuario BIGINT REFERENCES usuario(id) ON DELETE CASCADE,
+    cod_pais varchar(10),
+    nro_celular INT NOT NULL,
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT
+);
