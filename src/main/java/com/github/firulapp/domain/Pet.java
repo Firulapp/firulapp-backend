@@ -1,5 +1,6 @@
 package com.github.firulapp.domain;
 
+import com.github.firulapp.constants.PetStatus;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
@@ -50,7 +51,8 @@ public class Pet {
     private String secondaryColor;
 
     @Column(name = "estado")
-    private Boolean status;
+    @Enumerated(EnumType.STRING)
+    private PetStatus status;
 
     @Column(name = "fotografia")
     private byte[] picture;
@@ -166,11 +168,11 @@ public class Pet {
         this.secondaryColor = secondaryColor;
     }
 
-    public Boolean getStatus() {
+    public PetStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(PetStatus status) {
         this.status = status;
     }
 

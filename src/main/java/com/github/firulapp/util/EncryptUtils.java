@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 import java.util.Random;
 
 import javax.crypto.Cipher;
@@ -228,5 +229,14 @@ public class EncryptUtils {
         Path path = FileSystems.getDefault().getPath(filePath);
         byte[] bytesFromFile = Files.readAllBytes(path);
         return byteToBase64(bytesFromFile);
+    }
+
+    /**
+     * Decodifica de Base64 a String
+     */
+    public static String base64ToString(String encryptedData){
+        byte[] decodedBytes = Base64.getDecoder().decode(encryptedData);
+        String decodedString = new String(decodedBytes);
+        return new String(decodedBytes);
     }
 }

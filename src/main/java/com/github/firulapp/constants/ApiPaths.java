@@ -8,6 +8,7 @@ public class ApiPaths {
     public static final String SAVE = "/save";
     public static final String DELETE = "/delete";
     public static final String UPDATE = "/update";
+    public static final String URL_PET_ID = "/pet/{petId}";
 
     /**
      * User endpoints' URLs
@@ -48,13 +49,16 @@ public class ApiPaths {
     public static final String GET_PET_BY_ID = ID;
     public static final String GET_PET_BY_USER_ID = "/user/{userId}";
     public static final String GET_PET_BY_USER_AND_SPECIES = GET_PET_BY_USER_ID + "/species/{speciesId}";
+    public static final String GET_PET_BY_STATUS = "/status/{status}";
+    public static final String REQUEST_PET_ADOPTION = GET_PET_BY_ID + "/adopt/{userId}";
+    public static final String REQUEST_FOSTER_PET = GET_PET_BY_ID + "/foster/{userId}";
 
     /**
      * Pet Medical Records endpoints' URLs
      */
     public static final String PET_MEDICAL_RECORD_ENDPOINTS_URL = "/medical/record";
     public static final String GET_PET_MEDICAL_RECORD_BY_ID = PET_MEDICAL_RECORD_ENDPOINTS_URL + ID;
-    public static final String GET_PET_MEDICAL_RECORD_BY_PET_ID = PET_MEDICAL_RECORD_ENDPOINTS_URL + "/pet/{petId}";
+    public static final String GET_PET_MEDICAL_RECORD_BY_PET_ID = PET_MEDICAL_RECORD_ENDPOINTS_URL + URL_PET_ID;
     public static final String GET_PET_MEDICAL_RECORD_BY_PET_ID_AND_DATE = GET_PET_MEDICAL_RECORD_BY_PET_ID + "/consultAt/{consultDate}";
     public static final String SAVE_OR_UPDATE_PET_MEDICAL_RECORD = PET_MEDICAL_RECORD_ENDPOINTS_URL + SAVE;
     public static final String DELETE_PET_MEDICAL_RECORD = PET_MEDICAL_RECORD_ENDPOINTS_URL + DELETE;
@@ -64,7 +68,7 @@ public class ApiPaths {
      */
     public static final String PET_VACCINATION_RECORD_ENDPOINT_URL = "/vaccination/record";
     public static final String GET_PET_VACCINATION_RECORD_BY_ID = PET_VACCINATION_RECORD_ENDPOINT_URL + ID;
-    public static final String GET_PET_VACCINATION_RECORD_BY_PET_ID = PET_VACCINATION_RECORD_ENDPOINT_URL + "/pet/{petId}";
+    public static final String GET_PET_VACCINATION_RECORD_BY_PET_ID = PET_VACCINATION_RECORD_ENDPOINT_URL + URL_PET_ID;
     public static final String SAVE_OR_UPDATE_PET_VACCINATION_RECORD = PET_VACCINATION_RECORD_ENDPOINT_URL + SAVE;
     public static final String DELETE_PET_VACCINATION_RECORD = PET_VACCINATION_RECORD_ENDPOINT_URL + DELETE;
 
@@ -73,7 +77,7 @@ public class ApiPaths {
      */
     public static final String PET_ACTIVITY_ENDPOINT_URL = "/activity";
     public static final String PET_ACTIVITY_BY_ID = PET_ACTIVITY_ENDPOINT_URL + ID;
-    public static final String GET_PET_ACTIVITY_BY_PET_ID = PET_ACTIVITY_ENDPOINT_URL + "/pet/{petId}";
+    public static final String GET_PET_ACTIVITY_BY_PET_ID = PET_ACTIVITY_ENDPOINT_URL + URL_PET_ID;
     public static final String SAVE_OR_UPDATE_PET_ACTIVITY = PET_ACTIVITY_ENDPOINT_URL + SAVE;
 
     /**

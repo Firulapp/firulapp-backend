@@ -5,6 +5,7 @@ import com.github.firulapp.dto.PetActivityDto;
 import com.github.firulapp.dto.PetDto;
 import com.github.firulapp.dto.PetMedicalRecordDto;
 import com.github.firulapp.dto.PetVaccinationRecordDto;
+import com.github.firulapp.dto.*;
 import com.github.firulapp.exceptions.*;
 import com.github.firulapp.service.PetActivityService;
 import com.github.firulapp.service.PetMedicalRecordService;
@@ -182,6 +183,32 @@ public class PetController {
             return new ResponseEntity<>(HttpStatus.OK);
         } catch (PetActivityException exception) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = ApiPaths.GET_PET_BY_STATUS)
+    public ResponseEntity<ListResponseDTO> getPetsByStatus(@PathVariable(name = "status") String status){
+        try {
+            return ResponseEntity.ok(ListResponseDTO.success(petService.getPetByStatus(status)));
+        }catch (PetException exception){
+            return new ResponseEntity<>(ListResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value = ApiPaths.REQUEST_PET_ADOPTION)
+    public ResponseEntity<Void> requestPetAdoption(@PathVariable(name = "id") Long petId, @PathVariable(name = "userId") Long adoptingUserId){
+        petService.requestPetAdoption(petId, adoptingUserId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PostMapping(value = ApiPaths.REQUEST_FOSTER_PET)
+    public ResponseEntity<ObjectResponseDTO> requestFosterPet(@PathVariable(name = "id")Long petId,
+                                                              @PathVariable(name = "userId") Long fosterUserId,
+                                                              @RequestParam int amount){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(petService.requestFosterPet(petId, fosterUserId, amount)));
+        } catch (PetException exception){
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
     }
 }
