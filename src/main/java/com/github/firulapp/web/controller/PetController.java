@@ -231,7 +231,7 @@ public class PetController {
     }
 
     @PostMapping(value = ApiPaths.REPORT_URL)
-    public ResponseEntity<ObjectResponseDTO> saveOrUpdateReport(@RequestParam ReportPetDto reportPetDto){
+    public ResponseEntity<ObjectResponseDTO> saveOrUpdateReport(@RequestBody ReportPetDto reportPetDto){
         try {
             return ResponseEntity.ok(ObjectResponseDTO.success(reportPetService.saveReport(reportPetDto)));
         } catch (ReportPetException exception){

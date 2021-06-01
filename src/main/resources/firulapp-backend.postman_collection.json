@@ -738,43 +738,11 @@
 				},
 				{
 					"name": "ReportsByLocation",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
 					"request": {
 						"method": "GET",
 						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "latitudeMin",
-									"value": "-25.423615081673837",
-									"description": "latitude right",
-									"type": "text"
-								},
-								{
-									"key": "longitudeMin",
-									"value": "-57.696329951473565",
-									"description": "longitude right",
-									"type": "text"
-								},
-								{
-									"key": "latitudeMax",
-									"value": "-25.264766463623385",
-									"description": "latitude lleft",
-									"type": "text"
-								},
-								{
-									"key": "longitudeMax",
-									"value": "-57.55981184986084",
-									"description": "longitude left",
-									"type": "text"
-								}
-							]
-						},
 						"url": {
-							"raw": "{{SERVER_URL}}/pet/report/location",
+							"raw": "{{SERVER_URL}}/pet/report/location?latitudeMin=-25.423615081673837&longitudeMin=-57.696329951473565&latitudeMax=-25.264766463623385&longitudeMax=-57.55981184986084",
 							"host": [
 								"{{SERVER_URL}}"
 							],
@@ -782,6 +750,28 @@
 								"pet",
 								"report",
 								"location"
+							],
+							"query": [
+								{
+									"key": "latitudeMin",
+									"value": "-25.423615081673837",
+									"description": "latitude right"
+								},
+								{
+									"key": "longitudeMin",
+									"value": "-57.696329951473565",
+									"description": "longitude right"
+								},
+								{
+									"key": "latitudeMax",
+									"value": "-25.264766463623385",
+									"description": "latitude lleft"
+								},
+								{
+									"key": "longitudeMax",
+									"value": "-57.55981184986084",
+									"description": "longitude left"
+								}
 							]
 						}
 					},
@@ -819,6 +809,33 @@
 								"pet",
 								"report",
 								"dates"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "SaveReport",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": null,\n    \"petId\": 2,\n    \"userId\": 1,\n    \"description\": \"perrito encontrado en la esquina\",\n    \"mainStreet\": \"Gondra\",\n    \"secondaryStreet\": \"Tte. Garay\",\n    \"city\": 11,\n    \"locationLongitude\": -57.621506,\n    \"locationLatitude\": -25.313171,\n    \"reference\": \"asdf\",\n    \"observations\": \"asdf\",\n    \"createdAt\": \"2021-05-25T20:00:00.00001\",\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER_URL}}/pet/report",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"pet",
+								"report"
 							]
 						}
 					},
