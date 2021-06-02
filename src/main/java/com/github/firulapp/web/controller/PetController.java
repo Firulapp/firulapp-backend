@@ -238,4 +238,32 @@ public class PetController {
             return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping(value = ApiPaths.REPORT_LOST_PET)
+    public ResponseEntity<ObjectResponseDTO> saveLostPetReport(@RequestBody ReportPetDto reportPetDto){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(reportPetService.saveLostPetReport(reportPetDto)));
+        } catch (ReportPetException | PetException exception){
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value = ApiPaths.REPORT_FOUND_PET)
+    public ResponseEntity<ObjectResponseDTO> saveFoundPetReport(@RequestBody ReportPetDto reportPetDto,
+                                                               @RequestBody PetDto petDto){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(reportPetService.saveFoundPetReport(petDto, reportPetDto)));
+        } catch (ReportPetException exception){
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value = ApiPaths.REPORT_CLOSE)
+    public ResponseEntity<ObjectResponseDTO> closeReport(@RequestBody ReportPetDto reportPetDto){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(reportPetService.closeReport(reportPetDto)));
+        } catch (ReportPetException | PetException | BreedException | AppUserException | SpeciesException exception){
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
 }

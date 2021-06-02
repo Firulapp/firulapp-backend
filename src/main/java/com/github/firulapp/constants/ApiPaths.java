@@ -93,6 +93,9 @@ public class ApiPaths {
     public static final String REPORT_BY_LOCATION = REPORT_URL + "/location";
     public static final String REPORT_BY_DATES = REPORT_URL + "/dates";
     public static final String REPORT_BY_ID = REPORT_URL + ID;
+    public static final String REPORT_LOST_PET = REPORT_URL + "/pet/lost";
+    public static final String REPORT_FOUND_PET = REPORT_URL + "/pet/found";
+    public static final String REPORT_CLOSE = REPORT_URL + "/close";
     private ApiPaths() {
     }
 }
