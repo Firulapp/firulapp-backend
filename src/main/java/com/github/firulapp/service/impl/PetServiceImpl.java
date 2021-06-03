@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -53,7 +54,13 @@ public class PetServiceImpl implements PetService {
     @Override
     public List<PetDto> getPetsByUserId(Long userId) throws PetException {
         try {
-            return petMapper.mapAsList(petRepository.findByUserId(userId));
+            List<PetDto> pets = new ArrayList<>();
+            for (Pet pet:petRepository.findByUserId(userId)) {
+                if(pet.getStatus() != PetStatus.ENCONTRADA){
+                    pets.add(petMapper.mapToDto(pet));
+                }
+            }
+            return pets;
         }catch (Exception e){
             throw PetException.userPetsNotFound(userId);
         }
@@ -87,6 +94,9 @@ public class PetServiceImpl implements PetService {
                 pet.setModifiedAt(LocalDateTime.now());
             }else{
                 pet.setCreatedAt(LocalDateTime.now());
+            }
+            if (pet.getStatus() == null){
+                pet.setStatus(PetStatus.NORMAL);
             }
             return petMapper.mapToDto(petRepository.save(pet));
         }else{
