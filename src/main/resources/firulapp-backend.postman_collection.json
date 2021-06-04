@@ -840,6 +840,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Reporte mascota perdida",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"id\": null,\n    \"petId\": 2,\n    \"userId\": 1,\n    \"description\": \"perrito encontrado en la esquina\",\n    \"mainStreet\": \"Gondra\",\n    \"secondaryStreet\": \"Tte. Garay\",\n    \"city\": 11,\n    \"status\": \"ABIERTO\",\n    \"reportType\": \"MASCOTA_PERDIDA\",\n    \"locationLongitude\": -57.621506,\n    \"locationLatitude\": -25.313171,\n    \"reference\": \"asdf\",\n    \"observations\": \"asdf\",\n    \"createdAt\": \"2021-05-25T20:00:00.00001\",\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER_URL}}/pet/report/pet/lost",
+							"host": [
+								"{{SERVER_URL}}"
+							],
+							"path": [
+								"pet",
+								"report",
+								"pet",
+								"lost"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
