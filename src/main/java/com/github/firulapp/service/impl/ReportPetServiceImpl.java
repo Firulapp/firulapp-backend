@@ -71,7 +71,7 @@ public class ReportPetServiceImpl implements ReportPetService {
     public ReportPetDto saveLostPetReport(ReportPetDto reportPetDto) throws ReportPetException {
         PetDto pet = null;
         try {
-            pet = petService.getPetById(reportPetDto.getId());
+            pet = petService.getPetById(reportPetDto.getPetId());
             if (pet.getStatus() != PetStatus.PERDIDA){
                 pet.setStatus(PetStatus.PERDIDA);
                 pet.setModifiedBy(reportPetDto.getCreatedBy());

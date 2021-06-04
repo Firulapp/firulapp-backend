@@ -226,7 +226,7 @@ CREATE TABLE reporte_mascota(
     id_usuario BIGINT REFERENCES usuario(id) ON DELETE CASCADE,
     descripcion VARCHAR(255) NOT NULL,
     estado VARCHAR(10),
-    tipo VARCHAR(10),
+    tipo VARCHAR(20),
     calle_1 VARCHAR(100),
     calle_2 VARCHAR(100),
     ciudad BIGINT REFERENCES ciudad(id) ON DELETE CASCADE,
