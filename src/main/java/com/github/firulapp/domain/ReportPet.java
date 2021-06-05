@@ -35,9 +35,11 @@ public class ReportPet {
     private Long city;
 
     @Column(name = "estado")
+    @Enumerated(EnumType.STRING)
     private ReportStatus status;
 
     @Column(name = "tipo")
+    @Enumerated(EnumType.STRING)
     private ReportType reportType;
 
     @Column(name = "longitud_ubicacion")
