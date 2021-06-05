@@ -249,10 +249,9 @@ public class PetController {
     }
 
     @PostMapping(value = ApiPaths.REPORT_FOUND_PET)
-    public ResponseEntity<ObjectResponseDTO> saveFoundPetReport(@RequestBody ReportPetDto reportPetDto,
-                                                               @RequestBody PetDto petDto){
+    public ResponseEntity<ObjectResponseDTO> saveFoundPetReport(@RequestBody FoundPetReportDto foundPetReportDto){
         try {
-            return ResponseEntity.ok(ObjectResponseDTO.success(reportPetService.saveFoundPetReport(petDto, reportPetDto)));
+            return ResponseEntity.ok(ObjectResponseDTO.success(reportPetService.saveFoundPetReport(foundPetReportDto)));
         } catch (ReportPetException exception){
             return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
@@ -265,5 +264,10 @@ public class PetController {
         } catch (ReportPetException | PetException | BreedException | AppUserException | SpeciesException exception){
             return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping(value = ApiPaths.REPORT_OPEN)
+    public ResponseEntity<ListResponseDTO> getAllOpenReports(){
+        return ResponseEntity.ok(ListResponseDTO.success(reportPetService.getOpenReports()));
     }
 }

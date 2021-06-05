@@ -1,6 +1,6 @@
 package com.github.firulapp.service;
 
-import com.github.firulapp.dto.PetDto;
+import com.github.firulapp.dto.FoundPetReportDto;
 import com.github.firulapp.dto.ReportPetDto;
 import com.github.firulapp.exceptions.*;
 
@@ -18,7 +18,7 @@ public interface ReportPetService {
 
     ReportPetDto saveLostPetReport(ReportPetDto reportPetDto) throws ReportPetException, PetException;
 
-    ReportPetDto saveFoundPetReport(PetDto petDto, ReportPetDto reportPetDto) throws ReportPetException;
+    ReportPetDto saveFoundPetReport(FoundPetReportDto foundPetReportDto) throws ReportPetException;
 
     List<ReportPetDto> getOpenReports();
 

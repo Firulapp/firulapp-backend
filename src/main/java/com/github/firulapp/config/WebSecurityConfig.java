@@ -69,6 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.REPORT_FOUND_PET).permitAll()
                 .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.REPORT_LOST_PET).permitAll()
                 .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.REPORT_CLOSE).permitAll()
+                .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.REPORT_OPEN).permitAll()
                 .anyRequest().authenticated()
                 .and().httpBasic();
 

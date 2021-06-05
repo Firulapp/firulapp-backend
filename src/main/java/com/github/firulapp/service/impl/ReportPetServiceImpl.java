@@ -4,6 +4,7 @@ import com.github.firulapp.constants.PetStatus;
 import com.github.firulapp.constants.ReportStatus;
 import com.github.firulapp.constants.ReportType;
 import com.github.firulapp.domain.ReportPet;
+import com.github.firulapp.dto.FoundPetReportDto;
 import com.github.firulapp.dto.PetDto;
 import com.github.firulapp.dto.ReportPetDto;
 import com.github.firulapp.exceptions.*;
@@ -85,10 +86,13 @@ public class ReportPetServiceImpl implements ReportPetService {
     }
 
     @Override
-    public ReportPetDto saveFoundPetReport(PetDto petDto, ReportPetDto reportPetDto) throws ReportPetException {
+    public ReportPetDto saveFoundPetReport(FoundPetReportDto foundPetReportDto) throws ReportPetException {
+        PetDto petDto = foundPetReportDto.getPet();
+        ReportPetDto reportPetDto = foundPetReportDto.getReport();
         try {
             petDto.setStatus(PetStatus.ENCONTRADA);
-            petService.registerOrUpdatePet(petDto);
+            PetDto petSaved = petService.registerOrUpdatePet(petDto);
+            reportPetDto.setPetId(petSaved.getId());
             reportPetDto.setReportType(ReportType.MASCOTA_ENCONTRADA);
             reportPetDto.setStatus(ReportStatus.ABIERTO);
             return saveReport(reportPetDto);
