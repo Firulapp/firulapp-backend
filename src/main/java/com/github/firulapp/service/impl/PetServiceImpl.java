@@ -54,13 +54,7 @@ public class PetServiceImpl implements PetService {
     @Override
     public List<PetDto> getPetsByUserId(Long userId) throws PetException {
         try {
-            List<PetDto> pets = new ArrayList<>();
-            for (Pet pet:petRepository.findByUserId(userId)) {
-                if(pet.getStatus() != PetStatus.ENCONTRADA){
-                    pets.add(petMapper.mapToDto(pet));
-                }
-            }
-            return pets;
+            return petMapper.mapAsList(petRepository.findByUserId(userId));
         }catch (Exception e){
             throw PetException.userPetsNotFound(userId);
         }
