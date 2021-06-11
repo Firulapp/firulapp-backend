@@ -110,7 +110,7 @@ public class ReportPetServiceImpl implements ReportPetService {
     public ReportPetDto closeReport(ReportPetDto reportPetDto) throws ReportPetException {
         try {
             reportPetDto.setStatus(ReportStatus.CERRADO);
-            PetDto pet = petService.getPetById(reportPetDto.getId());
+            PetDto pet = petService.getPetById(reportPetDto.getPetId());
             pet.setStatus(null);
             petService.registerOrUpdatePet(pet);
             return mapper.mapToDto(repository.save(mapper.mapToEntity(reportPetDto)));
