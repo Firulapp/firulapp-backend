@@ -783,6 +783,34 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "TransferPetProfile",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/pet/transfer/100/user/jvillagra",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"pet",
+										"transfer",
+										"100",
+										"user",
+										"jvillagra"
+									],
+									"query": [
+										{
+											"key": "petId",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
