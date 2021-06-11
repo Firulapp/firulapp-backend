@@ -1,5 +1,6 @@
 package com.github.firulapp.util;
 
+import com.github.firulapp.domain.Pet;
 import com.github.firulapp.dto.AppUserProfileDto;
 import com.github.firulapp.dto.CityDto;
 import com.github.firulapp.dto.PetDto;
@@ -126,6 +127,56 @@ public class EmailUtils {
             return message;
         } catch (MessagingException | IOException e) {
             throw EmailUtilsException.messageBuildError();
+        }
+    }
+
+    public void sendPetTransferNotificationToOriginalUser(AppUserProfileDto petOriginalUser,
+                                            AppUserProfileDto petAdoptingUser, Pet petEntity) throws EmailUtilsException {
+        LOGGER.info("Construyendo email de notificación de transferencia de perfil de mascota");
+        //Configure mailing properties
+        try (InputStream input =new FileInputStream(PROPERTIES_FILE)) {
+            Properties props = new Properties();
+
+            props.load(input);
+
+            String from = props.getProperty(MAIL_SMTP_USER);
+            String emailSubject = "Transferencia de perfil de mascota - " + petEntity.getName().toUpperCase(Locale.ROOT);
+            String emailText = "Hola " + petOriginalUser.getName() + "!\n" +
+                    "Has realizado la transferencia del perfil de " + petEntity.getName().toUpperCase(Locale.ROOT) +
+                    " al usuario " + petAdoptingUser.getName().toUpperCase(Locale.ROOT) + " " +
+                    petAdoptingUser.getSurname().toUpperCase(Locale.ROOT) + " con username " +
+                    petAdoptingUser.getUsername().toUpperCase(Locale.ROOT) + ".\nRecuerda que esta acción no se puede " +
+                    "deshacer. Si tu NO realizaste esta acción, por favor contáctanos al mail: " + from + "\n" +
+                    "Atte.\n Equipo Firulapp.";
+            //Send email
+            sendEmail(petOriginalUser, props, from, emailSubject, emailText);
+            LOGGER.info("Notificacion via email enviada");
+        } catch (IOException e) {
+            throw EmailUtilsException.mailSendError();
+        }
+    }
+    public void sendPetTransferNotificationToAdopterUser(AppUserProfileDto petAdoptingUser, Pet petEntity) throws EmailUtilsException {
+        LOGGER.info("Construyendo email de notificación de transferencia de perfil de mascota");
+        //Configure mailing properties
+        try (InputStream input =new FileInputStream(PROPERTIES_FILE)) {
+            Properties props = new Properties();
+
+            props.load(input);
+
+            String from = props.getProperty(MAIL_SMTP_USER);
+            String emailSubject = "Transferencia de perfil de mascota - " + petEntity.getName().toUpperCase(Locale.ROOT);
+            String emailText = "Hola " + petAdoptingUser.getName() + "!\n" +
+                    "Felicidades! Has adoptado a " + petEntity.getName().toUpperCase(Locale.ROOT) +
+                    "!\n Su perfil en firulapp ha sido transferido a tu cuenta. Allí podras encontrar todos los datos de" +
+                    " tu nueva mascota!\n" +
+                    "Recuerda que esta acción no se puede deshacer. Si tu NO solicitaste la adopción de esta mascota, " +
+                    "por favor contáctanos al mail: " + from + "\n" +
+                    "Atte.\n Equipo Firulapp.";
+            //Send email
+            sendEmail(petAdoptingUser, props, from, emailSubject, emailText);
+            LOGGER.info("Notificacion via email enviada");
+        } catch (IOException e) {
+            throw EmailUtilsException.mailSendError();
         }
     }
 }
