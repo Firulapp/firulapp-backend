@@ -26,4 +26,6 @@ public interface PetService {
     void requestPetAdoption(Long petId, Long requesterId);
 
     FosterRegisterDto requestFosterPet(Long petId, Long requesterId, int amount) throws PetException;
+
+    PetDto adoptPet(String adopterUsername, Long petId) throws PetException, AppUserException;
 }

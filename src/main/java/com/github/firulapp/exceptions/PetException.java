@@ -26,7 +26,7 @@ public class PetException extends BusinessException implements Supplier<PetExcep
      * @return PetException
      */
     public static PetException notFound(Long id) {
-        return new PetException(NOT_FOUND, "Mascota con " + id + " no encontrado");
+        return new PetException(NOT_FOUND, "Mascota con id " + id + " no encontrado");
     }
 
     public static PetException userPetsNotFound(Long userId) {
@@ -59,6 +59,10 @@ public class PetException extends BusinessException implements Supplier<PetExcep
     public static PetException fosterError(Long requesterId, Long petId) {
         return new PetException(FOSTER_ERROR, "No se pudo realizar la solicitud de apadrinamiento del usuario con id " +
                 requesterId + " para la mascota con id " + petId);
+    }
+    public static PetException adoptionError(String adopterUsername, Long petId) {
+        return new PetException(ADOPTION_ERROR, "No se pudo realizar la solicitud de adopcion de la mascota con id "
+                + petId + " con el usuario " + adopterUsername);
     }
 
     @Override
