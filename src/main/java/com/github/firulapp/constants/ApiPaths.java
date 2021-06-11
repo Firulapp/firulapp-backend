@@ -53,6 +53,7 @@ public class ApiPaths {
     public static final String GET_PET_BY_STATUS = "/status/{status}";
     public static final String REQUEST_PET_ADOPTION = GET_PET_BY_ID + "/adopt/{userId}";
     public static final String REQUEST_FOSTER_PET = GET_PET_BY_ID + "/foster/{userId}";
+    public static final String PET_TRANSFER_PROFILE = "/transfer/{petId}/user/{username}";
 
     /**
      * Pet Medical Records endpoints' URLs

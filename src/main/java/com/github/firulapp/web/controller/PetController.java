@@ -270,4 +270,14 @@ public class PetController {
     public ResponseEntity<ListResponseDTO> getAllOpenReports(){
         return ResponseEntity.ok(ListResponseDTO.success(reportPetService.getOpenReports()));
     }
+
+    @PostMapping(value = ApiPaths.PET_TRANSFER_PROFILE)
+    public ResponseEntity<ObjectResponseDTO> transferPetProfileForAdoption(@PathVariable(name = "username")String username,
+                                                                           @PathVariable(name = "petId")Long petId){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(petService.adoptPet(username, petId)));
+        } catch (PetException | AppUserException e) {
+            return new ResponseEntity<>(ObjectResponseDTO.error(e.getErrorCode(), e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
 }
