@@ -1,5 +1,6 @@
 package com.github.firulapp.repository;
 
+import com.github.firulapp.constants.ReportStatus;
 import com.github.firulapp.domain.ReportPet;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -11,17 +12,21 @@ import java.util.List;
 public interface ReportPetRepository extends JpaRepository<ReportPet, Long> {
 
     @Query(value = "SELECT * FROM reporte_mascota rp " +
-            "WHERE rp.fecha_creacion BETWEEN :startDate AND :endDate",
+            "WHERE rp.fecha_creacion BETWEEN :startDate AND :endDate " +
+            "AND rp.estado = 'ABIERTO'",
             nativeQuery = true)
     List<ReportPet> findByCreatedAt(@Param("startDate") LocalDateTime startDate,
                                     @Param("endDate") LocalDateTime endDate);
 
     @Query(value = "SELECT * FROM reporte_mascota rp " +
             "WHERE (rp.latitud_ubicacion BETWEEN :latitudeMin AND :latitudeMax) " +
-                "AND (rp.longitud_ubicacion BETWEEN :longitudeMin AND :longitudeMax)",
+            "AND (rp.longitud_ubicacion BETWEEN :longitudeMin AND :longitudeMax) " +
+            "AND rp.estado = 'ABIERTO'",
             nativeQuery = true)
     List<ReportPet> findByLocationLatitudeAndLocationLongitude(@Param("latitudeMin") Double latitudeMin,
                                                                  @Param("longitudeMin") Double longitudeMin,
                                                                  @Param("latitudeMax") Double latitudeMax,
                                                                  @Param("longitudeMax") Double longitudeMax);
+
+    List<ReportPet> findByStatus(ReportStatus status);
 }

@@ -163,4 +163,14 @@ public class AppUserServiceImpl implements AppUserService {
         profileDto.setEnabled(appUser.isEnabled());
         return profileDto;
     }
+
+    @Override
+    public AppUserDto getUserByUsername(String username) throws AppUserException {
+        AppUser appUser = appUserRepository.findByUsername(username);
+        if(appUser != null){
+            return appUserMapper.mapToDto(appUser);
+        } else {
+            throw AppUserException.notFound(username);
+        }
+    }
 }

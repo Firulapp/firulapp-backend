@@ -1,5 +1,8 @@
 package com.github.firulapp.dto;
 
+import com.github.firulapp.constants.ReportStatus;
+import com.github.firulapp.constants.ReportType;
+
 import java.time.LocalDateTime;
 
 public class ReportPetDto {
@@ -10,6 +13,8 @@ public class ReportPetDto {
     private String mainStreet;
     private String secondaryStreet;
     private Long city;
+    private ReportStatus status;
+    private ReportType reportType;
     private Double locationLongitude;
     private Double locationLatitude;
     private String reference;
@@ -137,5 +142,21 @@ public class ReportPetDto {
 
     public void setCity(Long city) {
         this.city = city;
+    }
+
+    public ReportStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ReportStatus status) {
+        this.status = status;
+    }
+
+    public ReportType getReportType() {
+        return reportType;
+    }
+
+    public void setReportType(ReportType reportType) {
+        this.reportType = reportType;
     }
 }

@@ -20,4 +20,6 @@ public interface AppUserService {
     AppUserProfileDto getUserById(Long id) throws AppUserException;
 
     AppUserProfileDto updateUser(AppUserProfileDto registerUserDto) throws AppUserException;
+
+    AppUserDto getUserByUsername(String username) throws AppUserException;
 }

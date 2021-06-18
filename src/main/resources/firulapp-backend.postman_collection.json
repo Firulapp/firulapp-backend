@@ -575,6 +575,281 @@
 					]
 				},
 				{
+					"name": "Reportes",
+					"item": [
+						{
+							"name": "OpenReports",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/pet/report/open",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"pet",
+										"report",
+										"open"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ReportsByLocation",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/pet/report/location?latitudeMin=-25.423615081673837&longitudeMin=-57.696329951473565&latitudeMax=-25.264766463623385&longitudeMax=-57.55981184986084",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"pet",
+										"report",
+										"location"
+									],
+									"query": [
+										{
+											"key": "latitudeMin",
+											"value": "-25.423615081673837",
+											"description": "latitude left"
+										},
+										{
+											"key": "longitudeMin",
+											"value": "-57.696329951473565",
+											"description": "longitude left"
+										},
+										{
+											"key": "latitudeMax",
+											"value": "-25.264766463623385",
+											"description": "latitude right"
+										},
+										{
+											"key": "longitudeMax",
+											"value": "-57.55981184986084",
+											"description": "longitude right"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ReportsByCreationDate",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "startDate",
+											"value": "2021-05-25 20:00:00",
+											"type": "text"
+										},
+										{
+											"key": "endDate",
+											"value": "2021-05-26 23:59:59",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{SERVER_URL}}/pet/report/dates",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"pet",
+										"report",
+										"dates"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SaveReport (old)",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": null,\n    \"petId\": 2,\n    \"userId\": 1,\n    \"description\": \"perrito encontrado en la esquina\",\n    \"mainStreet\": \"Gondra\",\n    \"secondaryStreet\": \"Tte. Garay\",\n    \"city\": 11,\n    \"locationLongitude\": -57.621506,\n    \"locationLatitude\": -25.313171,\n    \"reference\": \"asdf\",\n    \"observations\": \"asdf\",\n    \"createdAt\": \"2021-05-25T20:00:00.00001\",\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SERVER_URL}}/pet/report",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"pet",
+										"report"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reportar mascota perdida",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": null,\n    \"petId\": 1,\n    \"userId\": 4,\n    \"description\": \"Otro perrito encontrado en la esquina\",\n    \"mainStreet\": \"Gondra\",\n    \"secondaryStreet\": \"Tte. Garay\",\n    \"city\": 11,\n    \"status\": \"ABIERTO\",\n    \"reportType\": \"MASCOTA_PERDIDA\",\n    \"locationLongitude\": -57.6085362758002,\n    \"locationLatitude\": -25.30268924780907,\n    \"reference\": \"asdf\",\n    \"observations\": \"asdf\",\n    \"createdAt\": \"2021-05-25T20:00:00.00001\",\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SERVER_URL}}/pet/report/pet/lost",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"pet",
+										"report",
+										"pet",
+										"lost"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reportar mascota encontrada",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"report\": {\n        \"id\": null,\n        \"petId\": null,\n        \"userId\": 4,\n        \"description\": \"Otro perrito encontrado en la esquina\",\n        \"mainStreet\": \"Gondra\",\n        \"secondaryStreet\": \"Pirizal\",\n        \"city\": 11,\n        \"status\": \"ABIERTO\",\n        \"reportType\": \"MASCOTA_ENCONTRADA\",\n        \"locationLongitude\": -57.6085362758002,\n        \"locationLatitude\": -25.30268924780907,\n        \"reference\": \"asdf\",\n        \"observations\": \"asdf\",\n        \"createdAt\": \"2021-05-25T20:00:00.00001\",\n        \"createdBy\": 1,\n        \"modifiedAt\": null,\n        \"modifiedBy\": null\n    },\n    \"pet\": {\n        \"id\": null,\n        \"userId\": 1,\n        \"speciesId\": 1,\n        \"breedId\": 1,\n        \"name\": \"Mascota encontrada\",\n        \"birthDate\": null,\n        \"age\": null,\n        \"petSize\": null,\n        \"city\": 11,\n        \"address\": null,\n        \"primaryColor\": \"Negro\",\n        \"secondaryColor\": null,\n        \"status\": \"ENCONTRADA\",\n        \"picture\": null,\n        \"description\": \"Mascota encontrada en la esquina de la calle pirizal\",\n        \"createdAt\": null,\n        \"createdBy\": 1,\n        \"modifiedAt\": null,\n        \"modifiedBy\": null\n    }\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{SERVER_URL}}/pet/report/pet/found",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"pet",
+										"report",
+										"pet",
+										"found"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Adopcion",
+					"item": [
+						{
+							"name": "RequestAdoption",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/pet/2/adopt/1",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"pet",
+										"2",
+										"adopt",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "TransferPetProfile",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/pet/transfer/100/user/jvillagra",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"pet",
+										"transfer",
+										"100",
+										"user",
+										"jvillagra"
+									],
+									"query": [
+										{
+											"key": "petId",
+											"value": null,
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Apadrinamiento",
+					"item": [
+						{
+							"name": "RequestPetFostering",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "amount",
+											"value": "150000",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{SERVER_URL}}/pet/1/foster/4",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"pet",
+										"1",
+										"foster",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
 					"name": "SaveOrUpdatePet",
 					"request": {
 						"method": "POST",
@@ -634,13 +909,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{SERVER_URL}}/pet/1",
+							"raw": "{{SERVER_URL}}/pet/2",
 							"host": [
 								"{{SERVER_URL}}"
 							],
 							"path": [
 								"pet",
-								"1"
+								"2"
 							]
 						}
 					},
@@ -681,161 +956,6 @@
 								"pet",
 								"user",
 								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "RequestAdoption",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{SERVER_URL}}/pet/2/adopt/1",
-							"host": [
-								"{{SERVER_URL}}"
-							],
-							"path": [
-								"pet",
-								"2",
-								"adopt",
-								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "RequestPetFostering",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "amount",
-									"value": "150000",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{SERVER_URL}}/pet/1/foster/4",
-							"host": [
-								"{{SERVER_URL}}"
-							],
-							"path": [
-								"pet",
-								"1",
-								"foster",
-								"4"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ReportsByLocation",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{SERVER_URL}}/pet/report/location?latitudeMin=-25.423615081673837&longitudeMin=-57.696329951473565&latitudeMax=-25.264766463623385&longitudeMax=-57.55981184986084",
-							"host": [
-								"{{SERVER_URL}}"
-							],
-							"path": [
-								"pet",
-								"report",
-								"location"
-							],
-							"query": [
-								{
-									"key": "latitudeMin",
-									"value": "-25.423615081673837",
-									"description": "latitude right"
-								},
-								{
-									"key": "longitudeMin",
-									"value": "-57.696329951473565",
-									"description": "longitude right"
-								},
-								{
-									"key": "latitudeMax",
-									"value": "-25.264766463623385",
-									"description": "latitude lleft"
-								},
-								{
-									"key": "longitudeMax",
-									"value": "-57.55981184986084",
-									"description": "longitude left"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "ReportsByCreationDate",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "startDate",
-									"value": "2021-05-25 20:00:00",
-									"type": "text"
-								},
-								{
-									"key": "endDate",
-									"value": "2021-05-26 23:59:59",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "{{SERVER_URL}}/pet/report/dates",
-							"host": [
-								"{{SERVER_URL}}"
-							],
-							"path": [
-								"pet",
-								"report",
-								"dates"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "SaveReport",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"id\": null,\n    \"petId\": 2,\n    \"userId\": 1,\n    \"description\": \"perrito encontrado en la esquina\",\n    \"mainStreet\": \"Gondra\",\n    \"secondaryStreet\": \"Tte. Garay\",\n    \"city\": 11,\n    \"locationLongitude\": -57.621506,\n    \"locationLatitude\": -25.313171,\n    \"reference\": \"asdf\",\n    \"observations\": \"asdf\",\n    \"createdAt\": \"2021-05-25T20:00:00.00001\",\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{SERVER_URL}}/pet/report",
-							"host": [
-								"{{SERVER_URL}}"
-							],
-							"path": [
-								"pet",
-								"report"
 							]
 						}
 					},
