@@ -5,5 +5,6 @@ public enum PetStatus {
     APADRINAR,
     ADOPTADA,
     PERDIDA,
-    ENCONTRADA
+    ENCONTRADA,
+    NORMAL
 }

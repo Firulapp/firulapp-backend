@@ -2,10 +2,7 @@ package com.github.firulapp.service.impl;
 
 import com.github.firulapp.constants.PetStatus;
 import com.github.firulapp.domain.Pet;
-import com.github.firulapp.dto.AppUserProfileDto;
-import com.github.firulapp.dto.CityDto;
-import com.github.firulapp.dto.FosterRegisterDto;
-import com.github.firulapp.dto.PetDto;
+import com.github.firulapp.dto.*;
 import com.github.firulapp.exceptions.*;
 import com.github.firulapp.mapper.impl.FosterRegisterMapper;
 import com.github.firulapp.mapper.impl.PetMapper;
@@ -17,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -72,7 +70,11 @@ public class PetServiceImpl implements PetService {
     @Override
     public PetDto getPetById(Long id) throws PetException {
         Optional<Pet> pet = petRepository.findById(id);
-        return pet.map(value -> petMapper.mapToDto(pet.get())).orElseThrow(PetException.notFound(id));
+        if (pet.isPresent()){
+            return petMapper.mapToDto(pet.get());
+        }else{
+            throw PetException.notFound(id);
+        }
     }
 
     @Override
@@ -87,6 +89,9 @@ public class PetServiceImpl implements PetService {
                 pet.setModifiedAt(LocalDateTime.now());
             }else{
                 pet.setCreatedAt(LocalDateTime.now());
+            }
+            if (pet.getStatus() == null){
+                pet.setStatus(PetStatus.NORMAL);
             }
             return petMapper.mapToDto(petRepository.save(pet));
         }else{
@@ -154,6 +159,25 @@ public class PetServiceImpl implements PetService {
             }
         } catch (AppUserException | PetException | CityException | EmailUtilsException e){
             throw PetException.fosterError(requesterId, petId);
+        }
+    }
+
+    @Override
+    public PetDto adoptPet(String adopterUsername, Long petId) throws PetException, AppUserException {
+        PetDto pet = getPetById(petId);
+        AppUserProfileDto petOriginalUser = appUserService.getUserById(pet.getUserId());
+        AppUserProfileDto petAdoptingUser = appUserService.getUserById(appUserService.getUserByUsername(adopterUsername).getId());
+        pet.setStatus(PetStatus.ADOPTADA);
+        pet.setModifiedAt(LocalDateTime.now());
+        pet.setModifiedBy(petOriginalUser.getUserId());
+        pet.setUserId(petAdoptingUser.getUserId());
+        try{
+            Pet petEntity = petRepository.save(petMapper.mapToEntity(pet));
+            emailUtils.sendPetTransferNotificationToOriginalUser(petOriginalUser, petAdoptingUser, petEntity);
+            emailUtils.sendPetTransferNotificationToAdopterUser(petAdoptingUser, petEntity);
+            return petMapper.mapToDto(petEntity);
+        } catch (EmailUtilsException e){
+            throw PetException.adoptionError(adopterUsername, petId);
         }
     }
 }

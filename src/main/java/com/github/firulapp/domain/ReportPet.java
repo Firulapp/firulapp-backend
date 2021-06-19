@@ -1,5 +1,8 @@
 package com.github.firulapp.domain;
 
+import com.github.firulapp.constants.ReportStatus;
+import com.github.firulapp.constants.ReportType;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
@@ -30,6 +33,14 @@ public class ReportPet {
 
     @Column(name = "ciudad")
     private Long city;
+
+    @Column(name = "estado")
+    @Enumerated(EnumType.STRING)
+    private ReportStatus status;
+
+    @Column(name = "tipo")
+    @Enumerated(EnumType.STRING)
+    private ReportType reportType;
 
     @Column(name = "longitud_ubicacion")
     private Double locationLongitude;
@@ -173,5 +184,21 @@ public class ReportPet {
 
     public void setCity(Long city) {
         this.city = city;
+    }
+
+    public ReportStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ReportStatus status) {
+        this.status = status;
+    }
+
+    public ReportType getReportType() {
+        return reportType;
+    }
+
+    public void setReportType(ReportType reportType) {
+        this.reportType = reportType;
     }
 }

@@ -53,6 +53,7 @@ public class ApiPaths {
     public static final String GET_PET_BY_STATUS = "/status/{status}";
     public static final String REQUEST_PET_ADOPTION = GET_PET_BY_ID + "/adopt/{userId}";
     public static final String REQUEST_FOSTER_PET = GET_PET_BY_ID + "/foster/{userId}";
+    public static final String PET_TRANSFER_PROFILE = "/transfer/{petId}/user/{username}";
 
     /**
      * Pet Medical Records endpoints' URLs
@@ -93,6 +94,10 @@ public class ApiPaths {
     public static final String REPORT_BY_LOCATION = REPORT_URL + "/location";
     public static final String REPORT_BY_DATES = REPORT_URL + "/dates";
     public static final String REPORT_BY_ID = REPORT_URL + ID;
+    public static final String REPORT_LOST_PET = REPORT_URL + "/pet/lost";
+    public static final String REPORT_FOUND_PET = REPORT_URL + "/pet/found";
+    public static final String REPORT_CLOSE = REPORT_URL + "/close";
+    public static final String REPORT_OPEN = REPORT_URL + "/open";
     private ApiPaths() {
     }
 }
