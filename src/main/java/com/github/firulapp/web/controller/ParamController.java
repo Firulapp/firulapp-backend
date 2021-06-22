@@ -6,8 +6,6 @@ import com.github.firulapp.exceptions.*;
 import com.github.firulapp.service.*;
 import com.github.firulapp.web.response.ListResponseDTO;
 import com.github.firulapp.web.response.ObjectResponseDTO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +36,12 @@ public class ParamController {
 
     @Autowired
     private CityService cityService;
+
+    @Autowired
+    private OrganizationRequestService organizationRequestService;
+
+    @Autowired
+    private AppUserService appUserService;
 
     @GetMapping(value = ApiPaths.SPECIES_ENDPOINTS)
     public ResponseEntity<ListResponseDTO> getAllSpecies(){
@@ -255,4 +259,30 @@ public class ParamController {
             return new ResponseEntity<>(ListResponseDTO.error(e.getErrorCode(), e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
     }
+
+    @PostMapping(value = ApiPaths.ORGANIZATION_APPROVE)
+    public ResponseEntity<ObjectResponseDTO> approveOrganizationRequest(@PathVariable(name = "id") Long id,
+                                                                        @PathVariable(name = "modifiedBy") Long modifiedBy){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.enableUser(id, modifiedBy)));
+        } catch (AppUserException | OrganizationRequestException | EmailUtilsException e) {
+            return new ResponseEntity<>(ObjectResponseDTO.error(e.getErrorCode(), e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value = ApiPaths.ORGANIZATION_REJECT)
+    public ResponseEntity<ObjectResponseDTO> rejectOrganizationRequest(@PathVariable(name = "id") Long id,
+                                                                       @PathVariable(name = "modifiedBy") Long modifiedBy){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(organizationRequestService.rejectRequest(id, modifiedBy)));
+        } catch (OrganizationRequestException e) {
+            return new ResponseEntity<>(ObjectResponseDTO.error(e.getErrorCode(), e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @GetMapping(value = ApiPaths.ORGANIZATION_REQUEST_ENDPOINTS)
+    public ResponseEntity<ListResponseDTO> getAllOrganizationRequests(){
+        return ResponseEntity.ok(ListResponseDTO.success(organizationRequestService.getAllRequests()));
+    }
+
 }

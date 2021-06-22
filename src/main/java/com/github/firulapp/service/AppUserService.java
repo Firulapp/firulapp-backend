@@ -4,12 +4,14 @@ import com.github.firulapp.dto.AppSessionDto;
 import com.github.firulapp.dto.AppUserDto;
 import com.github.firulapp.dto.AppUserProfileDto;
 import com.github.firulapp.exceptions.AppUserException;
+import com.github.firulapp.exceptions.EmailUtilsException;
+import com.github.firulapp.exceptions.OrganizationRequestException;
 
 import java.util.List;
 
 public interface AppUserService {
 
-    AppSessionDto registerUser(AppUserProfileDto registerUserDto) throws AppUserException;
+    AppSessionDto registerUser(AppUserProfileDto registerUserDto) throws AppUserException, OrganizationRequestException;
 
     AppSessionDto userLogin(AppUserDto userDto) throws AppUserException;
 
@@ -22,4 +24,8 @@ public interface AppUserService {
     AppUserProfileDto updateUser(AppUserProfileDto registerUserDto) throws AppUserException;
 
     AppUserDto getUserByUsername(String username) throws AppUserException;
+
+    AppUserDto getUserByEmail(String email) throws AppUserException;
+
+    AppUserDto enableUser(Long organizationRequestId, Long userId) throws AppUserException, OrganizationRequestException, EmailUtilsException;
 }

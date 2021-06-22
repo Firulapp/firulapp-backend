@@ -6,8 +6,11 @@ import com.github.firulapp.dto.AppUserDto;
 import com.github.firulapp.dto.AppUserProfileDto;
 import com.github.firulapp.exceptions.AgendaActivityException;
 import com.github.firulapp.exceptions.AppUserException;
+import com.github.firulapp.exceptions.OrganizationException;
+import com.github.firulapp.exceptions.OrganizationRequestException;
 import com.github.firulapp.service.AgendaActivityService;
 import com.github.firulapp.service.AppUserService;
+import com.github.firulapp.service.OrganizationService;
 import com.github.firulapp.web.response.ListResponseDTO;
 import com.github.firulapp.web.response.ObjectResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +32,9 @@ public class UserController {
     @Autowired
     private AgendaActivityService agendaActivityService;
 
+    @Autowired
+    private OrganizationService organizationService;
+
     @PostMapping(value = ApiPaths.LOGIN_URL)
     public ResponseEntity<ObjectResponseDTO> login(@RequestBody AppUserDto appUser) {
         try {
@@ -42,7 +48,7 @@ public class UserController {
     public ResponseEntity<ObjectResponseDTO> register(@RequestBody AppUserProfileDto appUserProfileDto){
         try {
             return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.registerUser(appUserProfileDto)));
-        } catch (AppUserException exception){
+        } catch (AppUserException | OrganizationRequestException exception){
             return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
     }
@@ -82,6 +88,21 @@ public class UserController {
             return ResponseEntity.ok(ListResponseDTO.success(agendaActivityService.getAgendaActivityByUserId(id)));
         }catch (AgendaActivityException exception){
             return new ResponseEntity<>(ListResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
+    @GetMapping(value = ApiPaths.ORGANIZATION_BY_USER_ID)
+    public ResponseEntity<ObjectResponseDTO> getOrganizationByUserId(@PathVariable(name = "userId")Long userId){
+        return ResponseEntity.ok(ObjectResponseDTO.success(organizationService.getOrganizationByUserId(userId)));
+    }
+
+    @DeleteMapping(value = ApiPaths.ORGANIZATION_BY_USER_ID)
+    public ResponseEntity<Void> deleteOrganization(@PathVariable(name = "userId")Long userId){
+        try {
+            organizationService.deleteOrganization(userId);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (OrganizationException e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }
