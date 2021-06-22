@@ -42,6 +42,11 @@ public class ApiPaths {
     public static final String CITY_BY_COUNTRY = CITY_ENDPOINTS + "/pais/{pais}";
     public static final String CITY_BY_DISTRICT = CITY_BY_COUNTRY + "/departamento/{departamento}";
     public static final String PET_CARE_BY_BREED_AND_SPECIES = PET_CARE_ENDPOINTS + "/breed/{breedId}/species/{speciesId}";
+    public static final String ORGANIZATION_ENDPOINTS = "/organization";
+    public static final String ORGANIZATION_REQUEST_ENDPOINTS = ORGANIZATION_ENDPOINTS + "/request";
+    public static final String ORGANIZATION_APPROVE = ORGANIZATION_REQUEST_ENDPOINTS + "/approve/{id}/modifiedBy/{modifiedBy}";
+    public static final String ORGANIZATION_REJECT = ORGANIZATION_REQUEST_ENDPOINTS + "/reject/{id}/modifiedBy/{modifiedBy}";
+    public static final String ORGANIZATION_BY_USER_ID = ORGANIZATION_ENDPOINTS + "/{userId}";
 
     /**
      * Pet endpoints' URLs
