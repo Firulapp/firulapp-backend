@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 
 @Service
 public class AppUserDetailsServiceImpl implements AppUserDetailsService {
@@ -25,20 +26,20 @@ public class AppUserDetailsServiceImpl implements AppUserDetailsService {
         if(appUserProfileDto.getId() != null){
             AppUserDetails appUserDetails = appUserDetailsRepository.findByUserId(userId);
             appUserDetails.setModifiedAt(LocalDateTime.now());
-            appUserDetails.setName(appUserProfileDto.getName());
-            appUserDetails.setSurname(appUserProfileDto.getSurname());
+            appUserDetails.setName(appUserProfileDto.getName().toUpperCase(Locale.ROOT));
+            appUserDetails.setSurname(appUserProfileDto.getSurname() != null ? appUserProfileDto.getSurname().toUpperCase(Locale.ROOT) : null);
             appUserDetails.setBirthDate(appUserProfileDto.getBirthDate());
             appUserDetails.setCity(appUserProfileDto.getCity());
             appUserDetails.setDocument(appUserProfileDto.getDocument());
-            appUserDetails.setDocumentType(appUserProfileDto.getDocumentType());
+            appUserDetails.setDocumentType(appUserProfileDto.getDocumentType().toUpperCase(Locale.ROOT));
             appUserDetails.setNotifications(appUserProfileDto.isNotifications());
             appUserDetails.setProfilePicture(appUserProfileDto.getProfilePicture());
             return userDetailsMapper.mapToDto(appUserDetailsRepository.save(appUserDetails));
         }else{
             AppUserDetails appUserDetails = new AppUserDetails();
             appUserDetails.setUserId(userId);
-            appUserDetails.setName(appUserProfileDto.getName());
-            appUserDetails.setSurname(appUserProfileDto.getSurname());
+            appUserDetails.setName(appUserProfileDto.getName().toUpperCase(Locale.ROOT));
+            appUserDetails.setSurname(appUserProfileDto.getSurname() != null ? appUserProfileDto.getSurname().toUpperCase(Locale.ROOT) : null);
             appUserDetails.setBirthDate(appUserProfileDto.getBirthDate());
             appUserDetails.setCity(appUserProfileDto.getCity());
             appUserDetails.setDocument(appUserProfileDto.getDocument());

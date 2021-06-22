@@ -37,7 +37,6 @@ public class AppUserDetails {
     private String name;
 
     @Column(name = "apellidos")
-    @NotNull
     private String surname;
 
     @Column(name = "ciudad")

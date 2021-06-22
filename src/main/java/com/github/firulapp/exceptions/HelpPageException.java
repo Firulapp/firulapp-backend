@@ -4,9 +4,9 @@ import java.util.function.Supplier;
 
 public class HelpPageException extends BusinessException implements Supplier<HelpPageException>{
 
-        private static final long serialVersionUID = 1L;
-        public static final String BASE_ERROR = "helpPage.error";
-        public static final String NOT_FOUND = BASE_ERROR + ".notFound";
+    private static final long serialVersionUID = 1L;
+    public static final String BASE_ERROR = "helpPage.error";
+    public static final String NOT_FOUND = BASE_ERROR + ".notFound";
 
     public HelpPageException(String errorCode, String message) {
         super(errorCode, message);
@@ -22,8 +22,8 @@ public class HelpPageException extends BusinessException implements Supplier<Hel
         return new HelpPageException(NOT_FOUND, "Página de ayuda con id " + id + " no encontrado");
     }
 
-        @Override
-        public HelpPageException get() {
+    @Override
+    public HelpPageException get() {
         return null;
     }
 }
