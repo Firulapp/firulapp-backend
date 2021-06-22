@@ -4,6 +4,7 @@ import com.github.firulapp.constants.ApiPaths;
 import com.github.firulapp.dto.AppSessionDto;
 import com.github.firulapp.dto.AppUserDto;
 import com.github.firulapp.dto.AppUserProfileDto;
+import com.github.firulapp.dto.OrganizationProfileDto;
 import com.github.firulapp.exceptions.AgendaActivityException;
 import com.github.firulapp.exceptions.AppUserException;
 import com.github.firulapp.exceptions.OrganizationException;
@@ -103,6 +104,24 @@ public class UserController {
         } catch (OrganizationException e) {
             e.printStackTrace();
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value = ApiPaths.ORGANIZATION_REQUEST_ENDPOINTS)
+    public ResponseEntity<ObjectResponseDTO> registerOrganizationUser(@RequestBody OrganizationProfileDto profileDto){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.registerOrganization(profileDto)));
+        } catch (AppUserException | OrganizationRequestException | OrganizationException e) {
+            return new ResponseEntity<>(ObjectResponseDTO.error(e.getErrorCode(), e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping(value = ApiPaths.ORGANIZATION_UPDATE)
+    public ResponseEntity<ObjectResponseDTO>updateOrganizationUser(@RequestBody OrganizationProfileDto organizationProfileDto){
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.updateOrganizationUser(organizationProfileDto)));
+        } catch (AppUserException e) {
+            return new ResponseEntity<>(ObjectResponseDTO.error(e.getErrorCode(), e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
     }
 }

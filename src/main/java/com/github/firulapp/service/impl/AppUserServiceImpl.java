@@ -5,6 +5,7 @@ import com.github.firulapp.domain.AppUser;
 import com.github.firulapp.dto.*;
 import com.github.firulapp.exceptions.AppUserException;
 import com.github.firulapp.exceptions.EmailUtilsException;
+import com.github.firulapp.exceptions.OrganizationException;
 import com.github.firulapp.exceptions.OrganizationRequestException;
 import com.github.firulapp.mapper.impl.AppUserMapper;
 import com.github.firulapp.repository.AppUserRepository;
@@ -148,7 +149,10 @@ public class AppUserServiceImpl implements AppUserService {
             if(userOptional.isPresent()) {
                 AppUser userEntity = userOptional.get();
                 AppUserDetailsDto userDetails = appUserDetailsService.getByUserId(userEntity.getId());
-
+                if(userProfileDto.getSurname()==null &&
+                        !userEntity.getUserType().toUpperCase(Locale.ROOT).equals(USER_TYPE_ORGANIZATION)){
+                    throw AppUserException.missingData();
+                }
                 userEntity.setUsername(userProfileDto.getUsername());
                 userEntity.setEmail(userProfileDto.getEmail());
                 userEntity.setModifiedAt(LocalDateTime.now());
@@ -219,5 +223,24 @@ public class AppUserServiceImpl implements AppUserService {
         } else {
             throw AppUserException.notFound(userId.toString());
         }
+    }
+
+    @Override
+    public AppSessionDto registerOrganization(OrganizationProfileDto organizationProfileDto) throws AppUserException, OrganizationRequestException, OrganizationException {
+        OrganizationDto organizationDto = organizationProfileDto.getOrganizationDto();
+        AppUserProfileDto profileDto = organizationProfileDto.getProfileDto();
+        AppSessionDto userSession = registerUser(profileDto);
+        organizationDto.setUserId(userSession.getUserId());
+        organizationService.saveOrganization(organizationDto);
+        return userSession;
+    }
+
+    @Override
+    public OrganizationProfileDto updateOrganizationUser(OrganizationProfileDto organizationProfileDto) throws AppUserException {
+        OrganizationDto organizationDto = organizationProfileDto.getOrganizationDto();
+        AppUserProfileDto appUserProfileDto = organizationProfileDto.getProfileDto();
+        organizationProfileDto.setProfileDto(updateUser(appUserProfileDto));
+        organizationProfileDto.setOrganizationDto(organizationService.saveOrganization(organizationDto));
+        return organizationProfileDto;
     }
 }
