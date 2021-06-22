@@ -14,16 +14,11 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://firulapp.sodep.com.py/api/user/1",
-							"protocol": "https",
+							"raw": "{{SERVER_URL}}/user/1",
 							"host": [
-								"firulapp",
-								"sodep",
-								"com",
-								"py"
+								"{{SERVER_URL}}"
 							],
 							"path": [
-								"api",
 								"user",
 								"1"
 							]
@@ -46,16 +41,11 @@
 							}
 						},
 						"url": {
-							"raw": "https://firulapp.sodep.com.py/api/user/register",
-							"protocol": "https",
+							"raw": "{{SERVER_URL}}/user/register",
 							"host": [
-								"firulapp",
-								"sodep",
-								"com",
-								"py"
+								"{{SERVER_URL}}"
 							],
 							"path": [
-								"api",
 								"user",
 								"register"
 							]
@@ -310,6 +300,26 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "GetBreedBySpeciesId",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/breed/species/2",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"breed",
+										"species",
+										"2"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -536,6 +546,53 @@
 									"path": [
 										"param",
 										"petcare"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Organizaciones",
+					"item": [
+						{
+							"name": "ApproveOrganizationRequest",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/organization/request/approve/7/modifiedBy/3",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"organization",
+										"request",
+										"approve",
+										"7",
+										"modifiedBy",
+										"3"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetAllRequests",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{SERVER_URL}}/param/organization/request",
+									"host": [
+										"{{SERVER_URL}}"
+									],
+									"path": [
+										"param",
+										"organization",
+										"request"
 									]
 								}
 							},
@@ -856,7 +913,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"id\": null,\n    \"userId\": 4,\n    \"speciesId\": 1,\n    \"breedId\": 1,\n    \"name\": \"Toti\",\n    \"birthDate\": null,\n    \"age\": 12,\n    \"petSize\": \"Mediano\",\n    \"city\": \"Asunción\",\n    \"address\": \"Gral Caballero Alvarez 349\",\n    \"primaryColor\": \"Blanco\",\n    \"secondaryColor\": \"Marrón\",\n    \"status\": null,\n    \"picture\": null,\n    \"description\": \"Mascota de la casa\",\n    \"createdAt\": null,\n    \"createdBy\": 1,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
+							"raw": "{\n    \"id\": null,\n    \"userId\": 4,\n    \"speciesId\": 2,\n    \"breedId\": 177,\n    \"name\": \"Hernesto\",\n    \"birthDate\": null,\n    \"age\": 2,\n    \"petSize\": \"Pequeño\",\n    \"city\": 11,\n    \"address\": \"Rio Paraguay Nro. 15\",\n    \"primaryColor\": \"Negro\",\n    \"secondaryColor\": null,\n    \"status\": \"NORMAL\",\n    \"picture\": null,\n    \"description\": \"El gatito del barrio\",\n    \"createdAt\": null,\n    \"createdBy\": 4,\n    \"modifiedAt\": null,\n    \"modifiedBy\": null\n}",
 							"options": {
 								"raw": {
 									"language": "json"
