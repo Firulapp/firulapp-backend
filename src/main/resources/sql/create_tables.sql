@@ -28,7 +28,7 @@ CREATE TABLE detalle_usuario(
     nro_documento VARCHAR(18) NOT NULL,
     tipo_documento VARCHAR(50) NOT NULL,
     nombres VARCHAR(100) NOT NULL,
-    apellidos VARCHAR(100) NOT NULL,
+    apellidos VARCHAR(100),
     ciudad BIGINT REFERENCES ciudad(id) ON DELETE CASCADE,
     foto_perfil BYTEA,
     fecha_nacimiento DATE NOT NULL,
@@ -245,6 +245,29 @@ CREATE TABLE tel_usuario(
     id_usuario BIGINT REFERENCES usuario(id) ON DELETE CASCADE,
     cod_pais varchar(10),
     nro_celular INT NOT NULL,
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT
+);
+
+CREATE TABLE solicitud_organizacion(
+    id BIGSERIAL PRIMARY KEY,
+    nombre_organizacion VARCHAR(100) NOT NULL,
+    ruc VARCHAR(50)  NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    estado VARCHAR(10) NOT NULL,
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT
+);
+
+CREATE TABLE organizacion(
+    id BIGSERIAL PRIMARY KEY,
+    id_usuario BIGINT REFERENCES usuario(id),
+    tipo VARCHAR(50),
+    descripcion VARCHAR(250) NOT NULL,
     fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     usuario_creacion BIGINT NOT NULL,
     fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
