@@ -13,6 +13,8 @@ import com.github.firulapp.service.*;
 import com.github.firulapp.util.EncryptUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -46,11 +48,12 @@ public class AppUserServiceImpl implements AppUserService {
     private OrganizationService organizationService;
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = AppUserException.class)
     public AppSessionDto registerUser(AppUserProfileDto registerUserDto) throws AppUserException, OrganizationRequestException {
         if(appUserRepository.findByUsername(registerUserDto.getUsername()) == null){
             if(appUserRepository.findByEmail(registerUserDto.getEmail()) == null) {
                 if(registerUserDto.getEncryptedPassword().equals(registerUserDto.getConfirmPassword())) {
-                    if(registerUserDto.getSurname()==null &&
+                    if(registerUserDto.getSurname()==null && registerUserDto.getBirthDate()==null &&
                             !registerUserDto.getUserType().toUpperCase(Locale.ROOT).equals(USER_TYPE_ORGANIZATION)){
                         throw AppUserException.missingData();
                     }
@@ -63,7 +66,7 @@ public class AppUserServiceImpl implements AppUserService {
                     userEntity.setCreatedAt(LocalDateTime.now());
                     userEntity.setEnabled(!userEntity.getUserType().toUpperCase(Locale.ROOT).equals(USER_TYPE_ORGANIZATION));
                     AppUser appUser = appUserRepository.save(userEntity);
-                    if(appUser.getUserType().toUpperCase(Locale.ROOT).equals(USER_TYPE_ORGANIZATION)){
+                    if(appUser.getUserType().toUpperCase(Locale.ROOT).equals(USER_TYPE_ORGANIZATION)){ //ADMIN, APP, ORGANIZACION
                         OrganizationRequestDto organizationRequestDto = new OrganizationRequestDto();
                         organizationRequestDto.setStatus(OrganizationRequestStatus.PENDIENTE);
                         organizationRequestDto.setUserId(appUser.getId());
