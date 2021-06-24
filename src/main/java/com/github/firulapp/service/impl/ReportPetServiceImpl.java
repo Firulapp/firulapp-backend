@@ -73,10 +73,7 @@ public class ReportPetServiceImpl implements ReportPetService {
         PetDto pet = null;
         try {
             pet = petService.getPetById(reportPetDto.getPetId());
-            if (pet.getStatus() != PetStatus.PERDIDA){
-                pet.setStatus(PetStatus.PERDIDA);
-                pet.setModifiedBy(reportPetDto.getCreatedBy());
-            }
+            petService.updatePetStatus(pet.getId(), PetStatus.PERDIDA, reportPetDto.getCreatedBy());
             reportPetDto.setReportType(ReportType.MASCOTA_PERDIDA);
             reportPetDto.setStatus(ReportStatus.ABIERTO);
             return saveReport(reportPetDto);
