@@ -18,8 +18,6 @@ public class FirulappBackendApplication extends SpringBootServletInitializer {
 	public static void main(String[] args) {
 		SpringApplication.run(FirulappBackendApplication.class, args);
 	}
-/*
-	// Fix the CORS errors
 	@Bean
 	public FilterRegistrationBean simpleCorsFilter() {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -28,11 +26,12 @@ public class FirulappBackendApplication extends SpringBootServletInitializer {
 		// *** URL below needs to match the Vue client URL and port ***
 		config.setAllowedOrigins(Collections.singletonList("http://localhost:8081"));
 		config.setAllowedOrigins(Collections.singletonList("http://localhost:8080"));
+		config.setAllowedOrigins(Collections.singletonList("https://jazvillagra.github.io/firulapp-admin"));
 		config.setAllowedMethods(Collections.singletonList("*"));
 		config.setAllowedHeaders(Collections.singletonList("*"));
 		source.registerCorsConfiguration("/**", config);
 		FilterRegistrationBean bean = new FilterRegistrationBean<>(new CorsFilter(source));
 		bean.setOrder(Ordered.HIGHEST_PRECEDENCE);
 		return bean;
-	}*/
+	}
 }
