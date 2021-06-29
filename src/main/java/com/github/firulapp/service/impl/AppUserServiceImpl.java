@@ -234,6 +234,7 @@ public class AppUserServiceImpl implements AppUserService {
         AppUserProfileDto profileDto = organizationProfileDto.getProfileDto();
         AppSessionDto userSession = registerUser(profileDto);
         organizationDto.setUserId(userSession.getUserId());
+	organizationDto.setCreatedBy(userSession.getUserId());
         organizationService.saveOrganization(organizationDto);
         return userSession;
     }
