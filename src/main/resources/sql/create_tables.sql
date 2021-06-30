@@ -253,6 +253,7 @@ CREATE TABLE tel_usuario(
 
 CREATE TABLE solicitud_organizacion(
     id BIGSERIAL PRIMARY KEY,
+    id_usuario BIGINT REFERENCES usuario(id),
     nombre_organizacion VARCHAR(100) NOT NULL,
     ruc VARCHAR(50)  NOT NULL,
     email VARCHAR(100) NOT NULL,

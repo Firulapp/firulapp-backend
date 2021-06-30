@@ -1,8 +1,8 @@
 package com.github.firulapp.dto;
 
 public class OrganizationProfileDto {
-    AppUserProfileDto profileDto;
-    OrganizationDto organizationDto;
+    private AppUserProfileDto profileDto;
+    private OrganizationDto organizationDto;
 
     public AppUserProfileDto getProfileDto() {
         return profileDto;
