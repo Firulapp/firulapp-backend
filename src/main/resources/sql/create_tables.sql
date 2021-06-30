@@ -240,17 +240,6 @@ CREATE TABLE reporte_mascota(
     usuario_modificacion BIGINT
 );
 
-CREATE TABLE tel_usuario(
-    id BIGSERIAL PRIMARY KEY,
-    id_usuario BIGINT REFERENCES usuario(id) ON DELETE CASCADE,
-    cod_pais varchar(10),
-    nro_celular INT NOT NULL,
-    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
-    usuario_creacion BIGINT NOT NULL,
-    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
-    usuario_modificacion BIGINT
-);
-
 CREATE TABLE solicitud_organizacion(
     id BIGSERIAL PRIMARY KEY,
     nombre_organizacion VARCHAR(100) NOT NULL,
@@ -272,4 +261,23 @@ CREATE TABLE organizacion(
     usuario_creacion BIGINT NOT NULL,
     fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
     usuario_modificacion BIGINT
+);
+
+CREATE TABLE servicio(
+    id BIGSERIAL PRIMARY KEY,
+    id_usuario BIGINT REFERENCES usuario(id),
+    id_tipo_servicio BIGINT REFERENCES tipo_servicio(id),
+    titulo VARCHAR(255) NOT NULL,
+    descripcion VARCHAR(1000),
+    precio REAL NOT NULL,
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT
+);
+
+CREATE TABLE servicio_especie(
+    id BIGSERIAL PRIMARY KEY,
+    id_servicio BIGINT REFERENCES servicio(id),
+    id_especie BIGINT REFERENCES especie_animal(id)
 );
