@@ -61,10 +61,10 @@ public class AppUserServiceImpl implements AppUserService {
                     userEntity.setEmail(registerUserDto.getEmail());
                     userEntity.setUsername(registerUserDto.getUsername());
                     userEntity.setEncryptedPassword(EncryptUtils.hashPassword(registerUserDto.getEncryptedPassword()));
-                    userEntity.setLoggedIn(!userEntity.getUserType().toUpperCase(Locale.ROOT).equals(USER_TYPE_ORGANIZATION));
+                    userEntity.setLoggedIn(!registerUserDto.getUserType().toUpperCase(Locale.ROOT).equals(USER_TYPE_ORGANIZATION));
                     userEntity.setUserType(registerUserDto.getUserType());
                     userEntity.setCreatedAt(LocalDateTime.now());
-                    userEntity.setEnabled(!userEntity.getUserType().toUpperCase(Locale.ROOT).equals(USER_TYPE_ORGANIZATION));
+                    userEntity.setEnabled(!registerUserDto.getUserType().toUpperCase(Locale.ROOT).equals(USER_TYPE_ORGANIZATION));
                     AppUser appUser = appUserRepository.save(userEntity);
                     if(appUser.getUserType().toUpperCase(Locale.ROOT).equals(USER_TYPE_ORGANIZATION)){ //ADMIN, APP, ORGANIZACION
                         OrganizationRequestDto organizationRequestDto = new OrganizationRequestDto();
