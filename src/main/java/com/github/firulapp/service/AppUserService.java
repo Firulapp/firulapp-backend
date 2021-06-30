@@ -34,4 +34,6 @@ public interface AppUserService {
     AppSessionDto registerOrganization(OrganizationProfileDto organizationProfileDto) throws AppUserException, OrganizationRequestException, OrganizationException;
 
     OrganizationProfileDto updateOrganizationUser(OrganizationProfileDto organizationProfileDto) throws AppUserException;
+
+    OrganizationProfileDto getOrganizationByUserId(Long userId) throws AppUserException;
 }

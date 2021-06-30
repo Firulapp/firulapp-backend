@@ -93,7 +93,11 @@ public class UserController {
     }
     @GetMapping(value = ApiPaths.ORGANIZATION_BY_USER_ID)
     public ResponseEntity<ObjectResponseDTO> getOrganizationByUserId(@PathVariable(name = "userId")Long userId){
-        return ResponseEntity.ok(ObjectResponseDTO.success(organizationService.getOrganizationByUserId(userId)));
+        try {
+            return ResponseEntity.ok(ObjectResponseDTO.success(appUserService.getOrganizationByUserId(userId)));
+        }catch (AppUserException exception){
+            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+        }
     }
 
     @DeleteMapping(value = ApiPaths.ORGANIZATION_BY_USER_ID)

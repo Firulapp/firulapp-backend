@@ -234,7 +234,7 @@ public class AppUserServiceImpl implements AppUserService {
         AppUserProfileDto profileDto = organizationProfileDto.getProfileDto();
         AppSessionDto userSession = registerUser(profileDto);
         organizationDto.setUserId(userSession.getUserId());
-	organizationDto.setCreatedBy(userSession.getUserId());
+	    organizationDto.setCreatedBy(userSession.getUserId());
         organizationService.saveOrganization(organizationDto);
         return userSession;
     }
@@ -246,5 +246,15 @@ public class AppUserServiceImpl implements AppUserService {
         organizationProfileDto.setProfileDto(updateUser(appUserProfileDto));
         organizationProfileDto.setOrganizationDto(organizationService.saveOrganization(organizationDto));
         return organizationProfileDto;
+    }
+
+    @Override
+    public OrganizationProfileDto getOrganizationByUserId(Long userId) throws AppUserException {
+        OrganizationDto organizationDto = organizationService.getOrganizationByUserId(userId);
+        AppUserProfileDto appUserProfileDto = getUserById(userId);
+        OrganizationProfileDto profileDto = new OrganizationProfileDto();
+        profileDto.setProfileDto(appUserProfileDto);
+        profileDto.setOrganizationDto(organizationDto);
+        return profileDto;
     }
 }
