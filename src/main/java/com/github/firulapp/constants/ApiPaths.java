@@ -104,6 +104,12 @@ public class ApiPaths {
     public static final String REPORT_FOUND_PET = REPORT_URL + "/pet/found";
     public static final String REPORT_CLOSE = REPORT_URL + "/close";
     public static final String REPORT_OPEN = REPORT_URL + "/open";
+
+    /**
+     * Services URLs
+     */
+    public static final String SERVICE_URL = BASE_URL + "/service";
+
     private ApiPaths() {
     }
 }
