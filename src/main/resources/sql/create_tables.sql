@@ -31,7 +31,7 @@ CREATE TABLE detalle_usuario(
     apellidos VARCHAR(100),
     ciudad BIGINT REFERENCES ciudad(id) ON DELETE CASCADE,
     foto_perfil BYTEA,
-    fecha_nacimiento DATE NOT NULL,
+    fecha_nacimiento DATE,
     notificaciones BOOLEAN NOT NULL,
     fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,

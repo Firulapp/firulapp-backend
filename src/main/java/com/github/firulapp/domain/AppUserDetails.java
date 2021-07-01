@@ -46,7 +46,6 @@ public class AppUserDetails {
     private byte[] profilePicture;
 
     @Column(name = "fecha_nacimiento")
-    @NotNull
     private LocalDate birthDate;
 
     @Column(name = "notificaciones")
