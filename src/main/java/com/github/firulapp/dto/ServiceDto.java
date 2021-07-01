@@ -10,6 +10,7 @@ public class ServiceDto {
     private String title;
     private String description;
     private String address;
+    private String mailContact;
     private Double price;
     private LocalDateTime createdAt;
     private Long createdBy;
@@ -102,5 +103,13 @@ public class ServiceDto {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getMailContact() {
+        return mailContact;
+    }
+
+    public void setMailContact(String mailContact) {
+        this.mailContact = mailContact;
     }
 }

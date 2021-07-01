@@ -28,6 +28,9 @@ public class ServiceEntity {
     @Column(name = "direccion")
     private String address;
 
+    @Column(name = "contacto_email")
+    private String mailContact;
+
     @Column(name = "precio")
     private Double price;
 
@@ -123,6 +126,13 @@ public class ServiceEntity {
         this.modifiedBy = modifiedBy;
     }
 
+    public String getMailContact() {
+        return mailContact;
+    }
+
+    public void setMailContact(String mailContact) {
+        this.mailContact = mailContact;
+    }
 
     public String getAddress() {
         return address;

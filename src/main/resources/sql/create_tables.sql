@@ -271,6 +271,7 @@ CREATE TABLE servicio(
     titulo VARCHAR(255) NOT NULL,
     descripcion VARCHAR(1000),
     direccion VARCHAR(1000),
+    contacto_email VARCHAR(255),
     precio REAL NOT NULL,
     fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     usuario_creacion BIGINT NOT NULL,
