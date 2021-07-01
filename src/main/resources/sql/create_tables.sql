@@ -270,6 +270,7 @@ CREATE TABLE servicio(
     id_tipo_servicio BIGINT REFERENCES tipo_servicio(id),
     titulo VARCHAR(255) NOT NULL,
     descripcion VARCHAR(1000),
+    direccion VARCHAR(1000),
     precio REAL NOT NULL,
     fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
     usuario_creacion BIGINT NOT NULL,

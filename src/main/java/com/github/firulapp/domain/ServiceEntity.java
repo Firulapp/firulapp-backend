@@ -25,6 +25,9 @@ public class ServiceEntity {
     @Column(name = "descripcion")
     private String description;
 
+    @Column(name = "direccion")
+    private String address;
+
     @Column(name = "precio")
     private Double price;
 
@@ -118,5 +121,14 @@ public class ServiceEntity {
 
     public void setModifiedBy(Long modifiedBy) {
         this.modifiedBy = modifiedBy;
+    }
+
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

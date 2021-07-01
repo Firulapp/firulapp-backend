@@ -9,6 +9,7 @@ public class ServiceDto {
     private Long serviceTypeId;
     private String title;
     private String description;
+    private String address;
     private Double price;
     private LocalDateTime createdAt;
     private Long createdBy;
@@ -93,5 +94,13 @@ public class ServiceDto {
 
     public void setModifiedBy(Long modifiedBy) {
         this.modifiedBy = modifiedBy;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }
