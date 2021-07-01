@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(schema = "public", name = "servicio")
-public class Service {
+public class ServiceEntity {
 
     @Id
     @SequenceGenerator(name = "servicio_id_seq", sequenceName = "servicio_id_seq", initialValue = 1, allocationSize = 1)
