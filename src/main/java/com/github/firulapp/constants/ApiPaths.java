@@ -8,16 +8,18 @@ public class ApiPaths {
     public static final String SAVE = "/save";
     public static final String DELETE = "/delete";
     public static final String UPDATE = "/update";
+    public static final String TYPE = "/type";
+    public static final String USER = "/user";
     public static final String URL_PET_ID = "/pet/{petId}";
 
     /**
      * User endpoints' URLs
      */
-    public static final String USER_ENDPOINTS_URL = BASE_URL + "/user";
+    public static final String USER_ENDPOINTS_URL = BASE_URL + USER;
     public static final String LOGIN_URL = "/login";
     public static final String REGISTER_URL = "/register";
     public static final String LOGOUT_URL = "/logout";
-    public static final String GET_USER_BY_TYPE = "/type";
+    public static final String GET_USER_BY_TYPE = TYPE;
     public static final String GET_USER_PROFILE_BY_ID = ID;
 
     /**
@@ -109,6 +111,10 @@ public class ApiPaths {
      * Services URLs
      */
     public static final String SERVICE_URL = BASE_URL + "/service";
+    public static final String SERVICE_SAVE = "/save";
+    public static final String SERVICE_BY_TYPE =  TYPE + ID;
+    public static final String SERVICE_BY_USER = USER + ID;
+    public static final String SERVICE_ALL = "/all";
 
     private ApiPaths() {
     }

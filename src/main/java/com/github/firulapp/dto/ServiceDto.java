@@ -1,6 +1,5 @@
 package com.github.firulapp.dto;
 
-import javax.persistence.*;
 import java.time.LocalDateTime;
 
 public class ServiceDto {

@@ -14,4 +14,8 @@ public interface ServiceService {
     List<ServiceDetailsDto> getServicesByFilter();
 
     ServiceDetailsDto getServiceById(Long id) throws ServiceEntityException;
+
+    List<ServiceDetailsDto> getServicesByServiceType(Long serviceTypeId);
+
+    List<ServiceDetailsDto> getServicesByUserId(Long userId);
 }

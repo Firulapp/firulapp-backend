@@ -1,6 +1,7 @@
 package com.github.firulapp.config;
 
 import com.github.firulapp.constants.ApiPaths;
+import io.swagger.annotations.Api;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -79,7 +80,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ApiPaths.USER_ENDPOINTS_URL+ApiPaths.ORGANIZATION_UPDATE).permitAll()
                 .antMatchers(ApiPaths.USER_ENDPOINTS_URL+ApiPaths.ORGANIZATION_REQUEST_ENDPOINTS).permitAll()
                 .antMatchers(ApiPaths.SERVICE_URL).permitAll()
-                .antMatchers(ApiPaths.SERVICE_URL + ApiPaths.ID).permitAll()
+                .antMatchers(ApiPaths.SERVICE_URL+ApiPaths.SERVICE_SAVE).permitAll()
+                .antMatchers(ApiPaths.SERVICE_URL+ApiPaths.ID).permitAll()
+                .antMatchers(ApiPaths.SERVICE_URL+ApiPaths.SERVICE_BY_TYPE).permitAll()
+                .antMatchers(ApiPaths.SERVICE_URL+ApiPaths.SERVICE_BY_USER).permitAll()
+                .antMatchers(ApiPaths.SERVICE_URL+ApiPaths.SERVICE_ALL).permitAll()
                 .anyRequest().authenticated()
                 .and().httpBasic();
 

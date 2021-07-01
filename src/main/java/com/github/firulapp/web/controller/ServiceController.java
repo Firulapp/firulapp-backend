@@ -18,14 +18,14 @@ public class ServiceController {
     @Autowired
     private ServiceService serviceService;
 
-    @GetMapping(value = ApiPaths.SERVICE_URL)
+    @GetMapping(value = ApiPaths.SERVICE_ALL)
     public ResponseEntity<ListResponseDTO> getAllServices(){
         return ResponseEntity.ok(ListResponseDTO.success(serviceService.getAllServices()));
     }
 
-    @PostMapping(value = ApiPaths.SERVICE_URL)
+    @PostMapping(value = ApiPaths.SERVICE_SAVE)
     public ResponseEntity<ObjectResponseDTO> saveService(@RequestBody ServiceDetailsDto serviceDetailsDto){
-        return ResponseEntity.ok(ObjectResponseDTO.success(serviceDetailsDto));
+        return ResponseEntity.ok(ObjectResponseDTO.success(serviceService.saveService(serviceDetailsDto)));
     }
 
     @GetMapping(value = ApiPaths.ID)
@@ -35,5 +35,15 @@ public class ServiceController {
         } catch (ServiceEntityException exception){
             return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @GetMapping(value = ApiPaths.SERVICE_BY_TYPE)
+    public ResponseEntity<ListResponseDTO> getServicesByServiceTypeId(@PathVariable Long id){
+        return ResponseEntity.ok(ListResponseDTO.success(serviceService.getServicesByServiceType(id)));
+    }
+
+    @GetMapping(value = ApiPaths.SERVICE_BY_USER)
+    public ResponseEntity<ListResponseDTO> getServicesByUserId(@PathVariable Long id){
+        return ResponseEntity.ok(ListResponseDTO.success(serviceService.getServicesByUserId(id)));
     }
 }
