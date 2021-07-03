@@ -2,6 +2,7 @@ package com.github.firulapp.web.controller;
 
 import com.github.firulapp.constants.ApiPaths;
 import com.github.firulapp.dto.ServiceDetailsDto;
+import com.github.firulapp.dto.ServiceFilterDto;
 import com.github.firulapp.exceptions.ServiceEntityException;
 import com.github.firulapp.service.ServiceService;
 import com.github.firulapp.web.response.ListResponseDTO;
@@ -45,5 +46,10 @@ public class ServiceController {
     @GetMapping(value = ApiPaths.SERVICE_BY_USER)
     public ResponseEntity<ListResponseDTO> getServicesByUserId(@PathVariable Long id){
         return ResponseEntity.ok(ListResponseDTO.success(serviceService.getServicesByUserId(id)));
+    }
+
+    @GetMapping(value = ApiPaths.SERVICE_FILTER)
+    public ResponseEntity<ListResponseDTO> getServicesByFilters(@RequestBody ServiceFilterDto filterDto){
+        return ResponseEntity.ok(ListResponseDTO.success(serviceService.getServicesByFilter(filterDto)));
     }
 }

@@ -115,6 +115,7 @@ public class ApiPaths {
     public static final String SERVICE_BY_TYPE =  TYPE + ID;
     public static final String SERVICE_BY_USER = USER + ID;
     public static final String SERVICE_ALL = "/all";
+    public static final String SERVICE_FILTER = "/filter";
 
     private ApiPaths() {
     }
