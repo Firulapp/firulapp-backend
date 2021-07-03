@@ -189,6 +189,7 @@ public class PetServiceImpl implements PetService {
             petDto.setModifiedBy(modifiedBy);
             petDto.setModifiedAt(LocalDateTime.now());
         }
-        return petDto;
+        petRepository.save(petMapper.mapToEntity(petDto));
+        return petMapper.mapToDto(petRepository.save(petMapper.mapToEntity(petDto)));
     }
 }
