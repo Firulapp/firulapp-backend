@@ -1,6 +1,7 @@
 package com.github.firulapp.service;
 
 import com.github.firulapp.dto.ServiceDetailsDto;
+import com.github.firulapp.dto.ServiceFilterDto;
 import com.github.firulapp.exceptions.ServiceEntityException;
 
 import java.util.List;
@@ -11,7 +12,7 @@ public interface ServiceService {
 
     List<ServiceDetailsDto> getAllServices();
 
-    List<ServiceDetailsDto> getServicesByFilter();
+    List<ServiceDetailsDto> getServicesByFilter(ServiceFilterDto serviceFilterDto);
 
     ServiceDetailsDto getServiceById(Long id) throws ServiceEntityException;
 

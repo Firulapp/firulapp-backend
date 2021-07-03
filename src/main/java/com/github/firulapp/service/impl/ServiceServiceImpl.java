@@ -4,6 +4,7 @@ import com.github.firulapp.domain.ServiceEntity;
 import com.github.firulapp.domain.ServiceSpecies;
 import com.github.firulapp.dto.ServiceDetailsDto;
 import com.github.firulapp.dto.ServiceDto;
+import com.github.firulapp.dto.ServiceFilterDto;
 import com.github.firulapp.exceptions.ServiceEntityException;
 import com.github.firulapp.mapper.impl.ServiceMapper;
 import com.github.firulapp.repository.ServiceEntityRepository;
@@ -11,11 +12,16 @@ import com.github.firulapp.service.ServiceService;
 import com.github.firulapp.service.ServiceSpeciesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import static java.util.Comparator.comparingInt;
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.toCollection;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.TreeSet;
+import java.util.stream.Collectors;
 
 @Service
 public class ServiceServiceImpl implements ServiceService {
@@ -56,8 +62,13 @@ public class ServiceServiceImpl implements ServiceService {
     }
 
     @Override
-    public List<ServiceDetailsDto> getServicesByFilter() {
-        return null;
+    public List<ServiceDetailsDto> getServicesByFilter(ServiceFilterDto serviceFilterDto) {
+        List<ServiceDto> dtos = serviceMapper.mapAsList(serviceEntityRepository
+                .findByServiceTypeIdAndSpecies(serviceFilterDto.getServiceTypeId(), serviceFilterDto.getSpeciesId()));
+
+        List<ServiceDto> uniqueDtos = dtos.stream().distinct().collect(Collectors.toList());
+
+        return getListOfServiceDetails(uniqueDtos);
     }
 
     @Override
