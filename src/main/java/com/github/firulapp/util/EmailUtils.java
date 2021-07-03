@@ -1,9 +1,8 @@
 package com.github.firulapp.util;
 
+import com.github.firulapp.domain.AppUserDetails;
 import com.github.firulapp.domain.Pet;
-import com.github.firulapp.dto.AppUserProfileDto;
-import com.github.firulapp.dto.CityDto;
-import com.github.firulapp.dto.PetDto;
+import com.github.firulapp.dto.*;
 import com.github.firulapp.exceptions.EmailUtilsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,8 +62,8 @@ public class EmailUtils {
             //Transport message
             Transport transport = session.getTransport("smtp");
             transport.connect(props.getProperty(MAIL_SMTP_HOST),
-                    props.getProperty(MAIL_SMTP_USER),
-                    props.getProperty(MAIL_SMTP_PASSWORD));
+                    session.getProperties().getProperty(MAIL_SMTP_USER),
+                    session.getProperties().getProperty(MAIL_SMTP_PASSWORD));
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
         } catch (MessagingException e) {
@@ -176,6 +175,32 @@ public class EmailUtils {
             sendEmail(petAdoptingUser, props, from, emailSubject, emailText);
             LOGGER.info("Notificacion via email enviada");
         } catch (IOException e) {
+            throw EmailUtilsException.mailSendError();
+        }
+    }
+
+    public void sendOrganizationApprovalNotificationEmail(AppUserProfileDto appUserProfileDto) throws EmailUtilsException {
+        LOGGER.info("Construyendo email de notificación de aprobación de solicitud de registro de organización");
+        //Configure mailing properties
+        try (InputStream input =new FileInputStream(PROPERTIES_FILE)) {
+            Properties props = new Properties();
+
+            props.load(input);
+
+            String from = props.getProperty(MAIL_SMTP_USER);
+            String emailSubject = "Solicitud de registro de organización aprobada - " + appUserProfileDto.getName().toUpperCase(Locale.ROOT);
+            String emailText = "Hola " + appUserProfileDto.getName() + "!\n" +
+                    "Felicidades! Su organización " + appUserProfileDto.getName().toUpperCase(Locale.ROOT) +
+                    " con Identidad Tributaria / RUC nro. " + appUserProfileDto.getDocument() +
+                    " ha sido aprobada por FIRULAPP! \n Puedes ver tu perfil en la app móvil. " +
+                    "Allí podrás ofrecer tus servicios, contratar servicios y registrar a mascotas! \n" +
+                    "Si tu NO solicitaste el registro de tu organización, por favor contáctanos al mail: " + from +
+                    "\nAtte.\n Equipo Firulapp.";
+            //Send email
+            sendEmail(appUserProfileDto, props, from, emailSubject, emailText);
+            LOGGER.info("Notificacion via email enviada");
+        } catch (IOException e) {
+            e.printStackTrace();
             throw EmailUtilsException.mailSendError();
         }
     }

@@ -1,24 +1,30 @@
 package com.github.firulapp.service.impl;
 
+import com.github.firulapp.constants.OrganizationRequestStatus;
 import com.github.firulapp.domain.AppUser;
 import com.github.firulapp.dto.*;
 import com.github.firulapp.exceptions.AppUserException;
+import com.github.firulapp.exceptions.EmailUtilsException;
+import com.github.firulapp.exceptions.OrganizationException;
+import com.github.firulapp.exceptions.OrganizationRequestException;
 import com.github.firulapp.mapper.impl.AppUserMapper;
 import com.github.firulapp.repository.AppUserRepository;
-import com.github.firulapp.service.AppSessionService;
-import com.github.firulapp.service.AppUserDetailsService;
-import com.github.firulapp.service.AppUserDeviceService;
-import com.github.firulapp.service.AppUserService;
+import com.github.firulapp.service.*;
 import com.github.firulapp.util.EncryptUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Service
 public class AppUserServiceImpl implements AppUserService {
+
+    public static final String USER_TYPE_ORGANIZATION = "ORGANIZACION";
 
     @Autowired
     private AppUserRepository appUserRepository;
@@ -35,22 +41,41 @@ public class AppUserServiceImpl implements AppUserService {
     @Autowired
     private AppUserMapper appUserMapper;
 
+    @Autowired
+    private OrganizationRequestService organizationRequestService;
+
+    @Autowired
+    private OrganizationService organizationService;
+
     @Override
-    public AppSessionDto registerUser(AppUserProfileDto registerUserDto) throws AppUserException{
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = AppUserException.class)
+    public AppSessionDto registerUser(AppUserProfileDto registerUserDto) throws AppUserException, OrganizationRequestException {
         if(appUserRepository.findByUsername(registerUserDto.getUsername()) == null){
             if(appUserRepository.findByEmail(registerUserDto.getEmail()) == null) {
                 if(registerUserDto.getEncryptedPassword().equals(registerUserDto.getConfirmPassword())) {
+                    if(registerUserDto.getSurname()==null && registerUserDto.getBirthDate()==null &&
+                            !registerUserDto.getUserType().toUpperCase(Locale.ROOT).equals(USER_TYPE_ORGANIZATION)){
+                        throw AppUserException.missingData();
+                    }
                     AppUser userEntity = new AppUser();
                     userEntity.setEmail(registerUserDto.getEmail());
                     userEntity.setUsername(registerUserDto.getUsername());
                     userEntity.setEncryptedPassword(EncryptUtils.hashPassword(registerUserDto.getEncryptedPassword()));
-                    //TODO email confirmation, in the meantime all users registered are enabled
-                    userEntity.setEnabled(true);
-                    userEntity.setLoggedIn(Boolean.TRUE);
+                    userEntity.setLoggedIn(!registerUserDto.getUserType().toUpperCase(Locale.ROOT).equals(USER_TYPE_ORGANIZATION));
                     userEntity.setUserType(registerUserDto.getUserType());
                     userEntity.setCreatedAt(LocalDateTime.now());
+                    userEntity.setEnabled(!registerUserDto.getUserType().toUpperCase(Locale.ROOT).equals(USER_TYPE_ORGANIZATION));
                     AppUser appUser = appUserRepository.save(userEntity);
-
+                    if(appUser.getUserType().toUpperCase(Locale.ROOT).equals(USER_TYPE_ORGANIZATION)){ //ADMIN, APP, ORGANIZACION
+                        OrganizationRequestDto organizationRequestDto = new OrganizationRequestDto();
+                        organizationRequestDto.setStatus(OrganizationRequestStatus.PENDIENTE);
+                        organizationRequestDto.setUserId(appUser.getId());
+                        organizationRequestDto.setEmail(appUser.getEmail());
+                        organizationRequestDto.setOrganizationName(registerUserDto.getName());
+                        organizationRequestDto.setCreatedBy(appUser.getId());
+                        organizationRequestDto.setRuc(registerUserDto.getDocument());
+                        organizationRequestService.saveOrganizationRequest(organizationRequestDto);
+                    }
                     appUserDetailsService.saveUserDetails(registerUserDto, appUser.getId());
                     AppUserDeviceDto userDeviceDto = appUserDeviceService.saveUserDevice(appUser.getId());
                     return appSessionService.initiateSession(appUser.getId(), userDeviceDto.getId());
@@ -127,7 +152,10 @@ public class AppUserServiceImpl implements AppUserService {
             if(userOptional.isPresent()) {
                 AppUser userEntity = userOptional.get();
                 AppUserDetailsDto userDetails = appUserDetailsService.getByUserId(userEntity.getId());
-
+                if(userProfileDto.getSurname()==null &&
+                        !userEntity.getUserType().toUpperCase(Locale.ROOT).equals(USER_TYPE_ORGANIZATION)){
+                    throw AppUserException.missingData();
+                }
                 userEntity.setUsername(userProfileDto.getUsername());
                 userEntity.setEmail(userProfileDto.getEmail());
                 userEntity.setModifiedAt(LocalDateTime.now());
@@ -172,5 +200,61 @@ public class AppUserServiceImpl implements AppUserService {
         } else {
             throw AppUserException.notFound(username);
         }
+    }
+
+    @Override
+    public AppUserDto getUserByEmail(String email) throws AppUserException {
+        AppUser appUser = appUserRepository.findByEmail(email);
+        if (appUser != null){
+            return appUserMapper.mapToDto(appUser);
+        } else {
+            throw AppUserException.notFound(email);
+        }
+    }
+
+    //TODO make this method work for all user types. For now, we only need to approve and enable organization type users
+    @Override
+    public AppUserDto enableUser(Long organizationUserId, Long modifiedBy) throws AppUserException, OrganizationRequestException, EmailUtilsException {
+        Long userId = organizationRequestService.getRequestById(organizationUserId).getUserId();
+        Optional<AppUser> appUser = appUserRepository.findById(userId);
+        if(appUser.isPresent()){
+            AppUser user = appUser.get();
+            user.setEnabled(Boolean.TRUE);
+            user.setModifiedAt(LocalDateTime.now());
+            organizationRequestService.approveRequest(organizationUserId, modifiedBy);
+            return appUserMapper.mapToDto(appUserRepository.save(user));
+        } else {
+            throw AppUserException.notFound(userId.toString());
+        }
+    }
+
+    @Override
+    public AppSessionDto registerOrganization(OrganizationProfileDto organizationProfileDto) throws AppUserException, OrganizationRequestException, OrganizationException {
+        OrganizationDto organizationDto = organizationProfileDto.getOrganizationDto();
+        AppUserProfileDto profileDto = organizationProfileDto.getProfileDto();
+        AppSessionDto userSession = registerUser(profileDto);
+        organizationDto.setUserId(userSession.getUserId());
+	    organizationDto.setCreatedBy(userSession.getUserId());
+        organizationService.saveOrganization(organizationDto);
+        return userSession;
+    }
+
+    @Override
+    public OrganizationProfileDto updateOrganizationUser(OrganizationProfileDto organizationProfileDto) throws AppUserException {
+        OrganizationDto organizationDto = organizationProfileDto.getOrganizationDto();
+        AppUserProfileDto appUserProfileDto = organizationProfileDto.getProfileDto();
+        organizationProfileDto.setProfileDto(updateUser(appUserProfileDto));
+        organizationProfileDto.setOrganizationDto(organizationService.saveOrganization(organizationDto));
+        return organizationProfileDto;
+    }
+
+    @Override
+    public OrganizationProfileDto getOrganizationByUserId(Long userId) throws AppUserException {
+        OrganizationDto organizationDto = organizationService.getOrganizationByUserId(userId);
+        AppUserProfileDto appUserProfileDto = getUserById(userId);
+        OrganizationProfileDto profileDto = new OrganizationProfileDto();
+        profileDto.setProfileDto(appUserProfileDto);
+        profileDto.setOrganizationDto(organizationDto);
+        return profileDto;
     }
 }

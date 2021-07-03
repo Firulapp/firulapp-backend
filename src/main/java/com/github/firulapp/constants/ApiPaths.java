@@ -8,16 +8,18 @@ public class ApiPaths {
     public static final String SAVE = "/save";
     public static final String DELETE = "/delete";
     public static final String UPDATE = "/update";
+    public static final String TYPE = "/type";
+    public static final String USER = "/user";
     public static final String URL_PET_ID = "/pet/{petId}";
 
     /**
      * User endpoints' URLs
      */
-    public static final String USER_ENDPOINTS_URL = BASE_URL + "/user";
+    public static final String USER_ENDPOINTS_URL = BASE_URL + USER;
     public static final String LOGIN_URL = "/login";
     public static final String REGISTER_URL = "/register";
     public static final String LOGOUT_URL = "/logout";
-    public static final String GET_USER_BY_TYPE = "/type";
+    public static final String GET_USER_BY_TYPE = TYPE;
     public static final String GET_USER_PROFILE_BY_ID = ID;
 
     /**
@@ -42,6 +44,12 @@ public class ApiPaths {
     public static final String CITY_BY_COUNTRY = CITY_ENDPOINTS + "/pais/{pais}";
     public static final String CITY_BY_DISTRICT = CITY_BY_COUNTRY + "/departamento/{departamento}";
     public static final String PET_CARE_BY_BREED_AND_SPECIES = PET_CARE_ENDPOINTS + "/breed/{breedId}/species/{speciesId}";
+    public static final String ORGANIZATION_ENDPOINTS = "/organization";
+    public static final String ORGANIZATION_REQUEST_ENDPOINTS = ORGANIZATION_ENDPOINTS + "/request";
+    public static final String ORGANIZATION_APPROVE = ORGANIZATION_REQUEST_ENDPOINTS + "/approve/{id}/modifiedBy/{modifiedBy}";
+    public static final String ORGANIZATION_REJECT = ORGANIZATION_REQUEST_ENDPOINTS + "/reject/{id}/modifiedBy/{modifiedBy}";
+    public static final String ORGANIZATION_BY_USER_ID = ORGANIZATION_ENDPOINTS + "/{userId}";
+    public static final String ORGANIZATION_UPDATE = ORGANIZATION_ENDPOINTS + UPDATE;
 
     /**
      * Pet endpoints' URLs
@@ -98,6 +106,17 @@ public class ApiPaths {
     public static final String REPORT_FOUND_PET = REPORT_URL + "/pet/found";
     public static final String REPORT_CLOSE = REPORT_URL + "/close";
     public static final String REPORT_OPEN = REPORT_URL + "/open";
+
+    /**
+     * Services URLs
+     */
+    public static final String SERVICE_URL = BASE_URL + "/service";
+    public static final String SERVICE_SAVE = "/save";
+    public static final String SERVICE_BY_TYPE =  TYPE + ID;
+    public static final String SERVICE_BY_USER = USER + ID;
+    public static final String SERVICE_ALL = "/all";
+    public static final String SERVICE_FILTER = "/filter";
+
     private ApiPaths() {
     }
 }

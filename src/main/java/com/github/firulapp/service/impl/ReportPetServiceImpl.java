@@ -73,10 +73,7 @@ public class ReportPetServiceImpl implements ReportPetService {
         PetDto pet = null;
         try {
             pet = petService.getPetById(reportPetDto.getPetId());
-            if (pet.getStatus() != PetStatus.PERDIDA){
-                pet.setStatus(PetStatus.PERDIDA);
-                pet.setModifiedBy(reportPetDto.getCreatedBy());
-            }
+            petService.updatePetStatus(pet.getId(), PetStatus.PERDIDA, reportPetDto.getCreatedBy());
             reportPetDto.setReportType(ReportType.MASCOTA_PERDIDA);
             reportPetDto.setStatus(ReportStatus.ABIERTO);
             return saveReport(reportPetDto);
@@ -109,10 +106,12 @@ public class ReportPetServiceImpl implements ReportPetService {
     @Override
     public ReportPetDto closeReport(ReportPetDto reportPetDto) throws ReportPetException {
         try {
+            if(reportPetDto.getReportType().equals(ReportType.MASCOTA_PERDIDA)){
+                PetDto pet = petService.getPetById(reportPetDto.getPetId());
+                pet.setStatus(PetStatus.ENCONTRADA);
+                petService.registerOrUpdatePet(pet);
+            }
             reportPetDto.setStatus(ReportStatus.CERRADO);
-            PetDto pet = petService.getPetById(reportPetDto.getPetId());
-            pet.setStatus(null);
-            petService.registerOrUpdatePet(pet);
             return mapper.mapToDto(repository.save(mapper.mapToEntity(reportPetDto)));
         } catch (BreedException | PetException | AppUserException | SpeciesException e){
             throw ReportPetException.petNotFound(reportPetDto.getPetId());

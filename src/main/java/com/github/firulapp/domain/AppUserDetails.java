@@ -37,7 +37,6 @@ public class AppUserDetails {
     private String name;
 
     @Column(name = "apellidos")
-    @NotNull
     private String surname;
 
     @Column(name = "ciudad")
@@ -47,7 +46,6 @@ public class AppUserDetails {
     private byte[] profilePicture;
 
     @Column(name = "fecha_nacimiento")
-    @NotNull
     private LocalDate birthDate;
 
     @Column(name = "notificaciones")

@@ -167,7 +167,7 @@ public class PetServiceImpl implements PetService {
         PetDto pet = getPetById(petId);
         AppUserProfileDto petOriginalUser = appUserService.getUserById(pet.getUserId());
         AppUserProfileDto petAdoptingUser = appUserService.getUserById(appUserService.getUserByUsername(adopterUsername).getId());
-        pet.setStatus(PetStatus.ADOPTADA);
+        pet.setStatus(PetStatus.NORMAL);
         pet.setModifiedAt(LocalDateTime.now());
         pet.setModifiedBy(petOriginalUser.getUserId());
         pet.setUserId(petAdoptingUser.getUserId());
@@ -179,5 +179,17 @@ public class PetServiceImpl implements PetService {
         } catch (EmailUtilsException e){
             throw PetException.adoptionError(adopterUsername, petId);
         }
+    }
+
+    @Override
+    public PetDto updatePetStatus(Long id, PetStatus status, Long modifiedBy) throws PetException {
+        PetDto petDto = getPetById(id);
+        if(!petDto.getStatus().equals(status)){
+            petDto.setStatus(PetStatus.PERDIDA);
+            petDto.setModifiedBy(modifiedBy);
+            petDto.setModifiedAt(LocalDateTime.now());
+        }
+        petRepository.save(petMapper.mapToEntity(petDto));
+        return petMapper.mapToDto(petRepository.save(petMapper.mapToEntity(petDto)));
     }
 }

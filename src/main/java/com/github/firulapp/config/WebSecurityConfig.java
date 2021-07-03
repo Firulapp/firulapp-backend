@@ -1,6 +1,7 @@
 package com.github.firulapp.config;
 
 import com.github.firulapp.constants.ApiPaths;
+import io.swagger.annotations.Api;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -12,8 +13,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http
-                .csrf().disable()
+        http.csrf().disable()
                 .authorizeRequests()
                 .antMatchers(ApiPaths.BASE_URL).permitAll()
                 .antMatchers(ApiPaths.USER_ENDPOINTS_URL+ApiPaths.REGISTER_URL).permitAll()
@@ -71,6 +71,20 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.REPORT_CLOSE).permitAll()
                 .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.REPORT_OPEN).permitAll()
                 .antMatchers(ApiPaths.PET_ENDPOINTS_URL+ApiPaths.PET_TRANSFER_PROFILE).permitAll()
+                .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.ORGANIZATION_REQUEST_ENDPOINTS).permitAll()
+                .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.ORGANIZATION_APPROVE).permitAll()
+                .antMatchers(ApiPaths.PARAM_ENDPOINTS_URL+ApiPaths.ORGANIZATION_REJECT).permitAll()
+                .antMatchers(ApiPaths.USER_ENDPOINTS_URL+ApiPaths.ORGANIZATION_ENDPOINTS).permitAll()
+                .antMatchers(ApiPaths.USER_ENDPOINTS_URL+ApiPaths.ORGANIZATION_BY_USER_ID).permitAll()
+                .antMatchers(ApiPaths.USER_ENDPOINTS_URL+ApiPaths.ORGANIZATION_UPDATE).permitAll()
+                .antMatchers(ApiPaths.USER_ENDPOINTS_URL+ApiPaths.ORGANIZATION_REQUEST_ENDPOINTS).permitAll()
+                .antMatchers(ApiPaths.SERVICE_URL).permitAll()
+                .antMatchers(ApiPaths.SERVICE_URL+ApiPaths.SERVICE_SAVE).permitAll()
+                .antMatchers(ApiPaths.SERVICE_URL+ApiPaths.ID).permitAll()
+                .antMatchers(ApiPaths.SERVICE_URL+ApiPaths.SERVICE_BY_TYPE).permitAll()
+                .antMatchers(ApiPaths.SERVICE_URL+ApiPaths.SERVICE_BY_USER).permitAll()
+                .antMatchers(ApiPaths.SERVICE_URL+ApiPaths.SERVICE_ALL).permitAll()
+                .antMatchers(ApiPaths.SERVICE_URL+ApiPaths.SERVICE_FILTER).permitAll()
                 .anyRequest().authenticated()
                 .and().httpBasic();
 
