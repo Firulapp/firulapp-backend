@@ -46,4 +46,12 @@ public class ServiceSpeciesServiceImpl implements ServiceSpeciesService {
         }
         return serviceSpeciesList;
     }
+
+    @Override
+    public void deleteServiceSpecies(Long serviceId) {
+        List<ServiceSpecies> serviceSpecies = getSpeciesByServiceId(serviceId);
+        for (ServiceSpecies s:serviceSpecies) {
+            serviceSpeciesRepository.delete(s);
+        }
+    }
 }

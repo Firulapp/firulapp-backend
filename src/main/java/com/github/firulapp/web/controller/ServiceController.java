@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
@@ -48,8 +49,18 @@ public class ServiceController {
         return ResponseEntity.ok(ListResponseDTO.success(serviceService.getServicesByUserId(id)));
     }
 
-    @GetMapping(value = ApiPaths.SERVICE_FILTER)
+    @PostMapping(value = ApiPaths.SERVICE_FILTER)
     public ResponseEntity<ListResponseDTO> getServicesByFilters(@RequestBody ServiceFilterDto filterDto){
         return ResponseEntity.ok(ListResponseDTO.success(serviceService.getServicesByFilter(filterDto)));
+    }
+
+    @DeleteMapping(value = ApiPaths.ID)
+    public ResponseEntity<Void> deleteService(@PathVariable Long id){
+        try {
+            serviceService.deleteService(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }catch (ServiceEntityException exception){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

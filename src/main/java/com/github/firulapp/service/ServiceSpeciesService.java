@@ -15,4 +15,6 @@ public interface ServiceSpeciesService {
     ServiceSpecies getServiceBySpeciesIdAndServiceId(Long serviceId, Long speciesId);
 
     List<ServiceSpecies> saveServiceSpeciesByServiceId(Long serviceId, List<Long> speciesIdList);
+
+    void deleteServiceSpecies(Long serviceId);
 }
