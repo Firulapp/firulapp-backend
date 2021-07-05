@@ -10,6 +10,9 @@ public class AgendaActivityDto {
     private Long activityId;
     private Long petMedicalRecordId;
     private Long petVaccinationRecordId;
+    private Long serviceId;
+    private Long clientId;
+    private Long appointmentId;
     private String details;
     private LocalDate activityDate;
     private LocalDateTime activityTime;
@@ -76,5 +79,29 @@ public class AgendaActivityDto {
 
     public void setActivityTime(LocalDateTime activityTime) {
         this.activityTime = activityTime;
+    }
+
+    public Long getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(Long serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public Long getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
+    }
+
+    public Long getAppointmentId() {
+        return appointmentId;
+    }
+
+    public void setAppointmentId(Long appointmentId) {
+        this.appointmentId = appointmentId;
     }
 }
