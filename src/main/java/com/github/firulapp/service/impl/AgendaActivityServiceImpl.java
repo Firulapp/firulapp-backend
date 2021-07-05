@@ -85,17 +85,20 @@ public class AgendaActivityServiceImpl implements AgendaActivityService {
                     }
                 }
             } else {
-                List<ServiceAppointmentDto> appointments = appointmentService.getServiceAppointmentsByUserId(userId);
-                if(appointments != null) {
-                    for (ServiceAppointmentDto dto : appointments) {
-                        AgendaActivityDto agendaActivity = new AgendaActivityDto();
-                        agendaActivity.setUserId(userId);
-                        agendaActivity.setPetId(dto.getPetId());
-                        agendaActivity.setServiceId(dto.getServiceId());
-                        agendaActivity.setClientId(dto.getUserId());
-                        agendaActivity.setActivityDate(dto.getAppointmentDate());
-                        agendaActivity.setDetails(serviceService.getServiceById(dto.getServiceId()).getServiceDto().getTitle());
-                        userAgenda.add(agendaActivity);
+                List<ServiceDetailsDto> servicesByUser = serviceService.getServicesByUserId(userId);
+                for(ServiceDetailsDto serviceDetails: servicesByUser) {
+                    List<ServiceAppointmentDto> appointments = appointmentService.getServiceAppointmentsByServiceId(serviceDetails.getServiceDto().getId());
+                    if (appointments != null) {
+                        for (ServiceAppointmentDto dto : appointments) {
+                            AgendaActivityDto agendaActivity = new AgendaActivityDto();
+                            agendaActivity.setUserId(userId);
+                            agendaActivity.setPetId(dto.getPetId());
+                            agendaActivity.setServiceId(dto.getServiceId());
+                            agendaActivity.setClientId(dto.getUserId());
+                            agendaActivity.setActivityDate(dto.getAppointmentDate());
+                            agendaActivity.setDetails(serviceService.getServiceById(dto.getServiceId()).getServiceDto().getTitle());
+                            userAgenda.add(agendaActivity);
+                        }
                     }
                 }
             }
