@@ -116,6 +116,9 @@ public class ApiPaths {
     public static final String SERVICE_BY_USER = USER + ID;
     public static final String SERVICE_ALL = "/all";
     public static final String SERVICE_FILTER = "/filter";
+    public static final String SERVICE_APPOINTMENT_ENDPOINTS = "/appointment";
+    public static final String SERVICE_APPOINTMENT_BY_SERVICE_USER_PET = SERVICE_APPOINTMENT_ENDPOINTS + "/service/{serviceId}/user/{userId}/pet/{petId}";
+    public static final String SERVICE_APPOINTMENT_CANCEL = SERVICE_APPOINTMENT_ENDPOINTS + "/{serviceAppointmentId}/{status}/by/{modifiedBy}";
 
     private ApiPaths() {
     }
