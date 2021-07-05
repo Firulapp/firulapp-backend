@@ -12,15 +12,11 @@ import com.github.firulapp.service.ServiceService;
 import com.github.firulapp.service.ServiceSpeciesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import static java.util.Comparator.comparingInt;
-import static java.util.stream.Collectors.collectingAndThen;
-import static java.util.stream.Collectors.toCollection;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 @Service
@@ -40,12 +36,22 @@ public class ServiceServiceImpl implements ServiceService {
         ServiceDto serviceDto = service.getServiceDto();
         if(serviceDto.getId() != null) {
             serviceDto.setModifiedAt(LocalDateTime.now());
+            ServiceEntity entity = serviceEntityRepository.save(serviceMapper.mapToEntity(serviceDto));
+            ArrayList<Long> species = new ArrayList<>();
+            for (ServiceSpecies serviceSpecies : serviceSpeciesService.getSpeciesByServiceId(entity.getId())) {
+                species.add(serviceSpecies.getSpeciesId());
+            }
+            if(species.size() != service.getSpecies().size() || !species.equals(service.getSpecies()) || !species.isEmpty()){
+                serviceSpeciesService.deleteServiceSpecies(entity.getId());
+                serviceSpeciesService.saveServiceSpeciesByServiceId(entity.getId(), service.getSpecies());
+            }
+            service.setServiceDto(serviceMapper.mapToDto(entity));
         }else{
             serviceDto.setCreatedAt(LocalDateTime.now());
+            ServiceEntity entity = serviceEntityRepository.save(serviceMapper.mapToEntity(serviceDto));
+            serviceSpeciesService.saveServiceSpeciesByServiceId(entity.getId(), service.getSpecies());
+            service.setServiceDto(serviceMapper.mapToDto(entity));
         }
-        ServiceEntity entity = serviceEntityRepository.save(serviceMapper.mapToEntity(serviceDto));
-        service.setServiceDto(serviceMapper.mapToDto(entity));
-        serviceSpeciesService.saveServiceSpeciesByServiceId(entity.getId(), service.getSpecies());
         return service;
     }
 
@@ -63,12 +69,17 @@ public class ServiceServiceImpl implements ServiceService {
 
     @Override
     public List<ServiceDetailsDto> getServicesByFilter(ServiceFilterDto serviceFilterDto) {
-        List<ServiceDto> dtos = serviceMapper.mapAsList(serviceEntityRepository
-                .findByServiceTypeIdAndSpecies(serviceFilterDto.getServiceTypeId(), serviceFilterDto.getSpeciesId()));
-
-        List<ServiceDto> uniqueDtos = dtos.stream().distinct().collect(Collectors.toList());
-
-        return getListOfServiceDetails(uniqueDtos);
+        Long serviceTypeId = serviceFilterDto.getServiceTypeId();
+        if(serviceFilterDto.getSpeciesId() != null){
+            if(!serviceFilterDto.getSpeciesId().isEmpty()) {
+                ArrayList<Long> species = serviceFilterDto.getSpeciesId();
+                List<ServiceDto> dtos = serviceMapper.mapAsList(serviceEntityRepository
+                        .findByServiceTypeIdAndSpecies(serviceTypeId, species));
+                List<ServiceDto> uniqueDtos = dtos.stream().distinct().collect(Collectors.toList());
+                return getListOfServiceDetails(uniqueDtos);
+            }
+        }
+        return getServicesByServiceType(serviceTypeId);
     }
 
     @Override
@@ -112,5 +123,11 @@ public class ServiceServiceImpl implements ServiceService {
             serviceDetailsList.add(serviceDetailsDto);
         }
         return serviceDetailsList;
+    }
+
+    @Override
+    public void deleteService(Long serviceId) throws ServiceEntityException {
+        serviceSpeciesService.deleteServiceSpecies(serviceId);
+        serviceEntityRepository.delete(serviceMapper.mapToEntity(getServiceById(serviceId).getServiceDto()));
     }
 }

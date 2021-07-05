@@ -1,8 +1,9 @@
 package com.github.firulapp.util;
 
-import com.github.firulapp.domain.AppUserDetails;
 import com.github.firulapp.domain.Pet;
-import com.github.firulapp.dto.*;
+import com.github.firulapp.dto.AppUserProfileDto;
+import com.github.firulapp.dto.CityDto;
+import com.github.firulapp.dto.PetDto;
 import com.github.firulapp.exceptions.EmailUtilsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

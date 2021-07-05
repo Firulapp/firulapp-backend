@@ -19,4 +19,6 @@ public interface ServiceService {
     List<ServiceDetailsDto> getServicesByServiceType(Long serviceTypeId);
 
     List<ServiceDetailsDto> getServicesByUserId(Long userId);
+
+    void deleteService(Long serviceId) throws ServiceEntityException;
 }
