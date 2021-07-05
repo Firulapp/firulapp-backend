@@ -41,7 +41,7 @@ public class ServiceServiceImpl implements ServiceService {
             for (ServiceSpecies serviceSpecies : serviceSpeciesService.getSpeciesByServiceId(entity.getId())) {
                 species.add(serviceSpecies.getSpeciesId());
             }
-            if(species.size() != service.getSpecies().size() || !species.equals(service.getSpecies())){
+            if(species.size() != service.getSpecies().size() || !species.equals(service.getSpecies()) || !species.isEmpty()){
                 serviceSpeciesService.deleteServiceSpecies(entity.getId());
                 serviceSpeciesService.saveServiceSpeciesByServiceId(entity.getId(), service.getSpecies());
             }
