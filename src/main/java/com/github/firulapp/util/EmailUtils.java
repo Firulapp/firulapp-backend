@@ -1,9 +1,11 @@
 package com.github.firulapp.util;
 
+import com.github.firulapp.domain.AppUser;
 import com.github.firulapp.domain.Pet;
 import com.github.firulapp.dto.AppUserProfileDto;
 import com.github.firulapp.dto.CityDto;
 import com.github.firulapp.dto.PetDto;
+import com.github.firulapp.dto.ServiceAppointmentDto;
 import com.github.firulapp.exceptions.EmailUtilsException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,8 @@ import javax.mail.internet.MimeMessage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
 
@@ -205,4 +209,104 @@ public class EmailUtils {
             throw EmailUtilsException.mailSendError();
         }
     }
+    public void sendAppointmentRegisteredEmail(AppUserProfileDto clientDto, AppUserProfileDto serviceUserDto, ServiceAppointmentDto serviceAppointmentDto, PetDto petDto, String serviceTitle) throws EmailUtilsException {
+        LOGGER.info("Construyendo email de notificación de reserva de turno de servicio");
+        //Configure mailing properties
+        try (InputStream input =new FileInputStream(PROPERTIES_FILE)) {
+            Properties props = new Properties();
+
+            props.load(input);
+
+            String from = props.getProperty(MAIL_SMTP_USER);
+            //Send email to client
+            List<String> clientEmail = constructClientAppointmentRegisteredEmail(from, clientDto, serviceUserDto, serviceAppointmentDto, petDto, serviceTitle);
+            sendEmail(clientDto, props, from, clientEmail.get(0), clientEmail.get(1));
+            //Send email to serviceUser
+            List<String> email = constructServiceUserAppointmentRegisteredEmail(from, clientDto, serviceUserDto, serviceAppointmentDto, petDto, serviceTitle);
+            sendEmail(serviceUserDto, props, from, email.get(0), email.get(1));
+            LOGGER.info("Notificacion via email enviada");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw EmailUtilsException.mailSendError();
+        }
+    }
+
+    private List<String> constructClientAppointmentRegisteredEmail(String from, AppUserProfileDto clientDto, AppUserProfileDto serviceUserDto, ServiceAppointmentDto serviceAppointmentDto, PetDto petDto, String serviceTitle) {
+        List<String> email = new ArrayList<>();
+        String emailSubject = "Turno de servicio agendado - " + petDto.getName().toUpperCase(Locale.ROOT);
+        String emailText = "Hola " + clientDto.getName().toUpperCase(Locale.ROOT) + "!\n" +
+                "Se ha agendado un turno para el día " + serviceAppointmentDto.getAppointmentDate().toString() +
+                " para el servicio de " + serviceTitle + ". Para confirmar, cancelar o hacer cambios en la reserva" +
+                " puedes contactar al proveedor del servicio a su email " + serviceUserDto.getEmail() +
+                "\nSi usted o el proveedor NO han solicitado la reserva del turno, por favor contáctanos al mail: " + from +
+                "\nAtte.\n Equipo Firulapp.";
+        email.add(emailSubject);
+        email.add(emailText);
+        return email;
+    }
+    private List<String> constructServiceUserAppointmentRegisteredEmail(String from, AppUserProfileDto clientDto, AppUserProfileDto serviceUserDto, ServiceAppointmentDto serviceAppointmentDto, PetDto petDto, String serviceTitle) {
+        List<String> email = new ArrayList<>();
+        String emailSubject = "Turno de servicio agendado - " + petDto.getName().toUpperCase(Locale.ROOT);
+        String emailText = "Hola " + serviceUserDto.getName().toUpperCase(Locale.ROOT) + "!\n" +
+                "Se ha agendado un turno para la mascota " + petDto.getName() + "para el día " + serviceAppointmentDto.getAppointmentDate().toString() +
+                " para el servicio de " + serviceTitle + ". Para confirmar, cancelar o hacer cambios en la reserva" +
+                " puedes contactar al cliente a su email " + clientDto.getEmail() +
+                "\nSi usted o el cliente NO han solicitado la reserva del turno, por favor contáctanos al mail: " + from +
+                "\nAtte.\n Equipo Firulapp.";
+        email.add(emailSubject);
+        email.add(emailText);
+        return email;
+    }
+
+    //CANCELLED APPOINTMENT
+    public void sendAppointmentCancelledEmail(AppUserProfileDto clientDto, AppUserProfileDto serviceUserDto, ServiceAppointmentDto serviceAppointmentDto, PetDto petDto, String serviceTitle) throws EmailUtilsException {
+        LOGGER.info("Construyendo email de notificación de cancelación de turno de servicio");
+        //Configure mailing properties
+        try (InputStream input =new FileInputStream(PROPERTIES_FILE)) {
+            Properties props = new Properties();
+
+            props.load(input);
+
+            String from = props.getProperty(MAIL_SMTP_USER);
+            //Send email to client
+            List<String> clientEmail = constructClientAppointmentCancelledEmail(from, clientDto, serviceUserDto, serviceAppointmentDto, petDto, serviceTitle);
+            sendEmail(clientDto, props, from, clientEmail.get(0), clientEmail.get(1));
+            //Send email to serviceUser
+            List<String> email = constructServiceUserAppointmentCancelledEmail(from, clientDto, serviceUserDto, serviceAppointmentDto, petDto, serviceTitle);
+            sendEmail(serviceUserDto, props, from, email.get(0), email.get(1));
+            LOGGER.info("Notificacion via email enviada");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw EmailUtilsException.mailSendError();
+        }
+    }
+
+    private List<String> constructClientAppointmentCancelledEmail(String from, AppUserProfileDto clientDto, AppUserProfileDto serviceUserDto, ServiceAppointmentDto serviceAppointmentDto, PetDto petDto, String serviceTitle) {
+        List<String> email = new ArrayList<>();
+        String emailSubject = "Turno de servicio CANCELADO - " + petDto.getName().toUpperCase(Locale.ROOT);
+        String emailText = "Hola " + clientDto.getName().toUpperCase(Locale.ROOT) + "!\n" +
+                "Se ha CANCELADO el turno agendado para el día " + serviceAppointmentDto.getAppointmentDate().toString()
+                + " para el servicio de " + serviceTitle + ". Para hacer cambios u obtener más información," +
+                " puedes contactar al proveedor del servicio a su email " + serviceUserDto.getEmail() +
+                "\nSi usted o el proveedor NO han solicitado la cancelación del turno, por favor contáctanos al mail: "
+                + from + "\nAtte.\n Equipo Firulapp.";
+        email.add(emailSubject);
+        email.add(emailText);
+        return email;
+    }
+    
+    private List<String> constructServiceUserAppointmentCancelledEmail(String from, AppUserProfileDto clientDto, AppUserProfileDto serviceUserDto, ServiceAppointmentDto serviceAppointmentDto, PetDto petDto, String serviceTitle) {
+        List<String> email = new ArrayList<>();
+        String emailSubject = "Turno de servicio CANCELADO - " + petDto.getName().toUpperCase(Locale.ROOT);
+        String emailText = "Hola " + serviceUserDto.getName().toUpperCase(Locale.ROOT) + "!\n" +
+                "Se ha CANCELADO un turno para la mascota " + petDto.getName() + "para el día " +
+                serviceAppointmentDto.getAppointmentDate().toString() + " para el servicio de " + serviceTitle +
+                ". Para confirmar, cancelar o hacer cambios en la reserva" + " puedes contactar al cliente a su email "
+                + clientDto.getEmail() + "\nSi usted o el cliente NO han solicitado la reserva del turno, por favor " +
+                "contáctanos al mail: " + from + "\nAtte.\n Equipo Firulapp.";
+        email.add(emailSubject);
+        email.add(emailText);
+        return email;
+    }
+
 }
