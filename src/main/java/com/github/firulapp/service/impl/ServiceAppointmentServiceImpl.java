@@ -33,6 +33,7 @@ public class ServiceAppointmentServiceImpl implements ServiceAppointmentService 
                 serviceAppointmentDto.setModifiedAt(LocalDateTime.now());
             } else {
                 serviceAppointmentDto.setCreatedAt(LocalDateTime.now());
+                serviceAppointmentDto.setStatus(AppointmentStatus.PENDIENTE);
             }
             return mapper.mapToDto(repository.save(mapper.mapToEntity(serviceAppointmentDto)));
         } else{

@@ -80,6 +80,9 @@ public class AgendaActivityServiceImpl implements AgendaActivityService {
                         agendaActivity.setPetId(dto.getPetId());
                         agendaActivity.setServiceId(dto.getServiceId());
                         agendaActivity.setActivityDate(dto.getAppointmentDate());
+                        agendaActivity.setAppointmentId(dto.getId());
+                        agendaActivity.setStatus(dto.getStatus());
+                        agendaActivity.setActivityTime(LocalDateTime.of(agendaActivity.getActivityDate(), LocalTime.of(8, 0)));
                         agendaActivity.setDetails(serviceService.getServiceById(dto.getServiceId()).getServiceDto().getTitle());
                         userAgenda.add(agendaActivity);
                     }
@@ -96,7 +99,10 @@ public class AgendaActivityServiceImpl implements AgendaActivityService {
                             agendaActivity.setServiceId(dto.getServiceId());
                             agendaActivity.setClientId(dto.getUserId());
                             agendaActivity.setActivityDate(dto.getAppointmentDate());
+                            agendaActivity.setAppointmentId(dto.getId());
                             agendaActivity.setDetails(serviceService.getServiceById(dto.getServiceId()).getServiceDto().getTitle());
+                            agendaActivity.setActivityTime(LocalDateTime.of(agendaActivity.getActivityDate(), LocalTime.of(8, 0)));
+                            agendaActivity.setStatus(dto.getStatus());
                             userAgenda.add(agendaActivity);
                         }
                     }

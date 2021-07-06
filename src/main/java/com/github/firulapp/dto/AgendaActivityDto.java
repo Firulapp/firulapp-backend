@@ -1,5 +1,7 @@
 package com.github.firulapp.dto;
 
+import com.github.firulapp.constants.AppointmentStatus;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -13,6 +15,7 @@ public class AgendaActivityDto {
     private Long serviceId;
     private Long clientId;
     private Long appointmentId;
+    private AppointmentStatus status;
     private String details;
     private LocalDate activityDate;
     private LocalDateTime activityTime;
@@ -103,5 +106,13 @@ public class AgendaActivityDto {
 
     public void setAppointmentId(Long appointmentId) {
         this.appointmentId = appointmentId;
+    }
+
+    public AppointmentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(AppointmentStatus status) {
+        this.status = status;
     }
 }
