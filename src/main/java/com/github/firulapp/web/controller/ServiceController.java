@@ -4,8 +4,7 @@ import com.github.firulapp.constants.ApiPaths;
 import com.github.firulapp.dto.ServiceAppointmentDto;
 import com.github.firulapp.dto.ServiceDetailsDto;
 import com.github.firulapp.dto.ServiceFilterDto;
-import com.github.firulapp.exceptions.ServiceAppointmentException;
-import com.github.firulapp.exceptions.ServiceEntityException;
+import com.github.firulapp.exceptions.*;
 import com.github.firulapp.service.ServiceAppointmentService;
 import com.github.firulapp.service.ServiceService;
 import com.github.firulapp.web.response.ListResponseDTO;
@@ -74,7 +73,7 @@ public class ServiceController {
     public ResponseEntity<ObjectResponseDTO> saveServiceAppointment(@RequestBody ServiceAppointmentDto serviceAppointmentDto){
         try {
             return ResponseEntity.ok(ObjectResponseDTO.success(appointmentService.saveServiceAppointment(serviceAppointmentDto)));
-        } catch (ServiceAppointmentException exception){
+        } catch (ServiceAppointmentException | AppUserException | ServiceEntityException | EmailUtilsException | PetException exception){
             return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
     }
@@ -96,7 +95,7 @@ public class ServiceController {
         try {
             return ResponseEntity.ok(ObjectResponseDTO.success(appointmentService
                     .updateServiceAppointmentStatus(serviceAppointmentId, status, modifiedBy)));
-        } catch (ServiceAppointmentException exception){
+        } catch (ServiceAppointmentException | ServiceEntityException | AppUserException | PetException | EmailUtilsException exception){
             return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
     }
