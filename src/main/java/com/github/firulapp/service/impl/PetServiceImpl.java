@@ -51,7 +51,12 @@ public class PetServiceImpl implements PetService {
     @Override
     public List<PetDto> getPetsByUserId(Long userId) throws PetException {
         try {
-            return petMapper.mapAsList(petRepository.findByUserId(userId));
+            List<Pet> pets = petRepository.findByUserId(userId);
+            if(pets.isEmpty() || pets == null){
+                return null;
+            } else {
+                return petMapper.mapAsList(pets);
+            }
         }catch (Exception e){
             throw PetException.userPetsNotFound(userId);
         }

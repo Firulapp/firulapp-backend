@@ -284,3 +284,16 @@ CREATE TABLE servicio_especie(
     id_servicio BIGINT REFERENCES servicio(id),
     id_especie BIGINT REFERENCES especie_animal(id)
 );
+
+CREATE TABLE turno_servicio(
+    id BIGSERIAL PRIMARY KEY,
+    id_servicio BIGINT REFERENCES servicio(id) ON DELETE CASCADE,
+    id_usuario BIGINT REFERENCES usuario(id) ON DELETE CASCADE,
+    id_mascota BIGINT REFERENCES mascota(id) ON DELETE CASCADE,
+    fecha_turno DATE NOT NULL,
+    estado VARCHAR(20) NOT NULL,
+    fecha_creacion TIMESTAMP WITHOUT TIME ZONE NOT NULL,
+    usuario_creacion BIGINT NOT NULL,
+    fecha_modificacion TIMESTAMP WITHOUT TIME ZONE,
+    usuario_modificacion BIGINT NOT NULL
+);

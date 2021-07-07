@@ -85,6 +85,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ApiPaths.SERVICE_URL+ApiPaths.SERVICE_BY_USER).permitAll()
                 .antMatchers(ApiPaths.SERVICE_URL+ApiPaths.SERVICE_ALL).permitAll()
                 .antMatchers(ApiPaths.SERVICE_URL+ApiPaths.SERVICE_FILTER).permitAll()
+                .antMatchers(ApiPaths.SERVICE_URL+ApiPaths.SERVICE_APPOINTMENT_ENDPOINTS).permitAll()
+                .antMatchers(ApiPaths.SERVICE_URL+ApiPaths.SERVICE_APPOINTMENT_BY_SERVICE_USER_PET).permitAll()
+                .antMatchers(ApiPaths.SERVICE_URL+ApiPaths.SERVICE_APPOINTMENT_CANCEL).permitAll()
                 .anyRequest().authenticated()
                 .and().httpBasic();
 

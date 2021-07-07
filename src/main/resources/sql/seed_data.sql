@@ -504,7 +504,6 @@ INSERT INTO ciudad(id,nombre,departamento,pais,estado,fecha_creacion,usuario_cre
 
 INSERT INTO tipo_servicio(id, nombre, descripcion, estado, fecha_creacion, usuario_creacion) VALUES(default, 'Baño', 'Baño de mascotas', true, '2021-03-15T20:00:00.00001',1);
 INSERT INTO tipo_servicio(id, nombre, descripcion, estado, fecha_creacion, usuario_creacion) VALUES(default, 'Paseo', 'Paseo mascotas', true, '2021-03-15T20:00:00.00001',1);
-INSERT INTO tipo_servicio(id, nombre, descripcion, estado, fecha_creacion, usuario_creacion) VALUES(default, 'Tienda', 'Venta de productos para mascotas', true, '2021-03-15T20:00:00.00001',1);
 INSERT INTO tipo_servicio(id, nombre, descripcion, estado, fecha_creacion, usuario_creacion) VALUES(default, 'Entrenamiento', 'Entrenamiento para mascotas', true, '2021-03-15T20:00:00.00001',1);
 INSERT INTO tipo_servicio(id, nombre, descripcion, estado, fecha_creacion, usuario_creacion) VALUES(default, 'Veterinaria', 'Consultas y ventas de productos de veterinaria', true, '2021-03-15T20:00:00.00001',1);
 INSERT INTO tipo_servicio(id, nombre, descripcion, estado, fecha_creacion, usuario_creacion) VALUES(default, 'Otros', 'Servicios varios', true, '2021-03-15T20:00:00.00001',1);
