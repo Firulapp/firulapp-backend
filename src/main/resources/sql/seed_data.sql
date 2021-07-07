@@ -1,7 +1,6 @@
 --ESPECIES
 INSERT INTO especie_animal(id, nombre, descripcion, estado, fecha_creacion, usuario_creacion) VALUES(default,'PERRO','FIEL COMPAÑERO DEL HUMANO',TRUE,'2021-03-05 13:00:00.00000',1);
 INSERT INTO especie_animal(id, nombre, descripcion, estado, fecha_creacion, usuario_creacion) VALUES(default,'GATO','TIENEN SIETE VIDAS',TRUE,'2021-03-05 13:00:00.00001',1);
-INSERT INTO especie_animal(id, nombre, descripcion, estado, fecha_creacion, usuario_creacion) VALUES(default,'HAMSTER','MASCOTA INUSUAL',TRUE,'2021-03-05 13:00:00.00002',1);
 --RAZAS DE PERROS
 INSERT INTO raza_animal(id, id_especie, nombre, descripcion, estado, fecha_creacion, usuario_creacion) VALUES(default,1,'AKITA','RAZA DE PERRO',TRUE,'2021-03-05 20:00:00.00001',1);
 INSERT INTO raza_animal(id, id_especie, nombre, descripcion, estado, fecha_creacion, usuario_creacion) VALUES(default,1,'AKITA AMERICANO','RAZA DE PERRO',TRUE,'2021-03-05 20:00:00.00001',1);
