@@ -9,6 +9,7 @@ public class AppUserException extends BusinessException{
     public static final String USERNAME_REGISTERED = BASE_ERROR + ".usernameAlreadyExists";
     public static final String PASSWORDS_DONT_MATCH = BASE_ERROR + ".passwordsDontMatch";
     public static final String MISSING_DATA = BASE_ERROR + ".missing.data";
+    public static final String USER_NOT_ALLOWED = BASE_ERROR + ".user.notEnabled";
 
     public AppUserException(String errorCode, String message) {
         super(errorCode, message);
@@ -36,6 +37,9 @@ public class AppUserException extends BusinessException{
     }
     public static AppUserException missingData() {
         return new AppUserException(MISSING_DATA,"Faltan datos para realizar la accion");
+    }
+    public static AppUserException userNotAllowed(String email){
+        return new AppUserException(USER_NOT_ALLOWED, "El usuario con mail "+ email + " no está habilitado");
     }
 }
 

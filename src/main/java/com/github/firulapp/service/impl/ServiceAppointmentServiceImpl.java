@@ -60,15 +60,11 @@ public class ServiceAppointmentServiceImpl implements ServiceAppointmentService 
     }
 
     @Override
-    public ServiceAppointmentDto updateServiceAppointmentStatus(Long serviceAppointmentId, String status, Long modifiedBy)
+    public void cancelAppointment(Long serviceAppointmentId)
             throws ServiceAppointmentException {
         Optional<ServiceAppointment> serviceAppointment = repository.findById(serviceAppointmentId);
         if(serviceAppointment.isPresent()){
-            ServiceAppointment appointment = serviceAppointment.get();
-            appointment.setStatus(AppointmentStatus.valueOf(status.toUpperCase(Locale.ROOT)));
-            appointment.setModifiedBy(modifiedBy);
-            appointment.setModifiedAt(LocalDateTime.now());
-            return mapper.mapToDto(repository.save(appointment));
+            repository.delete(serviceAppointment.get());
         }else{
             throw ServiceAppointmentException.notFound(serviceAppointmentId);
         }

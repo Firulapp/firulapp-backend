@@ -3,10 +3,7 @@ package com.github.firulapp.service;
 import com.github.firulapp.constants.PetStatus;
 import com.github.firulapp.dto.FosterRegisterDto;
 import com.github.firulapp.dto.PetDto;
-import com.github.firulapp.exceptions.AppUserException;
-import com.github.firulapp.exceptions.BreedException;
-import com.github.firulapp.exceptions.PetException;
-import com.github.firulapp.exceptions.SpeciesException;
+import com.github.firulapp.exceptions.*;
 
 import java.util.List;
 
@@ -26,7 +23,7 @@ public interface PetService {
 
     void requestPetAdoption(Long petId, Long requesterId);
 
-    FosterRegisterDto requestFosterPet(Long petId, Long requesterId, int amount) throws PetException;
+    FosterRegisterDto requestFosterPet(Long petId, Long requesterId, int amount) throws PetException, AppUserException, CityException, EmailUtilsException;
 
     PetDto adoptPet(String adopterUsername, Long petId) throws PetException, AppUserException;
 

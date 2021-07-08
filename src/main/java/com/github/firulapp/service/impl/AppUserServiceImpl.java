@@ -11,6 +11,8 @@ import com.github.firulapp.mapper.impl.AppUserMapper;
 import com.github.firulapp.repository.AppUserRepository;
 import com.github.firulapp.service.*;
 import com.github.firulapp.util.EncryptUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -46,6 +48,8 @@ public class AppUserServiceImpl implements AppUserService {
 
     @Autowired
     private OrganizationService organizationService;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(AppUserServiceImpl.class);
 
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = AppUserException.class)
@@ -94,14 +98,19 @@ public class AppUserServiceImpl implements AppUserService {
     public AppSessionDto userLogin(AppUserDto userDto) throws AppUserException{
         AppUser user = appUserRepository.findByEmailOrUsername(userDto.getEmail(), userDto.getUsername());
         if(user != null){
-            if(EncryptUtils.matchPassword(userDto.getEncryptedPassword(), user.getEncryptedPassword())){
-                AppUserDeviceDto device = new AppUserDeviceDto();
-                device.setUserId(user.getId());
-                device.setAsociatedAt(LocalDateTime.now());
-                AppUserDeviceDto appUserDeviceDto = appUserDeviceService.saveUserDevice(device.getUserId());
-                user.setLoggedIn(Boolean.TRUE);
-                appUserRepository.save(user);
-                return appSessionService.initiateSession(user.getId(), appUserDeviceDto.getId());
+            AppUserProfileDto profileDto = getUserById(user.getId());
+            if(EncryptUtils.matchPassword(userDto.getEncryptedPassword(), user.getEncryptedPassword())) {
+                if (Boolean.TRUE.equals(profileDto.getEnabled())){
+                    AppUserDeviceDto device = new AppUserDeviceDto();
+                    device.setUserId(user.getId());
+                    device.setAsociatedAt(LocalDateTime.now());
+                    AppUserDeviceDto appUserDeviceDto = appUserDeviceService.saveUserDevice(device.getUserId());
+                    user.setLoggedIn(Boolean.TRUE);
+                    appUserRepository.save(user);
+                    return appSessionService.initiateSession(user.getId(), appUserDeviceDto.getId());
+                } else {
+                    throw AppUserException.userNotAllowed(userDto.getEmail());
+                }
             }else{
                 throw AppUserException.passwordDoNotMatch();
             }
@@ -145,15 +154,16 @@ public class AppUserServiceImpl implements AppUserService {
     @Override
     public AppUserProfileDto updateUser(AppUserProfileDto userProfileDto) throws AppUserException{
         if(userProfileDto.getUsername() != null && userProfileDto.getEmail() != null
-                && userProfileDto.getName() != null && userProfileDto.getSurname() != null
-                && userProfileDto.getBirthDate() != null && userProfileDto.getDocument() != null
+                && userProfileDto.getName() != null && userProfileDto.getDocument() != null
                 && userProfileDto.getDocumentType() != null && userProfileDto.getUserId() != null) {
             Optional<AppUser> userOptional = appUserRepository.findById(userProfileDto.getUserId());
             if(userOptional.isPresent()) {
+                LOGGER.info("Usuario encontrado. Actualizando...");
                 AppUser userEntity = userOptional.get();
                 AppUserDetailsDto userDetails = appUserDetailsService.getByUserId(userEntity.getId());
-                if(userProfileDto.getSurname()==null &&
+                if((userProfileDto.getSurname()==null || userProfileDto.getBirthDate() == null) &&
                         !userEntity.getUserType().toUpperCase(Locale.ROOT).equals(USER_TYPE_ORGANIZATION)){
+                    LOGGER.info("Missing data?");
                     throw AppUserException.missingData();
                 }
                 userEntity.setUsername(userProfileDto.getUsername());
@@ -161,7 +171,7 @@ public class AppUserServiceImpl implements AppUserService {
                 userEntity.setModifiedAt(LocalDateTime.now());
                 userEntity.setEnabled(userProfileDto.getEnabled());
                 AppUser updatedUser = appUserRepository.save(userEntity);
-
+                LOGGER.info("User updated");
                 AppUserDetailsDto updatedDetailsDto = appUserDetailsService.saveUserDetails(userProfileDto, userDetails.getUserId());
 
                 return prepareUserProfileDto(updatedUser, updatedDetailsDto);
@@ -256,5 +266,13 @@ public class AppUserServiceImpl implements AppUserService {
         profileDto.setProfileDto(appUserProfileDto);
         profileDto.setOrganizationDto(organizationDto);
         return profileDto;
+    }
+
+    @Override
+    public void rejectOrganization(Long userId) throws OrganizationException, AppUserException {
+        organizationService.deleteOrganization(userId);
+        AppUserProfileDto user = getUserById(userId);
+        user.setEnabled(false);
+        updateUser(user);
     }
 }

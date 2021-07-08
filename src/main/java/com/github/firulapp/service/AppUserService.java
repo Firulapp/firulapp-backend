@@ -36,4 +36,6 @@ public interface AppUserService {
     OrganizationProfileDto updateOrganizationUser(OrganizationProfileDto organizationProfileDto) throws AppUserException;
 
     OrganizationProfileDto getOrganizationByUserId(Long userId) throws AppUserException;
+
+    void rejectOrganization(Long userId) throws OrganizationException, AppUserException;
 }

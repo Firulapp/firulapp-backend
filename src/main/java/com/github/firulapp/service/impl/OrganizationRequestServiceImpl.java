@@ -3,14 +3,17 @@ package com.github.firulapp.service.impl;
 import com.github.firulapp.constants.OrganizationRequestStatus;
 import com.github.firulapp.domain.OrganizationRequest;
 import com.github.firulapp.dto.AppUserDto;
+import com.github.firulapp.dto.AppUserProfileDto;
 import com.github.firulapp.dto.OrganizationRequestDto;
 import com.github.firulapp.exceptions.AppUserException;
 import com.github.firulapp.exceptions.EmailUtilsException;
+import com.github.firulapp.exceptions.OrganizationException;
 import com.github.firulapp.exceptions.OrganizationRequestException;
 import com.github.firulapp.mapper.impl.OrganizationRequestMapper;
 import com.github.firulapp.repository.OrganizationRequestRepository;
 import com.github.firulapp.service.AppUserService;
 import com.github.firulapp.service.OrganizationRequestService;
+import com.github.firulapp.service.OrganizationService;
 import com.github.firulapp.util.EmailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,6 +34,9 @@ public class OrganizationRequestServiceImpl implements OrganizationRequestServic
 
     @Autowired
     private AppUserService appUserService;
+
+    @Autowired
+    private OrganizationService organizationService;
 
     private EmailUtils emailUtils = new EmailUtils();
 
@@ -72,6 +78,9 @@ public class OrganizationRequestServiceImpl implements OrganizationRequestServic
             organizationRequest.setModifiedBy(userId);
             organizationRequest.setModifiedAt(LocalDateTime.now());
             emailUtils.sendOrganizationApprovalNotificationEmail(appUserService.getUserById(organizationRequest.getUserId()));
+            AppUserProfileDto profileDto = appUserService.getUserById(organizationRequest.getUserId());
+            profileDto.setEnabled(Boolean.TRUE);
+            appUserService.updateUser(profileDto);
             return organizationRequestMapper.mapToDto(organizationRequestRepository.save(organizationRequest));
         } else {
             throw OrganizationRequestException.notFound(id);
@@ -79,13 +88,14 @@ public class OrganizationRequestServiceImpl implements OrganizationRequestServic
     }
 
     @Override
-    public OrganizationRequestDto rejectRequest(Long id, Long userId) throws OrganizationRequestException {
+    public OrganizationRequestDto rejectRequest(Long id, Long userId) throws OrganizationRequestException, OrganizationException, AppUserException {
         Optional<OrganizationRequest> opt = organizationRequestRepository.findById(id);
         if(opt.isPresent()){
             OrganizationRequest organizationRequest = opt.get();
             organizationRequest.setStatus(OrganizationRequestStatus.RECHAZADA);
             organizationRequest.setModifiedBy(userId);
             organizationRequest.setModifiedAt(LocalDateTime.now());
+            appUserService.rejectOrganization(organizationRequest.getUserId());
             return organizationRequestMapper.mapToDto(organizationRequestRepository.save(organizationRequest));
         } else {
             throw OrganizationRequestException.notFound(id);

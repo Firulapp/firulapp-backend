@@ -9,7 +9,7 @@ public interface ServiceAppointmentService {
 
     ServiceAppointmentDto saveServiceAppointment(ServiceAppointmentDto serviceAppointmentDto) throws ServiceAppointmentException;
 
-    ServiceAppointmentDto updateServiceAppointmentStatus(Long serviceAppointmentId, String status, Long modifiedBy) throws ServiceAppointmentException;
+    void cancelAppointment(Long serviceAppointmentId) throws ServiceAppointmentException;
 
     List<ServiceAppointmentDto> getServiceAppointmentsByServiceId(Long serviceId);
 
