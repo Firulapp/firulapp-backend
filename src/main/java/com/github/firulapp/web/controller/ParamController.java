@@ -275,7 +275,7 @@ public class ParamController {
                                                                        @PathVariable(name = "modifiedBy") Long modifiedBy){
         try {
             return ResponseEntity.ok(ObjectResponseDTO.success(organizationRequestService.rejectRequest(id, modifiedBy)));
-        } catch (OrganizationRequestException e) {
+        } catch (OrganizationRequestException | OrganizationException | AppUserException e) {
             return new ResponseEntity<>(ObjectResponseDTO.error(e.getErrorCode(), e.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
     }

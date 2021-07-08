@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.github</groupId>
 	<artifactId>firulapp</artifactId>
-	<version>1.0.1</version>
+	<version>1.1.0</version>
 	<name>firulapp-backend</name>
 	<description>Backend Project for Firulapp</description>
 	<properties>

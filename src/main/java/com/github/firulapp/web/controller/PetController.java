@@ -199,10 +199,10 @@ public class PetController {
     @PostMapping(value = ApiPaths.REQUEST_FOSTER_PET)
     public ResponseEntity<ObjectResponseDTO> requestFosterPet(@PathVariable(name = "id")Long petId,
                                                               @PathVariable(name = "userId") Long fosterUserId,
-                                                              @RequestParam int amount){
+                                                              @PathVariable(name = "amount") int amount){
         try {
             return ResponseEntity.ok(ObjectResponseDTO.success(petService.requestFosterPet(petId, fosterUserId, amount)));
-        } catch (PetException exception){
+        } catch (PetException | AppUserException | CityException | EmailUtilsException exception){
             return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
         }
     }

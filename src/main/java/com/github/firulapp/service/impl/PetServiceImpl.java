@@ -142,15 +142,14 @@ public class PetServiceImpl implements PetService {
 
 
     @Override
-    public FosterRegisterDto requestFosterPet(Long petId, Long requesterId, int amount) throws PetException {
-        try {
+    public FosterRegisterDto requestFosterPet(Long petId, Long requesterId, int amount) throws PetException, AppUserException, CityException, EmailUtilsException {
             PetDto pet = getPetById(petId);
             AppUserProfileDto petOwner = appUserService.getUserById(pet.getUserId());
 
             if(!requesterId.equals(petOwner.getId())){
                 AppUserProfileDto adoptingUser = appUserService.getUserById(requesterId);
                 CityDto cityDto = cityService.getCityById(adoptingUser.getCity());
-                emailUtils.sendFosterRequest(pet, adoptingUser, petOwner, cityDto, amount);
+                emailUtils.sendFosterRequest(pet, adoptingUser, petOwner, cityDto);
 
                 FosterRegisterDto fosterRegisterDto = new FosterRegisterDto();
                 fosterRegisterDto.setPetId(petId);
@@ -162,9 +161,6 @@ public class PetServiceImpl implements PetService {
             } else {
                 throw PetException.fosterError(requesterId, petId, pet.getUserId());
             }
-        } catch (AppUserException | PetException | CityException | EmailUtilsException e){
-            throw PetException.fosterError(requesterId, petId);
-        }
     }
 
     @Override

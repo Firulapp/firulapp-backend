@@ -60,7 +60,7 @@ public class ApiPaths {
     public static final String GET_PET_BY_USER_AND_SPECIES = GET_PET_BY_USER_ID + "/species/{speciesId}";
     public static final String GET_PET_BY_STATUS = "/status/{status}";
     public static final String REQUEST_PET_ADOPTION = GET_PET_BY_ID + "/adopt/{userId}";
-    public static final String REQUEST_FOSTER_PET = GET_PET_BY_ID + "/foster/{userId}";
+    public static final String REQUEST_FOSTER_PET = GET_PET_BY_ID + "/foster/{userId}/amount/{amount}";
     public static final String PET_TRANSFER_PROFILE = "/transfer/{petId}/user/{username}";
 
     /**
@@ -118,7 +118,7 @@ public class ApiPaths {
     public static final String SERVICE_FILTER = "/filter";
     public static final String SERVICE_APPOINTMENT_ENDPOINTS = "/appointment";
     public static final String SERVICE_APPOINTMENT_BY_SERVICE_USER_PET = SERVICE_APPOINTMENT_ENDPOINTS + "/service/{serviceId}/user/{userId}/pet/{petId}";
-    public static final String SERVICE_APPOINTMENT_CANCEL = SERVICE_APPOINTMENT_ENDPOINTS + "/{serviceAppointmentId}/{status}/by/{modifiedBy}";
+    public static final String SERVICE_APPOINTMENT_CANCEL = SERVICE_APPOINTMENT_ENDPOINTS + "/{serviceAppointmentId}";
 
     private ApiPaths() {
     }

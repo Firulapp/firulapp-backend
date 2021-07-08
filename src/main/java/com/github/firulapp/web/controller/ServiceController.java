@@ -90,14 +90,12 @@ public class ServiceController {
     }
 
     @PostMapping(value = ApiPaths.SERVICE_APPOINTMENT_CANCEL)
-    public ResponseEntity<ObjectResponseDTO> cancelAppointment(@PathVariable(name = "serviceAppointmentId") Long serviceAppointmentId,
-                                                               @PathVariable(name = "status") String status,
-                                                               @PathVariable(name = "modifiedBy") Long modifiedBy){
+    public ResponseEntity<Void> cancelAppointment(@PathVariable(name = "serviceAppointmentId") Long serviceAppointmentId){
         try {
-            return ResponseEntity.ok(ObjectResponseDTO.success(appointmentService
-                    .updateServiceAppointmentStatus(serviceAppointmentId, status, modifiedBy)));
+            appointmentService.cancelAppointment(serviceAppointmentId);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (ServiceAppointmentException exception){
-            return new ResponseEntity<>(ObjectResponseDTO.error(exception.getErrorCode(), exception.getMessage(), HttpStatus.BAD_REQUEST), HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 }

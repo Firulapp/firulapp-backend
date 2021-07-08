@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class OrganizationServiceImpl implements OrganizationService{
@@ -34,9 +33,10 @@ public class OrganizationServiceImpl implements OrganizationService{
 
     @Override
     public OrganizationDto saveOrganization(OrganizationDto organizationDto) {
-        if(organizationDto.getId()==null){
+        OrganizationDto dto = getOrganizationByUserId(organizationDto.getUserId());
+        if(dto == null){
             organizationDto.setCreatedAt(LocalDateTime.now());
-        } else{
+        } else {
             organizationDto.setModifiedAt(LocalDateTime.now());
         }
         return organizationMapper.mapToDto(organizationRepository.save(organizationMapper.mapToEntity(organizationDto)));
