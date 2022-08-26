@@ -15,9 +15,9 @@
 	<description>Backend Project for Firulapp</description>
 	<properties>
 		<java.version>11</java.version>
-		<springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+		<springfox-swagger2.version>2.10.0</springfox-swagger2.version>
 		<orika-core.version>1.5.4</orika-core.version>
-		<httpclient.version>4.5.1</httpclient.version>
+		<httpclient.version>4.5.13</httpclient.version>
 		<commons-text.version>1.1</commons-text.version>
 	</properties>
 	<dependencies>
