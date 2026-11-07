@@ -149,7 +149,7 @@ public class PetServiceImpl implements PetService {
             if(!requesterId.equals(petOwner.getId())){
                 AppUserProfileDto adoptingUser = appUserService.getUserById(requesterId);
                 CityDto cityDto = cityService.getCityById(adoptingUser.getCity());
-                emailUtils.sendFosterRequest(pet, adoptingUser, petOwner, cityDto);
+                emailUtils.sendFosterRequest(pet, adoptingUser, petOwner, cityDto, amount);
 
                 FosterRegisterDto fosterRegisterDto = new FosterRegisterDto();
                 fosterRegisterDto.setPetId(petId);
